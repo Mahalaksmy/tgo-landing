@@ -1,0 +1,15 @@
+# Sistema
+.DS_Store
+
+# Skills de agentes (terceros, no forman parte del sitio)
+.agents/
+.aider-desk/
+.claude/skills/
+skills-lock.json
+
+# Originales sueltos en la raíz (las versiones usadas están en assets/)
+/94826504-growing-hydrangea-in-a-large-greenhouse-in-the-netherlands.avif
+/Copia de comercial tgo s.a.s.png
+/Hortensia3.webp
+/hortensia2.webp
+/orquidea1.webp
