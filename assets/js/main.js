@@ -58,11 +58,10 @@
     });
   }
 
-  /* ---------- Bento del hero: tile de WhatsApp + foto opcional (site.heroImage) ---------- */
+  /* ---------- Bento del hero: foto opcional (site.heroImage) ---------- */
   function renderHeroBento() {
     const list = document.getElementById("category-list");
     if (!list) return;
-    list.insertAdjacentHTML("beforeend", C.whatsappTile());
     if (site.heroImage) {
       list.insertAdjacentHTML(
         "afterbegin",
@@ -72,13 +71,10 @@
     }
   }
 
-  /* ---------- Mapa ---------- */
+  /* ---------- Enlace "Cómo llegar" (Google Maps) ---------- */
   function renderMap() {
-    const query = encodeURIComponent(formatAddress(site.address));
     const directions = document.getElementById("map-directions");
-    if (directions) directions.href = "https://www.google.com/maps/search/?api=1&query=" + query;
-    const frame = document.getElementById("map-frame");
-    if (frame) frame.src = "https://maps.google.com/maps?q=" + query + "&z=16&output=embed";
+    if (directions) directions.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(formatAddress(site.address));
   }
 
   /* ---------- Secciones con datos ---------- */
@@ -122,6 +118,35 @@
           '" width="992" height="633" loading="lazy" decoding="async">'
       );
     }
+  }
+
+  /* ---------- Redes sociales (footer) ---------- */
+  function renderSocial() {
+    const list = document.getElementById("footer-social");
+    if (!list) return;
+    const networks = Array.isArray(site.social) ? site.social : [];
+    if (!networks.length) {
+      list.hidden = true;
+      return;
+    }
+    list.innerHTML = networks.map(C.socialLink).join("");
+  }
+
+  /* ---------- Marquesina de proveedores: botón pausar/reanudar (WCAG 2.2.2) ---------- */
+  function initMarqueeToggle() {
+    const btn = document.getElementById("marquee-toggle");
+    const marquee = document.getElementById("providers-marquee");
+    if (!btn || !marquee) return;
+    if (TGO.prefersReducedMotion) {
+      btn.hidden = true; // con movimiento reducido la marquesina ya está quieta
+      return;
+    }
+    const label = btn.querySelector(".marquee__toggle-label");
+    btn.addEventListener("click", () => {
+      const paused = marquee.classList.toggle("is-paused");
+      btn.setAttribute("aria-pressed", String(paused));
+      label.textContent = paused ? "Reanudar animación" : "Pausar animación";
+    });
   }
 
   /* ---------- Navegación: isla flotante + menú overlay ---------- */
@@ -184,10 +209,9 @@
       { rootMargin: "-40% 0px -55% 0px" }
     );
     document.querySelectorAll("main > section[id]").forEach((section) => sectionObserver.observe(section));
-    // Al llegar al footer, la última sección (Contacto) queda activa
+    // El footer es la sección "Contacto": al llegar a él queda activo ese enlace
     const footer = document.querySelector(".site-footer");
-    const lastId = document.querySelector("main > section[id]:last-of-type").id;
-    new IntersectionObserver(([entry]) => entry.isIntersecting && setCurrent(lastId), { threshold: 0.3 }).observe(footer);
+    new IntersectionObserver(([entry]) => entry.isIntersecting && setCurrent(footer.id), { threshold: 0.3 }).observe(footer);
   }
 
   /* ---------- SEO: datos estructurados ---------- */
@@ -221,6 +245,8 @@
     renderAbout();
     renderValues();
     renderProviders();
+    renderSocial();
+    initMarqueeToggle();
     TGO.catalog.init();
     renderHeroBento();
     TGO.whatsapp.hydrate(document);

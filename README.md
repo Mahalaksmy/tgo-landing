@@ -1,6 +1,6 @@
-# Landing TGO S.A.S.
+# Landing Comercial TGO S.A.S.
 
-Landing page estática (HTML + CSS + JS, sin dependencias ni build) para **TGO S.A.S.** — insumos de floristería y campo, La Unión, Antioquia.
+Landing page estática (HTML + CSS + JS, sin dependencias ni build) para **Comercial TGO S.A.S.** — insumos de floristería y campo, La Unión, Antioquia.
 
 ## Ver en local
 

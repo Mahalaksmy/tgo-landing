@@ -4,15 +4,17 @@
 
 | Dato | Valor | Fuente |
 |---|---|---|
-| Empresa | TGO S.A.S. | Suministrado |
+| Empresa | Comercial TGO S.A.S. | Suministrado |
 | Sector | Insumos de floristería y campo | Suministrado |
 | Dirección | Cr 9 Nro: 9 - 48 p.2, La Unión, Antioquia, Colombia | Suministrado |
 | WhatsApp | +57 311 714 5443 (`573117145443`) | Suministrado |
 | Logo | `assets/img/logo.png` ("Comercial TGO S.A.S", PNG transparente 307×107) | Suministrado |
 | Productos, referencias, presentaciones, imágenes | — | **Pendiente** → placeholders |
-| Proveedores y logos | Triton (`Logos/Triton.png`) + 3 de ejemplo | Triton suministrado por la usuaria; resto **pendiente** |
+| Proveedores y logos | Triton y Tesicol (`Logos/`) + 2 de ejemplo | Suministrados por la usuaria; resto **pendiente** |
 | Valores | — | **Pendiente** → placeholders |
-| Horario, correo, redes, dominio | — | **Pendiente** → ocultos (`null`) |
+| Correo | comercialgtosas@gmail.com | Suministrado (confirmar escritura con el cliente) |
+| Redes sociales | Instagram, Facebook, TikTok (sin URL) | **Pendiente**: íconos atenuados sin enlace |
+| Horario, dominio | — | **Pendiente** → ocultos (`null`) |
 | Fotos de ambiente (hortensias) | `assets/img/tema/` (3 fotos) | Suministradas por la usuaria. **Verificar licencia** (parecen de bancos de imágenes). **`hortensias-vivero.webp` (Nosotros) tiene marca de agua de Dreamstime visible** y muestra a una persona: reemplazar por una foto real de TGO antes de publicar |
 
 No se inventaron productos, precios, clientes, certificaciones ni proveedores. Todo contenido de ejemplo está marcado con `placeholder: true` y se muestra en el sitio con borde punteado y la etiqueta **"Ejemplo"**.
@@ -57,10 +59,10 @@ No se inventaron productos, precios, clientes, certificaciones ni proveedores. T
 Base: `https://wa.me/573117145443?text=` + `encodeURIComponent(mensaje)`
 
 **General** (header, hero, contacto, footer, botón flotante):
-> Hola, TGO S.A.S. Quisiera recibir información sobre sus insumos de floristería y campo.
+> Hola, Comercial TGO S.A.S. Quisiera recibir información sobre sus insumos de floristería y campo.
 
 **Por producto** (generado automáticamente desde `productMessageTemplate`; las líneas con datos vacíos se omiten):
-> Hola, TGO S.A.S. Quisiera consultar por este producto:
+> Hola, Comercial TGO S.A.S. Quisiera consultar por este producto:
 > • Producto: {name}
 > • Referencia: {reference}
 > • Presentación: {presentation}

@@ -2,7 +2,7 @@
  * PRODUCTOS
  * ------------------------------------------------------------------
  * ⚠️ TODOS los productos de este archivo son PLACEHOLDERS (contenido de ejemplo).
- * TGO S.A.S. aún no ha suministrado su catálogo. Reemplazar con datos reales
+ * Comercial TGO S.A.S. aún no ha suministrado su catálogo. Reemplazar con datos reales
  * y eliminar `placeholder: true` de cada producto real.
  *
  * Campos:
@@ -23,7 +23,7 @@ TGO.products = [
     id: "prod-001",
     name: "[Producto de floristería 1]",
     category: "floristeria",
-    description: "[Descripción breve del producto, pendiente de TGO S.A.S.]",
+    description: "[Descripción breve del producto, pendiente de Comercial TGO S.A.S.]",
     image: "",
     reference: "[REF-001]",
     presentation: "[Presentación]",
@@ -34,7 +34,7 @@ TGO.products = [
     id: "prod-002",
     name: "[Producto de floristería 2]",
     category: "floristeria",
-    description: "[Descripción breve del producto, pendiente de TGO S.A.S.]",
+    description: "[Descripción breve del producto, pendiente de Comercial TGO S.A.S.]",
     image: "",
     reference: "[REF-002]",
     presentation: "[Presentación]",
@@ -45,7 +45,7 @@ TGO.products = [
     id: "prod-003",
     name: "[Producto de floristería 3]",
     category: "floristeria",
-    description: "[Descripción breve del producto, pendiente de TGO S.A.S.]",
+    description: "[Descripción breve del producto, pendiente de Comercial TGO S.A.S.]",
     image: "",
     reference: "[REF-003]",
     presentation: "[Presentación]",
@@ -56,7 +56,7 @@ TGO.products = [
     id: "prod-004",
     name: "[Producto de campo 1]",
     category: "campo",
-    description: "[Descripción breve del producto, pendiente de TGO S.A.S.]",
+    description: "[Descripción breve del producto, pendiente de Comercial TGO S.A.S.]",
     image: "",
     reference: "[REF-004]",
     presentation: "[Presentación]",
@@ -67,7 +67,7 @@ TGO.products = [
     id: "prod-005",
     name: "[Producto de campo 2]",
     category: "campo",
-    description: "[Descripción breve del producto, pendiente de TGO S.A.S.]",
+    description: "[Descripción breve del producto, pendiente de Comercial TGO S.A.S.]",
     image: "",
     reference: "[REF-005]",
     presentation: "[Presentación]",
@@ -78,7 +78,7 @@ TGO.products = [
     id: "prod-006",
     name: "[Producto de campo 3]",
     category: "campo",
-    description: "[Descripción breve del producto, pendiente de TGO S.A.S.]",
+    description: "[Descripción breve del producto, pendiente de Comercial TGO S.A.S.]",
     image: "",
     reference: "[REF-006]",
     presentation: "[Presentación]",

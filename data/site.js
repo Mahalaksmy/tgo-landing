@@ -1,20 +1,20 @@
 /**
- * CONFIGURACIÓN CENTRAL: TGO S.A.S.
+ * CONFIGURACIÓN CENTRAL: Comercial TGO S.A.S.
  * ------------------------------------------------------------------
  * Este es el ÚNICO lugar donde se configuran los datos de la empresa
  * y el número de WhatsApp. Todos los botones del sitio leen de aquí.
  *
- * Valores en `null` = información pendiente de TGO S.A.S.
+ * Valores en `null` = información pendiente de Comercial TGO S.A.S.
  * (el sitio oculta automáticamente lo que esté en null).
  */
 window.TGO = window.TGO || {};
 
 TGO.site = {
-  name: "TGO S.A.S.",
+  name: "Comercial TGO S.A.S.",
   shortName: "TGO",
   tagline: "Insumos de floristería y campo",
   description:
-    "TGO S.A.S.: insumos de floristería y campo en La Unión, Antioquia, Colombia. Consulta disponibilidad por WhatsApp.",
+    "Comercial TGO S.A.S.: insumos de floristería y campo en La Unión, Antioquia, Colombia. Consulta disponibilidad por WhatsApp.",
 
   // Dominio público del sitio, p. ej. "https://www.ejemplo.com" (pendiente)
   url: null,
@@ -34,11 +34,11 @@ TGO.site = {
     display: "+57 311 714 5443",
     // Mensaje para los botones generales (header, hero, flotante, contacto)
     defaultMessage:
-      "Hola, TGO S.A.S. Quisiera recibir información sobre sus insumos de floristería y campo.",
+      "Hola, Comercial TGO S.A.S. Quisiera recibir información sobre sus insumos de floristería y campo.",
     // Plantilla para productos. Variables: {name} {reference} {presentation} {category}
     // Las líneas cuyo dato esté vacío se omiten automáticamente.
     productMessageTemplate: [
-      "Hola, TGO S.A.S. Quisiera consultar por este producto:",
+      "Hola, Comercial TGO S.A.S. Quisiera consultar por este producto:",
       "• Producto: {name}",
       "• Referencia: {reference}",
       "• Presentación: {presentation}",
@@ -56,19 +56,22 @@ TGO.site = {
   heroImage: null,
 
   // Foto de ambiente para la tarjeta "Nosotros". null = sin foto.
-  // PENDIENTE: reemplazar por una foto real de TGO S.A.S. (local, equipo o productos).
+  // PENDIENTE: reemplazar por una foto real de Comercial TGO S.A.S. (local, equipo o productos).
   aboutImage: "assets/img/tema/hortensias-vivero.webp",
   aboutImageAlt: "Hortensias en flor en un vivero",
 
-  // Pendientes de TGO S.A.S. (null = no se muestra)
-  email: null,
+  // Pendientes de Comercial TGO S.A.S. (null = no se muestra)
+  email: "comercialgtosas@gmail.com",
   hours: null, // p. ej. "Lunes a sábado, 7:00 a.m. - 5:00 p.m."
-  social: {
-    instagram: null,
-    facebook: null,
-  },
+  // Redes sociales: poner la URL completa cuando el cliente la envíe.
+  // Con url null el ícono se muestra sin enlace (pendiente). Para ocultar una red, borrarla de la lista.
+  social: [
+    { id: "instagram", name: "Instagram", url: null },
+    { id: "facebook", name: "Facebook", url: null },
+    { id: "tiktok", name: "TikTok", url: null },
+  ],
 
   about: [
-    "TGO S.A.S. es una empresa ubicada en La Unión, Antioquia, Colombia, especializada en insumos de floristería y campo.",
+    "Comercial TGO S.A.S. es una empresa ubicada en La Unión, Antioquia, Colombia, especializada en insumos de floristería y campo.",
   ],
 };

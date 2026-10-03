@@ -14,7 +14,7 @@ window.TGO = window.TGO || {};
 
 TGO.providers = [
   { id: "triton", name: "Triton", logo: "Logos/Triton.png", website: "", placeholder: false },
-  { id: "prov-002", name: "[Proveedor 2]", logo: "", website: "", placeholder: true },
+  { id: "tesicol", name: "Tesicol", logo: "Logos/Tesicol.png", website: "", placeholder: false },
   { id: "prov-003", name: "[Proveedor 3]", logo: "", website: "", placeholder: true },
   { id: "prov-004", name: "[Proveedor 4]", logo: "", website: "", placeholder: true },
 ];

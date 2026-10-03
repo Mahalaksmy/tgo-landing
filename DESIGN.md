@@ -48,7 +48,7 @@ Cada contenedor importante es una **carcasa** (`.bezel`) con fondo translúcido,
 
 | Variante | Uso |
 |---|---|
-| `.btn--wa` | Acción principal "Consultar por WhatsApp" (única etiqueta para esa intención) |
+| `.btn--wa` | Acción principal **"Escríbenos"** (única etiqueta para esa intención; nombre accesible "Escríbenos por WhatsApp") |
 | `.btn--soft` | Secundaria clara ("Ver catálogo", "Limpiar filtros") |
 | `.btn--light` / `.btn--glass` | Dentro del panel profundo de contacto |
 
@@ -69,8 +69,8 @@ Cada contenedor importante es una **carcasa** (`.bezel`) con fondo translúcido,
   - La ficha muestra los datos como lista punteada y el CTA va anclado abajo.
   - El contenido de ejemplo lleva bisel rayado y la etiqueta "Ejemplo".
 - **Proveedores:** marquesina de logos con máscara de desvanecido en los bordes; se pausa al pasar el mouse. Con movimiento reducido se convierte en una grilla estática. La copia del bucle está oculta a lectores de pantalla.
-- **Contacto:** panel profundo con brillo, datos, botones claros y el mapa en un núcleo de vidrio.
-- **Footer:** panel flotante oscuro (`--deep`) con esquinas de 32px dentro del contenedor, en el mismo lenguaje que la isla y los biseles, con brillos suaves de acento. Arriba va el llamado "¿Buscas insumos de floristería o campo?" con CTA de WhatsApp; al centro, logo + 3 columnas con ícono (Dirección, Explora, WhatsApp); abajo, © y "Volver arriba" con botón circular.
+- **Contacto:** la sección con mapa se eliminó por redundante; `#contacto` es ahora el footer (WhatsApp, dirección, enlace "Cómo llegar" a Google Maps, correo y redes).
+- **Footer:** panel oscuro (`--deep`) flotante con 3 columnas. Izquierda: logo, lema, íconos de redes sociales (desde `site.social`; sin URL se muestran atenuados como pendientes) y correo. Centro: "Explora" (navegación). Derecha: "Contáctanos" (WhatsApp, dirección y horario si existe). Abajo: © y "Volver arriba".
 - **Botón flotante:** círculo de 60px `--wa` con tooltip en escritorio.
 
 ## 6. Movimiento (curvas spring `cubic-bezier(.32,.72,0,1)`)
@@ -79,6 +79,9 @@ Cada contenedor importante es una **carcasa** (`.bezel`) con fondo translúcido,
 - **Secciones:** las secciones y tarjetas suben con desenfoque usando `animation-timeline: view()` (CSS puro, sin listeners de scroll). Sin soporte, el contenido se ve normal.
 - **Navegación:** la sombra de la isla y el enlace activo usan `IntersectionObserver`.
 - **Reglas:** solo se animan `transform`, `opacity` y un `filter` breve. Con movimiento reducido todo queda estático.
+
+## 6b. WhatsApp: dónde aparece (reducido)
+Isla (solo escritorio) · menú móvil · hero · cada producto · panel de contacto (botón + número) · footer (número) · botón flotante. Se quitaron el tile del hero, el botón de Nosotros y el CTA grande del footer. En móvil no se muestra el ícono de la isla (ya está el flotante).
 
 ## 7. Responsive
 

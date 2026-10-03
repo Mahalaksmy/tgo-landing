@@ -16,12 +16,12 @@ window.TGO = window.TGO || {};
   }
 
   function placeholderBadge() {
-    return '<span class="badge badge--placeholder" title="Contenido de ejemplo pendiente de TGO S.A.S.">Ejemplo</span>';
+    return '<span class="badge badge--placeholder" title="Contenido de ejemplo pendiente de Comercial TGO S.A.S.">Ejemplo</span>';
   }
 
   /** Botón de WhatsApp con icono anidado ("button-in-button"). */
   function waButton(opts) {
-    const o = Object.assign({ label: "Consultar por WhatsApp", message: null, size: "", block: false, ariaLabel: "" }, opts);
+    const o = Object.assign({ label: "Escríbenos", message: null, size: "", block: false, ariaLabel: "" }, opts);
     const cls = ["btn", "btn--wa", o.size ? "btn--" + o.size : "", o.block ? "btn--block" : ""].filter(Boolean).join(" ");
     const aria = o.ariaLabel ? ' aria-label="' + esc(o.ariaLabel) + '"' : "";
     return (
@@ -45,20 +45,6 @@ window.TGO = window.TGO || {};
       "</span>" +
       '<span class="tile__go">' + icon("arrow") + "</span>" +
       "</button></li>"
-    );
-  }
-
-  /** Tile de acceso directo a WhatsApp para el bento del hero. */
-  function whatsappTile() {
-    return (
-      '<li class="bento-tile bento-tile--wa"><a class="tile" href="' + esc(TGO.whatsapp.buildUrl()) + '" target="_blank" rel="noopener noreferrer">' +
-      '<span class="tile__icon">' + icon("whatsapp") + "</span>" +
-      '<span class="tile__body">' +
-      '<span class="tile__name">Escríbenos</span>' +
-      '<span class="tile__meta tile__meta--num">' + esc(TGO.site.whatsapp.display) + "</span>" +
-      "</span>" +
-      '<span class="tile__go">' + icon("external") + "</span>" +
-      "</a></li>"
     );
   }
 
@@ -90,7 +76,7 @@ window.TGO = window.TGO || {};
         message: TGO.whatsapp.productMessage(product),
         size: "sm",
         block: true,
-        ariaLabel: "Consultar por WhatsApp: " + product.name,
+        ariaLabel: "Escríbenos por WhatsApp sobre: " + product.name,
       }) +
       "</div></div></div></div></li>"
     );
@@ -127,5 +113,18 @@ window.TGO = window.TGO || {};
     );
   }
 
-  TGO.components = { icon, placeholderBadge, waButton, categoryCard, whatsappTile, productCard, providerCard, valueCard };
+  /** Ícono de red social: enlace si hay URL; si no, ícono sin enlace (pendiente). */
+  function socialLink(network) {
+    const label = esc(network.name);
+    if (network.url) {
+      return (
+        '<li><a class="footer-social__link" href="' + esc(network.url) + '" target="_blank" rel="noopener noreferrer" aria-label="' + label +
+        ' (abre en una pestaña nueva)">' + icon(network.id) + "</a></li>"
+      );
+    }
+    return '<li><span class="footer-social__link is-pending" title="' + label + ' (enlace pendiente)">' + icon(network.id) +
+      '<span class="sr-only">' + label + " (enlace pendiente)</span></span></li>";
+  }
+
+  TGO.components = { icon, placeholderBadge, waButton, categoryCard, productCard, providerCard, valueCard, socialLink };
 })();

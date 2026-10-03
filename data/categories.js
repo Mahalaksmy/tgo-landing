@@ -1,6 +1,6 @@
 /**
  * CATEGORÍAS DEL CATÁLOGO
- * Las categorías informadas por TGO S.A.S. son "floristería" y "campo".
+ * Las categorías informadas por Comercial TGO S.A.S. son "floristería" y "campo".
  * Para agregar más: copiar un objeto y usar un `id` único (sin espacios ni tildes).
  * image: foto de fondo (opcional) para la tile de la categoría en el inicio. "" = sin foto.
  *        Es decorativa (imagen de ambiente), no representa un producto específico.

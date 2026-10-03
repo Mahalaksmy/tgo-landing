@@ -22,7 +22,7 @@ Una sola URL con anclas:
 ├── #nosotros      Presentación + Valores
 ├── #catalogo      Categorías + Buscador + Productos
 ├── #proveedores   Proveedores
-└── #contacto      Contacto + Mapa
+└── #contacto      Footer (contacto, redes, "Cómo llegar")
 ```
 
 Archivos auxiliares: `robots.txt`, `sitemap.xml`.
