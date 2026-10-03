@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Página no encontrada | Comercial TGO S.A.S.</title>
   <meta name="robots" content="noindex">
+  <!-- Ruta base del sitio. GitHub Pages (proyecto): "/tgo-landing/". Con dominio propio: "/". -->
+  <base href="/tgo-landing/">
   <meta name="color-scheme" content="light">
-  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
   <main class="section">
@@ -15,13 +17,13 @@
       <h1 class="section__title">No encontramos esta página</h1>
       <p class="section__lead">Puede que el enlace haya cambiado. Vuelve al inicio o consulta directamente por WhatsApp.</p>
       <p style="display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;margin-top:32px">
-        <a class="btn btn--wa btn--lg" href="/#contacto" data-wa="">Consultar por WhatsApp</a>
-        <a class="btn btn--soft btn--lg" href="/">Volver al inicio</a>
+        <a class="btn btn--wa btn--lg" href="./#contacto" data-wa="">Escríbenos</a>
+        <a class="btn btn--soft btn--lg" href="./">Volver al inicio</a>
       </p>
     </div>
   </main>
-  <script src="/data/site.js"></script>
-  <script src="/assets/js/whatsapp.js"></script>
+  <script src="data/site.js"></script>
+  <script src="assets/js/whatsapp.js"></script>
   <script>TGO.whatsapp.hydrate(document);</script>
 </body>
 </html>

@@ -37,6 +37,13 @@ El favicon (`assets/img/favicon.svg`) sigue siendo un placeholder: reemplazarlo 
 ### Si cambia el nombre o la dirección
 Además de `data/site.js`, actualizar los textos de respaldo SEO en `index.html` (`<title>`, `meta description`, Open Graph). El resto del HTML se sincroniza desde `data/site.js`.
 
+## Publicación (GitHub Pages)
+- URL: https://mahalaksmy.github.io/tgo-landing/
+- Se publica automáticamente desde la rama `main` (carpeta raíz) en cada `git push`.
+- `.nojekyll` hace que GitHub sirva los archivos tal cual.
+- **Borrador:** `index.html` tiene `noindex, nofollow`. Al lanzar, cambiarlo a `index, follow`.
+- **Con dominio propio:** en `404.html` cambiar `<base href="/tgo-landing/">` por `<base href="/">`.
+
 ## Antes de publicar
 - Definir dominio → `site.url`, `<link rel="canonical">`/OG en `index.html`, `robots.txt`, `sitemap.xml`.
 - Reemplazar placeholders (productos, proveedores, valores). Ver `CONTENT.md`.
