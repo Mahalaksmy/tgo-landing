@@ -19,6 +19,7 @@
       cityName: site.address.city,
       country: site.address.country,
       whatsappDisplay: site.whatsapp.display,
+      phoneLabel: site.whatsapp.acceptsCalls ? "WhatsApp y llamadas" : "WhatsApp",
       year: String(new Date().getFullYear()),
     };
     document.querySelectorAll("[data-bind]").forEach((el) => {
@@ -27,7 +28,7 @@
     });
 
     // Datos opcionales: se muestran solo si existen en site.js
-    const optional = { hours: site.hours, email: site.email };
+    const optional = { hours: site.hours, email: site.email, nit: site.nit };
     document.querySelectorAll("[data-optional]").forEach((el) => {
       const key = el.getAttribute("data-optional");
       const value = optional[key];
@@ -40,6 +41,29 @@
       }
       el.hidden = false;
     });
+
+    // Enlace "Llamar" si el número también recibe llamadas
+    const call = document.getElementById("footer-call");
+    if (call && site.whatsapp.acceptsCalls) {
+      call.href = "tel:+" + TGO.whatsapp.number();
+      call.hidden = false;
+    }
+  }
+
+  /* ---------- Footer: "Explora" y "Contáctanos" desplegables solo en móvil ---------- */
+  function initFooterAccordions() {
+    const panels = Array.from(document.querySelectorAll(".footer-acc"));
+    if (!panels.length) return;
+    const desktop = window.matchMedia("(min-width: 700px)");
+    const sync = () => panels.forEach((d) => (d.open = desktop.matches)); // escritorio: abiertos · móvil: cerrados
+    sync();
+    desktop.addEventListener("change", sync);
+    // En escritorio el encabezado no colapsa la columna
+    panels.forEach((d) =>
+      d.querySelector("summary").addEventListener("click", (e) => {
+        if (desktop.matches) e.preventDefault();
+      })
+    );
   }
 
   /* ---------- Logo (si se configuró) ---------- */
@@ -230,6 +254,8 @@
         addressCountry: site.address.countryCode,
       },
     };
+    if (site.nit) data.taxID = site.nit;
+    if (site.openingHours) data.openingHours = site.openingHours;
     if (site.url) data.url = site.url;
     if (site.email) data.email = site.email;
     if (site.logo && site.url) data.logo = site.url.replace(/\/$/, "") + "/" + site.logo;
@@ -252,6 +278,7 @@
     TGO.whatsapp.hydrate(document);
     renderMap();
     initNav();
+    initFooterAccordions();
     injectJsonLd();
     document.documentElement.classList.add("js-ready");
   }

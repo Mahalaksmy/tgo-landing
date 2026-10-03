@@ -70,7 +70,7 @@ Cada contenedor importante es una **carcasa** (`.bezel`) con fondo translúcido,
   - El contenido de ejemplo lleva bisel rayado y la etiqueta "Ejemplo".
 - **Proveedores:** marquesina de logos con máscara de desvanecido en los bordes; se pausa al pasar el mouse. Con movimiento reducido se convierte en una grilla estática. La copia del bucle está oculta a lectores de pantalla.
 - **Contacto:** la sección con mapa se eliminó por redundante; `#contacto` es ahora el footer (WhatsApp, dirección, enlace "Cómo llegar" a Google Maps, correo y redes).
-- **Footer:** panel oscuro (`--deep`) flotante con 3 columnas. Izquierda: logo, lema, íconos de redes sociales (desde `site.social`; sin URL se muestran atenuados como pendientes) y correo. Centro: "Explora" (navegación). Derecha: "Contáctanos" (WhatsApp, dirección y horario si existe). Abajo: © y "Volver arriba".
+- **Footer:** panel oscuro (`--deep`) flotante. Escritorio: 3 columnas (marca + correo y redes si existen · "Explora" · "Contáctanos" con WhatsApp y llamadas, horario, dirección y "Cómo llegar"). Móvil: "Explora" y "Contáctanos" son desplegables (`<details>`, cerrados por defecto) para ahorrar espacio. Abajo: © + NIT y "Volver arriba".
 - **Botón flotante:** círculo de 60px `--wa` con tooltip en escritorio.
 
 ## 6. Movimiento (curvas spring `cubic-bezier(.32,.72,0,1)`)

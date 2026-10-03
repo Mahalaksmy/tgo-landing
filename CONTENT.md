@@ -6,15 +6,18 @@
 |---|---|---|
 | Empresa | Comercial TGO S.A.S. | Suministrado |
 | Sector | Insumos de floristería y campo | Suministrado |
-| Dirección | Cr 9 Nro: 9 - 48 p.2, La Unión, Antioquia, Colombia | Suministrado |
-| WhatsApp | +57 311 714 5443 (`573117145443`) | Suministrado |
+| Dirección | Cra 9 # 11 - 48, segundo piso, La Unión, Antioquia, Colombia | Confirmado por el cliente |
+| NIT | 902096153 | Confirmado por el cliente (se muestra en el footer y en los datos para Google) |
+| Horario | Lunes a sábado, 8:00 a.m. - 6:00 p.m. | Confirmado por el cliente |
+| WhatsApp y llamadas | +57 311 714 5443 (`573117145443`) | Confirmado: recibe WhatsApp y llamadas (enlace "Llamar" en el footer) |
 | Logo | `assets/img/logo.png` ("Comercial TGO S.A.S", PNG transparente 307×107) | Suministrado |
 | Productos, referencias, presentaciones, imágenes | — | **Pendiente** → placeholders |
 | Proveedores y logos | Triton y Tesicol (`Logos/`) + 2 de ejemplo | Suministrados por la usuaria; resto **pendiente** |
 | Valores | — | **Pendiente** → placeholders |
-| Correo | comercialgtosas@gmail.com | Suministrado (confirmar escritura con el cliente) |
-| Redes sociales | Instagram, Facebook, TikTok (sin URL) | **Pendiente**: íconos atenuados sin enlace |
-| Horario, dominio | — | **Pendiente** → ocultos (`null`) |
+| Correo | comercialtgosas@gmail.com | Confirmado por el cliente |
+| Redes sociales | — | La empresa aún no tiene; el bloque está oculto (`social: []`) |
+| Dominio | — | **Pendiente** |
+| Texto "Nosotros" | `data/site.js → about` | Suministrado por el cliente |
 | Fotos de ambiente (hortensias) | `assets/img/tema/` (3 fotos) | Suministradas por la usuaria. **Verificar licencia** (parecen de bancos de imágenes). **`hortensias-vivero.webp` (Nosotros) tiene marca de agua de Dreamstime visible** y muestra a una persona: reemplazar por una foto real de TGO antes de publicar |
 
 No se inventaron productos, precios, clientes, certificaciones ni proveedores. Todo contenido de ejemplo está marcado con `placeholder: true` y se muestra en el sitio con borde punteado y la etiqueta **"Ejemplo"**.

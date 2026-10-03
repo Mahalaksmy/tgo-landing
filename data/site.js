@@ -12,6 +12,7 @@ window.TGO = window.TGO || {};
 TGO.site = {
   name: "Comercial TGO S.A.S.",
   shortName: "TGO",
+  nit: "902096153",
   tagline: "Insumos de floristería y campo",
   description:
     "Comercial TGO S.A.S.: insumos de floristería y campo en La Unión, Antioquia, Colombia. Consulta disponibilidad por WhatsApp.",
@@ -20,7 +21,7 @@ TGO.site = {
   url: null,
 
   address: {
-    street: "Cr 9 Nro: 9 - 48 p.2",
+    street: "Cra 9 # 11 - 48, segundo piso",
     city: "La Unión",
     region: "Antioquia",
     country: "Colombia",
@@ -32,6 +33,8 @@ TGO.site = {
     number: "573117145443",
     // Cómo se muestra el número en pantalla
     display: "+57 311 714 5443",
+    // true = el mismo número recibe llamadas (muestra el enlace "Llamar")
+    acceptsCalls: true,
     // Mensaje para los botones generales (header, hero, flotante, contacto)
     defaultMessage:
       "Hola, Comercial TGO S.A.S. Quisiera recibir información sobre sus insumos de floristería y campo.",
@@ -60,18 +63,19 @@ TGO.site = {
   aboutImage: "assets/img/tema/hortensias-vivero.webp",
   aboutImageAlt: "Hortensias en flor en un vivero",
 
-  // Pendientes de Comercial TGO S.A.S. (null = no se muestra)
-  email: "comercialgtosas@gmail.com",
-  hours: null, // p. ej. "Lunes a sábado, 7:00 a.m. - 5:00 p.m."
-  // Redes sociales: poner la URL completa cuando el cliente la envíe.
-  // Con url null el ícono se muestra sin enlace (pendiente). Para ocultar una red, borrarla de la lista.
-  social: [
-    { id: "instagram", name: "Instagram", url: null },
-    { id: "facebook", name: "Facebook", url: null },
-    { id: "tiktok", name: "TikTok", url: null },
-  ],
+  email: "comercialtgosas@gmail.com",
+  hours: "Lunes a sábado, 8:00 a.m. - 6:00 p.m.",
+  // Para datos estructurados (Google): formato schema.org
+  openingHours: "Mo-Sa 08:00-18:00",
+
+  // Redes sociales. La empresa aún no tiene; cuando existan, agregar por ejemplo:
+  //   { id: "instagram", name: "Instagram", url: "https://instagram.com/usuario" },
+  //   { id: "facebook",  name: "Facebook",  url: "https://facebook.com/pagina" },
+  //   { id: "tiktok",    name: "TikTok",    url: "https://tiktok.com/@usuario" },
+  // Lista vacía = el bloque de redes no se muestra.
+  social: [],
 
   about: [
-    "Comercial TGO S.A.S. es una empresa ubicada en La Unión, Antioquia, Colombia, especializada en insumos de floristería y campo.",
+    "Somos especialistas en la provisión e integración de insumos agrícolas para la floricultura y diversos sectores del campo. Garantizamos la protección, hidratación y adecuado empaque de sus productos mediante un amplio portafolio técnico que abarca mallas polisombra, materiales de poscosecha y sistemas de adecuación. Acompañamos a productores y comercializadores con soluciones de alta eficiencia.",
   ],
 };
