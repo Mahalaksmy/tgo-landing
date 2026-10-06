@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="es-CO" data-view="home">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Comercial TGO S.A.S.</title>
+<meta name="description" content="Comercial TGO S.A.S.: insumos agrícolas e institucionales en La Unión, Antioquia, Colombia. Consulta disponibilidad por WhatsApp.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+<!--
+  ================================================================
+  TEMAS (variables semánticas)
+  Cada vista tiene su paleta. Los colores se escriben como "R G B" para que
+  Tailwind pueda aplicar opacidad (bg-primary/20). Para cambiar el verde o el
+  azul, edita SOLO el bloque de la vista correspondiente.
+  ================================================================
+-->
+<style>
+  /* Layout: header y footer fijos; el contenido cambia entre Inicio y dos catálogos. */
+  :root {
+    /* Color de cada rama, constante en todas las vistas (vista previa en las tarjetas de Inicio).
+       Mantenerlos iguales a --primary de su vista. */
+    --branch-agriculture: 63 107 69;      /* #3F6B45 */
+    --branch-organizational: 37 99 235;   /* #2563eb */
+  }
+  :root,
+  [data-view="home"] {             /* Inicio: monocromático (blanco y negro) */
+    --bg: 250 250 249;
+    --surface: 255 255 255;
+    --ink: 12 12 12;
+    --muted: 87 87 84;
+    --line: 12 12 12;
+    --primary: 12 12 12;
+    --primary-strong: 0 0 0;
+    --primary-soft: 236 236 233;
+    --on-primary: 255 255 255;
+    --deep: 12 12 12;
+    --on-deep: 245 245 244;
+    --deep-muted: 168 168 162;
+    --deep-accent: 214 214 209;    /* títulos dentro del footer */
+    color-scheme: light;
+  }
+  [data-view="agriculture"] {      /* Insumos Agrícolas: paleta verde actual */
+    --bg: 243 246 241;
+    --surface: 253 254 252;
+    --ink: 21 32 27;
+    --muted: 77 90 83;
+    --line: 24 48 36;
+    --primary: 63 107 69;          /* #3F6B45 */
+    --primary-strong: 28 70 52;    /* #1C4634 */
+    --primary-soft: 225 235 227;   /* #E1EBE3 */
+    --on-primary: 255 255 255;
+    --deep: 14 36 25;              /* #0E2419 */
+    --on-deep: 232 240 234;
+    --deep-muted: 169 189 177;
+    --deep-accent: 169 211 181;    /* #A9D3B5 */
+  }
+  [data-view="organizational"] {   /* Insumos Institucionales: misma paleta con azul #2563eb */
+    --bg: 243 245 249;
+    --surface: 253 253 255;
+    --ink: 17 24 39;
+    --muted: 75 85 99;
+    --line: 17 24 39;
+    --primary: 37 99 235;          /* #2563eb */
+    --primary-strong: 30 64 175;   /* #1e40af */
+    --primary-soft: 219 234 254;   /* #dbeafe */
+    --on-primary: 255 255 255;
+    --deep: 11 26 58;              /* #0b1a3a */
+    --on-deep: 232 238 250;
+    --deep-muted: 165 180 210;
+    --deep-accent: 165 196 245;
+  }
+
+  /* Tipografía del proyecto (archivos locales) */
+  @font-face { font-family: "Clash Display"; src: url("assets/fonts/clash-display-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+  @font-face { font-family: "Clash Display"; src: url("assets/fonts/clash-display-600.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+  @font-face { font-family: "Geist"; src: url("assets/fonts/geist-latin.woff2") format("woff2"); font-weight: 400 600; font-display: swap; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 8.5rem; }
+  body {
+    margin: 0;
+    background: rgb(var(--bg));
+    color: rgb(var(--ink));
+    font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color .5s ease-in-out, color .5s ease-in-out;
+  }
+  h1, h2, h3 { text-wrap: balance; }
+  .font-display { word-spacing: .08em; }   /* Clash Display junta las palabras con tracking negativo */
+  p { text-wrap: pretty; }
+
+  /* Entrada de cada vista */
+  @keyframes view-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .view-enter { animation: view-in .5s ease-in-out both; }
+
+  /* Marquesina de proveedores (pausa con el botón, el cursor o el foco) */
+  @keyframes marquee { to { transform: translateX(calc(-50% - 0.5rem)); } }
+  .marquee-mask { -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+  .marquee-track { animation: marquee 40s linear infinite; }
+  .marquee-mask:hover .marquee-track, .marquee-mask:focus-within .marquee-track, .marquee-mask.is-paused .marquee-track { animation-play-state: paused; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; }
+    .marquee-track > [aria-hidden="true"] { display: none; }
+    .marquee-mask { -webkit-mask-image: none; mask-image: none; }
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+</style>
+
+<!-- Tailwind (Play CDN) con colores ligados a las variables de tema -->
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg: "rgb(var(--bg) / <alpha-value>)",
+          surface: "rgb(var(--surface) / <alpha-value>)",
+          ink: "rgb(var(--ink) / <alpha-value>)",
+          muted: "rgb(var(--muted) / <alpha-value>)",
+          line: "rgb(var(--line) / <alpha-value>)",
+          primary: {
+            DEFAULT: "rgb(var(--primary) / <alpha-value>)",
+            strong: "rgb(var(--primary-strong) / <alpha-value>)",
+            soft: "rgb(var(--primary-soft) / <alpha-value>)",
+            fg: "rgb(var(--on-primary) / <alpha-value>)",
+          },
+          branch: {
+            agriculture: "rgb(var(--branch-agriculture) / <alpha-value>)",
+            organizational: "rgb(var(--branch-organizational) / <alpha-value>)",
+          },
+          deep: {
+            DEFAULT: "rgb(var(--deep) / <alpha-value>)",
+            fg: "rgb(var(--on-deep) / <alpha-value>)",
+            muted: "rgb(var(--deep-muted) / <alpha-value>)",
+            accent: "rgb(var(--deep-accent) / <alpha-value>)",
+          },
+        },
+        fontFamily: {
+          display: ['"Clash Display"', '"Geist"', "system-ui", "sans-serif"],
+          sans: ['"Geist"', "system-ui", "-apple-system", '"Segoe UI"', "sans-serif"],
+        },
+      },
+    },
+  };
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.4/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+/* ================================================================
+   CONFIGURACIÓN: datos de la empresa y del catálogo (editar aquí)
+   ================================================================ */
+const DATA = {
+  "site": {
+    "name": "Comercial TGO S.A.S.",
+    "nit": "902096153",
+    "tagline": "Insumos agrícolas e institucionales",
+    "address": {
+      "street": "Cra 9 # 11 - 48, segundo piso",
+      "city": "La Unión",
+      "region": "Antioquia",
+      "country": "Colombia",
+      "countryCode": "CO"
+    },
+    "whatsapp": {
+      "number": "573117145443",
+      "display": "+57 311 714 5443",
+      "acceptsCalls": true,
+      "defaultMessage": "Hola, Comercial TGO S.A.S. Quisiera recibir información sobre sus insumos agrícolas e institucionales.",
+      "productMessageTemplate": [
+        "Hola, Comercial TGO S.A.S. Quisiera consultar por este producto:",
+        "• Producto: {name}",
+        "• Referencia: {reference}",
+        "• Presentación: {presentation}",
+        "• Categoría: {category}",
+        "¿Me pueden informar disponibilidad y precio? Gracias."
+      ]
+    },
+    "email": "comercialtgosas@gmail.com",
+    "hours": "Lunes a sábado, 8:00 a.m. - 6:00 p.m.",
+    "logo": "assets/img/logo.png",
+    "about": [
+      "Somos especialistas en la provisión e integración de insumos agrícolas para la floricultura y diversos sectores del campo. Garantizamos la protección, hidratación y adecuado empaque de sus productos mediante un amplio portafolio técnico que abarca mallas polisombra, materiales de poscosecha y sistemas de adecuación. Acompañamos a productores y comercializadores con soluciones de alta eficiencia."
+    ]
+  },
+  "categories": [
+    {
+      "id": "agricolas",
+      "name": "Insumos Agrícolas",
+      "icon": "plant"
+    },
+    {
+      "id": "institucionales",
+      "name": "Insumos Institucionales",
+      "icon": "buildings"
+    }
+  ],
+  "products": [
+    {
+      "id": "capuchon-tela",
+      "name": "Capuchón tela",
+      "category": "agricolas",
+      "description": "Capuchón de tela para proteger y presentar ramos de flor durante el empaque, el almacenamiento y el transporte.",
+      "image": "assets/img/productos/capuchon-tela.jpg",
+      "reference": "TGO-AG-001"
+    },
+    {
+      "id": "capuchon-plastico",
+      "name": "Capuchón plástico",
+      "category": "agricolas",
+      "description": "Capuchón plástico transparente que protege el ramo y deja ver la flor en la poscosecha, el empaque y el despacho.",
+      "image": "assets/img/productos/capuchon-plastico.jpg",
+      "reference": "TGO-AG-002"
+    },
+    {
+      "id": "hidratadores",
+      "name": "Hidratadores",
+      "category": "agricolas",
+      "description": "Hidratadores para mantener la hidratación de los tallos de flor cortada durante el transporte y la exhibición.",
+      "image": "assets/img/productos/hidratadores.jpg",
+      "reference": "TGO-AG-003"
+    },
+    {
+      "id": "caucho",
+      "name": "Caucho",
+      "category": "agricolas",
+      "description": "Bandas de caucho para amarrar y sujetar ramos y bonches de flor en la etapa de poscosecha.",
+      "image": "assets/img/productos/caucho.jpg",
+      "reference": "TGO-AG-004"
+    },
+    {
+      "id": "grapas",
+      "name": "Grapas",
+      "category": "agricolas",
+      "description": "Grapas para el cierre y ensamble de capuchones, empaques y cajas en la línea de empaque.",
+      "image": "assets/img/productos/grapas.jpg",
+      "reference": "TGO-AG-005"
+    },
+    {
+      "id": "cinta-de-empaque",
+      "name": "Cinta de empaque",
+      "category": "agricolas",
+      "description": "Cinta adhesiva para el sellado de cajas y empaques de despacho.",
+      "image": "assets/img/productos/cinta-de-empaque.jpg",
+      "reference": "TGO-AG-006"
+    },
+    {
+      "id": "polisombra-8x125",
+      "name": "Polisombra 8x125",
+      "category": "agricolas",
+      "description": "Malla polisombra para regular la luz y la temperatura en cultivos e invernaderos. Medida 8x125.",
+      "image": "assets/img/productos/polisombra-8x125.jpg",
+      "reference": "TGO-AG-007",
+      "imageFit": "full"
+    },
+    {
+      "id": "polisombra-8x100",
+      "name": "Polisombra 8x100",
+      "category": "agricolas",
+      "description": "Malla polisombra para regular la luz y la temperatura en cultivos e invernaderos. Medida 8x100.",
+      "image": "assets/img/productos/polisombra-8x100.jpg",
+      "reference": "TGO-AG-008",
+      "imageFit": "full"
+    },
+    {
+      "id": "quimicos-limpieza",
+      "name": "Químicos de limpieza industrial",
+      "category": "institucionales",
+      "description": "Productos químicos para la limpieza y desinfección de superficies en empresas, oficinas e instalaciones industriales.",
+      "image": "assets/img/productos/quimicos-limpieza.jpg",
+      "reference": "TGO-IN-001",
+      "imageFit": "cover"
+    },
+    {
+      "id": "papeleria-gran-formato",
+      "name": "Papelería de gran formato",
+      "category": "institucionales",
+      "description": "Papel higiénico y toallas en rollos de gran formato para baños de alto tráfico en empresas e instituciones.",
+      "image": "assets/img/productos/papeleria-gran-formato.jpg",
+      "reference": "TGO-IN-002"
+    },
+    {
+      "id": "bolsas-basura",
+      "name": "Bolsas de basura industriales",
+      "category": "institucionales",
+      "description": "Bolsas para la recolección y disposición de residuos en empresas, cultivos e instituciones.",
+      "image": "assets/img/productos/bolsas-basura.jpg",
+      "reference": "TGO-IN-003"
+    },
+    {
+      "id": "dispensadores",
+      "name": "Dispensadores automáticos",
+      "category": "institucionales",
+      "description": "Dispensadores para jabón y gel antibacterial en baños y áreas comunes de empresas e instituciones.",
+      "image": "assets/img/productos/dispensadores.jpg",
+      "reference": "TGO-IN-004"
+    }
+  ],
+  "values": [
+    {
+      "icon": "plant",
+      "title": "Especialización técnica",
+      "description": "Conocemos la floricultura y el campo. Nuestro portafolio cubre cada etapa, del cultivo a la poscosecha."
+    },
+    {
+      "icon": "flower",
+      "title": "Cuidado de su producto",
+      "description": "Insumos que protegen, hidratan y empacan la flor para que llegue en las mejores condiciones a su destino."
+    },
+    {
+      "icon": "handshake",
+      "title": "Acompañamiento cercano",
+      "description": "Trabajamos de la mano de productores y comercializadores con soluciones eficientes y atención directa."
+    }
+  ],
+  "providers": [
+    {
+      "name": "Triton",
+      "logo": "Logos/Triton.png",
+      "website": "",
+      "placeholder": false
+    },
+    {
+      "name": "Tesicol",
+      "logo": "Logos/Tesicol.png",
+      "website": "",
+      "placeholder": false
+    },
+    {
+      "name": "[Proveedor 3]",
+      "logo": "",
+      "website": "",
+      "placeholder": true
+    },
+    {
+      "name": "[Proveedor 4]",
+      "logo": "",
+      "website": "",
+      "placeholder": true
+    }
+  ]
+};
+
+/* Vista de cada categoría y texto de su tarjeta en Inicio */
+const BRANCHES = {
+  agriculture: {
+    category: "agricolas",
+    label: "Insumos Agrícolas",
+    short: "Agrícolas",
+    icon: "plant",
+    blurb: "Capuchones, hidratadores, cauchos, grapas, cintas y mallas polisombra para el cultivo y la poscosecha de flor.",
+  },
+  organizational: {
+    category: "institucionales",
+    label: "Insumos Institucionales",
+    short: "Institucionales",
+    icon: "buildings",
+    blurb: "Químicos de limpieza, papelería de gran formato, bolsas industriales y dispensadores para empresas e instituciones.",
+  },
+};
+
+/* Íconos: Phosphor Icons (Light), licencia MIT */
+const ICONS = {"whatsapp": "<path d=\"M186.68,146.63l-32-16a6,6,0,0,0-6,.38L133,141.46A42.49,42.49,0,0,1,114.54,123L125,107.33a6,6,0,0,0,.38-6l-16-32A6,6,0,0,0,104,66a38,38,0,0,0-38,38,86.1,86.1,0,0,0,86,86,38,38,0,0,0,38-38A6,6,0,0,0,186.68,146.63ZM152,178a74.09,74.09,0,0,1-74-74,26,26,0,0,1,22.42-25.75l12.66,25.32-10.39,15.58a6,6,0,0,0-.54,5.63,54.43,54.43,0,0,0,29.07,29.07,6,6,0,0,0,5.63-.54l15.58-10.39,25.32,12.66A26,26,0,0,1,152,178ZM128,26A102,102,0,0,0,38.35,176.69L26.73,211.56a14,14,0,0,0,17.71,17.71l34.87-11.62A102,102,0,1,0,128,26Zm0,192a90,90,0,0,1-45.06-12.08,6.09,6.09,0,0,0-3-.81,6.2,6.2,0,0,0-1.9.31L40.65,217.88a2,2,0,0,1-2.53-2.53L50.58,178a6,6,0,0,0-.5-4.91A90,90,0,1,1,128,218Z\"/>", "phone": "<path d=\"M221.59,160.3l-47.24-21.17a14,14,0,0,0-13.28,1.22,4.81,4.81,0,0,0-.56.42l-24.69,21a1.88,1.88,0,0,1-1.68.06c-15.87-7.66-32.31-24-40-39.65a1.91,1.91,0,0,1,0-1.68l21.07-25a6.13,6.13,0,0,0,.42-.58,14,14,0,0,0,1.12-13.27L95.73,34.49a14,14,0,0,0-14.56-8.38A54.24,54.24,0,0,0,34,80c0,78.3,63.7,142,142,142a54.25,54.25,0,0,0,53.89-47.17A14,14,0,0,0,221.59,160.3ZM176,210C104.32,210,46,151.68,46,80A42.23,42.23,0,0,1,82.67,38h.23a2,2,0,0,1,1.84,1.31l21.1,47.11a2,2,0,0,1,0,1.67L84.73,113.15a4.73,4.73,0,0,0-.43.57,14,14,0,0,0-.91,13.73c8.87,18.16,27.17,36.32,45.53,45.19a14,14,0,0,0,13.77-1c.19-.13.38-.27.56-.42l24.68-21a1.92,1.92,0,0,1,1.6-.1l47.25,21.17a2,2,0,0,1,1.21,2A42.24,42.24,0,0,1,176,210Z\"/>", "pin": "<path d=\"M128,66a38,38,0,1,0,38,38A38,38,0,0,0,128,66Zm0,64a26,26,0,1,1,26-26A26,26,0,0,1,128,130Zm0-112a86.1,86.1,0,0,0-86,86c0,30.91,14.34,63.74,41.47,94.94a252.32,252.32,0,0,0,41.09,38,6,6,0,0,0,6.88,0,252.32,252.32,0,0,0,41.09-38c27.13-31.2,41.47-64,41.47-94.94A86.1,86.1,0,0,0,128,18Zm0,206.51C113,212.93,54,163.62,54,104a74,74,0,0,1,148,0C202,163.62,143,212.93,128,224.51Z\"/>", "mail": "<path d=\"M224,50H32a6,6,0,0,0-6,6V192a14,14,0,0,0,14,14H216a14,14,0,0,0,14-14V56A6,6,0,0,0,224,50Zm-96,85.86L47.42,62H208.58ZM101.67,128,38,186.36V69.64Zm8.88,8.14L124,148.42a6,6,0,0,0,8.1,0l13.4-12.28L208.58,194H47.43ZM154.33,128,218,69.64V186.36Z\"/>", "clock": "<path d=\"M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm62-90a6,6,0,0,1-6,6H128a6,6,0,0,1-6-6V72a6,6,0,0,1,12,0v50h50A6,6,0,0,1,190,128Z\"/>", "plant": "<path d=\"M245.63,48A6,6,0,0,0,240,42.37c-51-3-91.88,12.42-109.35,41.26-11.63,19.21-11.38,42.68.53,65a69.42,69.42,0,0,0-15.48,30.59L95.9,159.41c8.15-16.1,8.1-32.95-.32-46.85C82.77,91.41,53,80.07,15.9,82.27a6,6,0,0,0-5.63,5.64C8.09,125,19.41,154.77,40.56,167.58A43.75,43.75,0,0,0,63.44,174a53.17,53.17,0,0,0,24-6L114,194.48V224a6,6,0,0,0,12,0V194.51A57.55,57.55,0,0,1,139.76,157c11.21,5.93,22.72,8.91,33.82,8.91a58.9,58.9,0,0,0,30.79-8.57C233.21,139.89,248.63,99,245.63,48ZM46.78,157.31C30.47,147.44,21.39,124,22,94c30-.65,53.41,8.44,63.28,24.75,5.68,9.37,6.16,20.38,1.54,31.59L60.24,123.75a6,6,0,0,0-8.49,8.49l26.62,26.61C67.16,163.47,56.15,163,46.78,157.31Zm151.38-10.22c-14.74,8.92-32.14,9.18-49.67.9l55.76-55.75a6,6,0,0,0-8.49-8.49L140,139.51c-8.28-17.53-8-34.93.9-49.66,14.52-24,49.06-37.18,93-35.75C235.33,98,222.14,132.56,198.16,147.09Z\"/>", "buildings": "<path d=\"M240,210H222V96a14,14,0,0,0-14-14H142V32a14,14,0,0,0-21.77-11.64l-80,53.33A14,14,0,0,0,34,85.34V210H16a6,6,0,0,0,0,12H240a6,6,0,0,0,0-12ZM208,94a2,2,0,0,1,2,2V210H142V94ZM46,85.34a2,2,0,0,1,.89-1.66l80-53.34A2,2,0,0,1,130,32V210H46ZM110,112v16a6,6,0,0,1-12,0V112a6,6,0,0,1,12,0Zm-32,0v16a6,6,0,0,1-12,0V112a6,6,0,0,1,12,0Zm0,56v16a6,6,0,0,1-12,0V168a6,6,0,0,1,12,0Zm32,0v16a6,6,0,0,1-12,0V168a6,6,0,0,1,12,0Z\"/>", "arrow": "<path d=\"M220.24,132.24l-72,72a6,6,0,0,1-8.48-8.48L201.51,134H40a6,6,0,0,1,0-12H201.51L139.76,60.24a6,6,0,0,1,8.48-8.48l72,72A6,6,0,0,1,220.24,132.24Z\"/>", "flower": "<path d=\"M209.35,131.09a42.24,42.24,0,0,0-6.82-3.09,42.24,42.24,0,0,0,6.82-3.09,38,38,0,1,0-38-65.82,43.33,43.33,0,0,0-6.08,4.36A42.94,42.94,0,0,0,166,56a38,38,0,0,0-76,0,42.94,42.94,0,0,0,.73,7.45,43.33,43.33,0,0,0-6.08-4.36,38,38,0,0,0-38,65.82A42.24,42.24,0,0,0,53.47,128a42.24,42.24,0,0,0-6.82,3.09,38,38,0,0,0,9.16,69.62,38.53,38.53,0,0,0,9.9,1.31,37.82,37.82,0,0,0,18.94-5.11,43.33,43.33,0,0,0,6.08-4.36A42.94,42.94,0,0,0,90,200a38,38,0,0,0,76,0,42.94,42.94,0,0,0-.73-7.45,43.33,43.33,0,0,0,6.08,4.36A37.82,37.82,0,0,0,190.29,202a38.53,38.53,0,0,0,9.9-1.31,38,38,0,0,0,9.16-69.62Zm-32-61.61a26,26,0,1,1,26,45c-4.77,2.75-14.92,6.15-36.4,7.47l-1.44-.08A38,38,0,0,0,152,98.58l.66-1.31C164.56,79.33,172.58,72.24,177.35,69.48ZM128,154a26,26,0,1,1,26-26A26,26,0,0,1,128,154Zm0-124a26,26,0,0,1,26,26c0,5.51-2.13,16-11.73,35.27-.26.4-.53.8-.79,1.21a37.88,37.88,0,0,0-27,0l-.79-1.22C104.13,72,102,61.51,102,56A26,26,0,0,1,128,30ZM52.65,114.52a26,26,0,0,1,26-45c4.77,2.76,12.79,9.85,24.67,27.79l.66,1.31a38,38,0,0,0-13.49,23.33l-1.44.08C67.57,120.67,57.42,117.27,52.65,114.52Zm26,72a26,26,0,0,1-26-45c4.77-2.75,14.92-6.15,36.4-7.47l1.44.08A38,38,0,0,0,104,157.42l-.66,1.31C91.44,176.67,83.42,183.76,78.65,186.52ZM128,226a26,26,0,0,1-26-26c0-5.51,2.13-16,11.73-35.27.26-.4.53-.8.79-1.21a37.88,37.88,0,0,0,27,0l.79,1.22C151.87,184,154,194.49,154,200A26,26,0,0,1,128,226Zm84.87-49a26,26,0,0,1-35.52,9.52c-4.77-2.76-12.79-9.85-24.67-27.79l-.66-1.31a38,38,0,0,0,13.49-23.33L167,134c21.48,1.32,31.63,4.72,36.4,7.47A26,26,0,0,1,212.87,177Z\"/>", "handshake": "<path d=\"M252.51,108.8,227,57.75a14,14,0,0,0-18.78-6.27L182.66,64.26,129.53,50.2a6.1,6.1,0,0,0-3.06,0L73.34,64.26,47.79,51.48A14,14,0,0,0,29,57.75L3.49,108.8a14,14,0,0,0,6.26,18.78L36.9,141.16l55.61,39.72a6,6,0,0,0,2,.94l64,16A6.08,6.08,0,0,0,160,198a6,6,0,0,0,4.24-1.76l55.31-55.31,26.7-13.35a14,14,0,0,0,6.26-18.78Zm-53,35.16-35.8-28.68a6,6,0,0,0-8,.45c-18.65,18.79-39.5,16.42-52.79,7.92a2,2,0,0,1-.94-1.5,1.9,1.9,0,0,1,.51-1.55L146.43,78h33.86l28.41,56.82ZM14.11,115.69a2,2,0,0,1,.11-1.52L39.74,63.11a2,2,0,0,1,1.8-1.1,2,2,0,0,1,.89.21l22.21,11.1L37.32,128l-22.21-11.1A2,2,0,0,1,14.11,115.69Zm144.05,69.67-59.6-14.9L47.66,134.1,76.84,75.75,128,62.21l14.8,3.92a5.92,5.92,0,0,0-3,1.57L94.1,112.05a14,14,0,0,0,2.39,21.72c20.22,12.92,44.75,10.49,63.8-5.89L191,152.5Zm83.73-69.67a2,2,0,0,1-1,1.16L218.68,128,191.36,73.32l22.21-11.1a2,2,0,0,1,1.53-.11,2,2,0,0,1,1.16,1l25.52,51.06A2,2,0,0,1,241.89,115.69Zm-112,101.76a6,6,0,0,1-7.27,4.37L80.89,211.39a5.88,5.88,0,0,1-2-.94L52.52,191.64a6,6,0,1,1,7-9.77L84.91,200l40.61,10.15A6,6,0,0,1,129.88,217.45Z\"/>", "leaf": "<path d=\"M221.45,40.19a6,6,0,0,0-5.64-5.64C140.43,30.11,80.14,52.71,54.53,95c-17.44,28.79-16.76,62.8,1.79,96.2L35.76,211.76a6,6,0,1,0,8.48,8.48L64.8,199.68c17.27,9.59,34.7,14.41,51.49,14.41A85.38,85.38,0,0,0,161,201.47C203.29,175.86,225.88,115.57,221.45,40.19Zm-66.66,151c-24.08,14.58-52.64,14.37-81.13-.39l90.59-90.59a6,6,0,0,0-8.48-8.48L65.18,182.34c-14.76-28.49-15-57-.39-81.13,22.68-37.43,76.63-57.8,145-54.95C212.59,114.58,192.22,168.54,154.79,191.21Z\"/>", "external": "<path d=\"M198,64V168a6,6,0,0,1-12,0V78.48L68.24,196.24a6,6,0,0,1-8.48-8.48L177.52,70H88a6,6,0,0,1,0-12H192A6,6,0,0,1,198,64Z\"/>", "pause": "<path d=\"M200,34H160a14,14,0,0,0-14,14V208a14,14,0,0,0,14,14h40a14,14,0,0,0,14-14V48A14,14,0,0,0,200,34Zm2,174a2,2,0,0,1-2,2H160a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2h40a2,2,0,0,1,2,2ZM96,34H56A14,14,0,0,0,42,48V208a14,14,0,0,0,14,14H96a14,14,0,0,0,14-14V48A14,14,0,0,0,96,34Zm2,174a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2H96a2,2,0,0,1,2,2Z\"/>", "play": "<path d=\"M231.36,116.19,87.28,28.06a14,14,0,0,0-14.18-.27A13.69,13.69,0,0,0,66,39.87V216.13a13.69,13.69,0,0,0,7.1,12.08,14,14,0,0,0,14.18-.27l144.08-88.13a13.82,13.82,0,0,0,0-23.62Zm-6.26,13.38L81,217.7a2,2,0,0,1-2.06,0,1.78,1.78,0,0,1-1-1.61V39.87a1.78,1.78,0,0,1,1-1.61A2.06,2.06,0,0,1,80,38a2,2,0,0,1,1,.31L225.1,126.43a1.82,1.82,0,0,1,0,3.14Z\"/>"};
+
+/* ================================================================
+   Utilidades
+   ================================================================ */
+const { useState, useEffect, useRef, useCallback } = React;
+
+const waUrl = (message) =>
+  "https://wa.me/" + DATA.site.whatsapp.number + "?text=" + encodeURIComponent(message || DATA.site.whatsapp.defaultMessage);
+
+function productMessage(product, categoryName) {
+  const vars = { name: product.name, reference: product.reference, presentation: product.presentation, category: categoryName };
+  return DATA.site.whatsapp.productMessageTemplate
+    .map((line) => {
+      let skip = false;
+      const filled = line.replace(/\{(\w+)\}/g, (_, k) => {
+        const v = (vars[k] || "").trim();
+        if (!v) skip = true;
+        return v;
+      });
+      return skip ? null : filled;
+    })
+    .filter(Boolean)
+    .join("\n");
+}
+
+const productsOf = (categoryId) => DATA.products.filter((p) => p.category === categoryId);
+const mapsUrl = () => {
+  const a = DATA.site.address;
+  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent([a.street, a.city, a.region, a.country].join(", "));
+};
+const prefersReducedMotion = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* Transición de colores compartida (cambio de tema) */
+const T = "transition-colors duration-500 ease-in-out";
+
+/* ================================================================
+   Componentes base
+   ================================================================ */
+function Icon({ name, className = "h-5 w-5" }) {
+  return (
+    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false" className={className}
+      dangerouslySetInnerHTML={{ __html: ICONS[name] || "" }} />
+  );
+}
+
+function WhatsAppButton({ message, label = "Escríbenos", ariaLabel, size = "md", block = false, light = false }) {
+  const sizes = size === "sm" ? "h-11 pl-4 pr-1.5 text-sm" : "h-12 pl-5 pr-1.5 text-[0.95rem]";
+  const colors = light ? "bg-bg text-ink hover:bg-surface" : "bg-primary text-primary-fg hover:bg-primary-strong";
+  return (
+    <a href={waUrl(message)} target="_blank" rel="noopener noreferrer" aria-label={ariaLabel}
+      className={`group inline-flex items-center justify-between gap-3 rounded-full font-semibold ${colors}
+        ${sizes} ${block ? "w-full" : ""} ${T} active:scale-[.98]
+        focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30`}>
+      <span>{label}</span>
+      <span className={`grid h-9 w-9 place-items-center rounded-full ${light ? "bg-ink/10" : "bg-white/15"} transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-px`}>
+        <Icon name="whatsapp" className="h-[18px] w-[18px]" />
+      </span>
+    </a>
+  );
+}
+
+/* ================================================================
+   Header fijo: logo + selector de vista + WhatsApp
+   ================================================================ */
+const NAV = [
+  { view: "home", label: "Inicio" },
+  { view: "agriculture", label: "Agrícolas" },
+  { view: "organizational", label: "Institucionales" },
+];
+
+function Header({ view, onNavigate }) {
+  return (
+    <header className="fixed inset-x-0 top-0 z-40 px-3 pt-[calc(env(safe-area-inset-top,0px)+10px)]">
+      <div className={`mx-auto flex max-w-6xl flex-wrap items-center gap-x-3 gap-y-2 rounded-[1.75rem] border border-line/10
+        bg-surface/80 px-3 py-2 shadow-[0_10px_30px_-18px_rgb(var(--line)/.45)] backdrop-blur-xl ${T} md:flex-nowrap md:rounded-full`}>
+        <button type="button" onClick={() => onNavigate("home")} aria-label={DATA.site.name + ", inicio"}
+          className="mr-auto rounded-full px-2 py-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30">
+          <img src={DATA.site.logo} alt={DATA.site.name} width="307" height="107" className="h-9 w-auto md:h-10" />
+        </button>
+
+        <nav aria-label="Secciones" className="order-last w-full md:order-none md:w-auto">
+          <ul className={`grid grid-cols-[1fr_1fr_1.35fr] gap-1 rounded-full bg-ink/[.05] p-1 ${T} md:grid-cols-3`}>
+            {NAV.map((item) => {
+              const active = view === item.view;
+              return (
+                <li key={item.view}>
+                  <button type="button" onClick={() => onNavigate(item.view)} aria-current={active ? "page" : undefined}
+                    className={`w-full whitespace-nowrap rounded-full px-2 py-2 text-[0.8125rem] font-medium ${T} sm:text-sm md:px-4
+                      focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30
+                      ${active ? "bg-primary text-primary-fg shadow-sm" : "text-muted hover:bg-surface hover:text-ink"}`}>
+                    {item.label}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+
+        <div className="hidden md:block">
+          <WhatsAppButton size="sm" ariaLabel="Escríbenos por WhatsApp" />
+        </div>
+      </div>
+    </header>
+  );
+}
+
+/* ================================================================
+   Proveedores: cinta de logos (visible en todas las vistas)
+   ================================================================ */
+function ProviderChip({ p, hidden }) {
+  const inner = p.logo
+    ? <img src={p.logo} alt={hidden ? "" : p.name} className="h-11 w-auto max-w-[150px] rounded-md object-contain transition-transform duration-500 group-hover:scale-105" />
+    : <span className={`whitespace-nowrap font-display text-lg font-semibold text-muted ${T}`}>{p.name}</span>;
+  return (
+    <li aria-hidden={hidden ? "true" : undefined}>
+      <div className={`group flex h-24 min-w-[220px] items-center justify-center gap-3 rounded-full bg-surface px-8 shadow-[0_0_0_1px_rgb(var(--line)/.08)] ${T}`}>
+        {inner}
+        {p.placeholder && (
+          <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium text-muted ring-1 ring-inset ring-current ${T}`}>Ejemplo</span>
+        )}
+      </div>
+    </li>
+  );
+}
+
+function ProvidersBand({ id }) {
+  const [paused, setPaused] = useState(false);
+  return (
+    <section id={id} aria-labelledby="providers-title" className={`bg-primary/10 py-14 md:py-16 ${T}`}>
+      <h2 id="providers-title" className={`mb-8 text-center font-display text-xl font-medium text-primary ${T} md:text-2xl`}>
+        Marcas con las que trabajamos
+      </h2>
+      <div id="providers-marquee" className={`marquee-mask overflow-hidden ${paused ? "is-paused" : ""}`}>
+        <ul className="marquee-track flex w-max gap-4 py-1.5">
+          {DATA.providers.map((p) => <ProviderChip key={p.name} p={p} />)}
+          {DATA.providers.map((p) => <ProviderChip key={p.name + "-copia"} p={p} hidden />)}
+        </ul>
+      </div>
+      <div className="mt-5 flex justify-center motion-reduce:hidden">
+        <button type="button" onClick={() => setPaused(!paused)} aria-pressed={paused} aria-controls="providers-marquee"
+          className={`inline-flex h-10 items-center gap-2 rounded-full bg-surface/60 px-4 text-[0.8125rem] font-medium text-primary
+            shadow-[0_0_0_1px_rgb(var(--line)/.08)] ${T} hover:bg-surface focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30`}>
+          <Icon name={paused ? "play" : "pause"} className="h-4 w-4" />
+          {paused ? "Reanudar animación" : "Pausar animación"}
+        </button>
+      </div>
+    </section>
+  );
+}
+
+/* ================================================================
+   Footer original: panel oscuro de 3 columnas (desplegables en móvil)
+   ================================================================ */
+function useIsDesktop(query = "(min-width: 700px)") {
+  const [is, setIs] = useState(() => window.matchMedia(query).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const on = (e) => setIs(e.matches);
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, [query]);
+  return is;
+}
+
+function FooterColumn({ title, children, desktop }) {
+  const [open, setOpen] = useState(false);
+  const isOpen = desktop || open;
+  const panelId = "footer-" + title.toLowerCase().replace(/\W+/g, "-");
+  return (
+    <div className={desktop ? "" : `border-t border-white/10 ${T}`}>
+      {desktop ? (
+        <p className={`mb-3 text-xs font-medium uppercase tracking-[0.14em] text-deep-accent ${T}`}>{title}</p>
+      ) : (
+        <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls={panelId}
+          className={`flex min-h-[52px] w-full items-center justify-between py-3.5 text-xs font-medium uppercase tracking-[0.14em] text-deep-accent ${T}
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-accent`}>
+          {title}
+          <Icon name="arrow" className={`h-4 w-4 transition-transform duration-500 ${open ? "-rotate-90" : "rotate-90"}`} />
+        </button>
+      )}
+      <div id={panelId} hidden={!isOpen} className={desktop ? "" : "pb-5"}>{children}</div>
+    </div>
+  );
+}
+
+function Footer({ onNavigate, onScrollTo }) {
+  const s = DATA.site;
+  const desktop = useIsDesktop();
+  const links = [
+    ["Inicio", () => onNavigate("home")],
+    ["Nosotros", () => onNavigate("home")],
+    ["Insumos Agrícolas", () => onNavigate("agriculture")],
+    ["Insumos Institucionales", () => onNavigate("organizational")],
+    ["Proveedores", () => onScrollTo("proveedores")],
+    ["Contacto", () => onScrollTo("contacto")],
+  ];
+  const linkCls = `text-deep-fg underline-offset-4 hover:underline ${T}`;
+  return (
+    <footer id="contacto" className="mx-auto max-w-6xl px-4 pb-6 pt-4 sm:px-6 lg:px-8">
+      <div className={`relative isolate overflow-hidden rounded-[2rem] bg-deep text-deep-muted ${T}
+        px-6 pb-6 pt-10 shadow-[0_24px_60px_-30px_rgb(var(--deep)/.8)] md:px-14 md:pt-14`}>
+        {/* brillo suave del color del tema */}
+        <span aria-hidden="true" className="pointer-events-none absolute -right-40 -top-64 -z-10 h-[520px] w-[520px] rounded-full" style={{ background: "radial-gradient(closest-side, rgb(var(--primary) / .55), transparent 70%)" }} />
+
+        <div className="grid gap-0 pb-2 md:grid-cols-[1.3fr_1fr_1fr] md:gap-8 md:pb-12">
+          {/* Marca y correo */}
+          <div className="flex flex-col items-start gap-4 pb-6 md:pb-0">
+            <img src={s.logo} alt={s.name} width="307" height="107" className="h-10 w-auto brightness-0 invert-[.94]" />
+            <p className="max-w-[22ch] leading-relaxed">{s.tagline}</p>
+            <a href={"mailto:" + s.email} className={`${linkCls} break-all font-medium`}>{s.email}</a>
+          </div>
+
+          {/* Explora */}
+          <FooterColumn title="Explora" desktop={desktop}>
+            <ul className="grid gap-2.5">
+              {links.map(([label, action]) => (
+                <li key={label}>
+                  <button type="button" onClick={action} className={`${linkCls} text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-accent`}>{label}</button>
+                </li>
+              ))}
+            </ul>
+          </FooterColumn>
+
+          {/* Contáctanos */}
+          <FooterColumn title="Contáctanos" desktop={desktop}>
+            <ul className="grid gap-4">
+              <li className="grid gap-0.5">
+                <span className="text-sm">{s.whatsapp.acceptsCalls ? "WhatsApp y llamadas" : "WhatsApp"}</span>
+                <a href={waUrl()} target="_blank" rel="noopener noreferrer" className={`${linkCls} font-semibold tabular-nums`}>{s.whatsapp.display}</a>
+                {s.whatsapp.acceptsCalls && (
+                  <a href={"tel:+" + s.whatsapp.number} className={`mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-deep-accent hover:text-deep-fg ${T}`}>
+                    <Icon name="phone" className="h-4 w-4" />Llamar
+                  </a>
+                )}
+              </li>
+              <li className="grid gap-0.5">
+                <span className="text-sm">Horario</span>
+                <span className={`text-deep-fg ${T}`}>{s.hours}</span>
+              </li>
+              <li className="grid gap-0.5">
+                <span className="text-sm">Dirección</span>
+                <address className={`not-italic text-deep-fg ${T}`}>{s.address.street}<br />{s.address.city}, {s.address.region}, {s.address.country}</address>
+                <a href={mapsUrl()} target="_blank" rel="noopener noreferrer" className={`mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-deep-accent hover:text-deep-fg ${T}`}>
+                  Cómo llegar<Icon name="external" className="h-3.5 w-3.5" />
+                </a>
+              </li>
+            </ul>
+          </FooterColumn>
+        </div>
+
+        <div className={`mt-2 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-5 text-[0.8125rem] md:pr-16`}>
+          <p>© {new Date().getFullYear()} {s.name} · NIT {s.nit} · Todos los derechos reservados.</p>
+          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" })}
+            className={`group inline-flex items-center gap-2.5 hover:text-deep-fg ${T} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-accent rounded-full`}>
+            Volver arriba
+            <span className={`grid h-9 w-9 place-items-center rounded-full bg-white/10 ring-1 ring-inset ring-white/15 transition duration-500 group-hover:-translate-y-0.5 group-hover:bg-primary`}>
+              <Icon name="arrow" className="h-4 w-4 -rotate-90" />
+            </span>
+          </button>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ================================================================
+   Inicio
+   ================================================================ */
+function BranchCard({ branchKey, onOpen, dark }) {
+  const b = BRANCHES[branchKey];
+  const count = productsOf(b.category).length;
+  /* Al pasar el cursor, cada tarjeta anticipa el color de su catálogo */
+  const accent = branchKey === "agriculture" ? "group-hover:bg-branch-agriculture" : "group-hover:bg-branch-organizational";
+  return (
+    <button type="button" onClick={() => onOpen(branchKey)}
+      className={`group relative flex min-h-[18rem] flex-col justify-between overflow-hidden rounded-[2rem] border p-7 text-left
+        transition-all duration-500 ease-in-out hover:-translate-y-1 active:scale-[.99] md:min-h-[22rem] md:p-9
+        focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30
+        ${dark ? "border-ink bg-ink text-bg" : "border-line/15 bg-surface text-ink"}
+        ${branchKey === "agriculture" ? "hover:border-branch-agriculture" : "hover:border-branch-organizational"}`}>
+      <div className="flex items-start justify-between">
+        <span className={`grid h-14 w-14 place-items-center rounded-full transition-colors duration-500
+          ${dark ? "bg-white/10" : "bg-ink/[.06]"} ${accent} group-hover:text-white`}>
+          <Icon name={b.icon} className="h-7 w-7" />
+        </span>
+        <span className={`grid h-11 w-11 place-items-center rounded-full border transition-transform duration-500 group-hover:-rotate-45
+          ${dark ? "border-white/20" : "border-line/15"}`}>
+          <Icon name="arrow" className="h-5 w-5" />
+        </span>
+      </div>
+      <div>
+        <p className={`mb-2 text-sm tabular-nums ${dark ? "text-white/60" : "text-muted"}`}>{count} productos</p>
+        <h3 className="font-display text-3xl font-semibold tracking-tight md:text-[2.6rem] md:leading-[1.05]">{b.label}</h3>
+        <p className={`mt-3 max-w-[38ch] text-[0.95rem] leading-relaxed ${dark ? "text-white/70" : "text-muted"}`}>{b.blurb}</p>
+        <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold underline-offset-4 group-hover:underline">
+          Ver catálogo <Icon name="arrow" className="h-4 w-4" />
+        </span>
+      </div>
+    </button>
+  );
+}
+
+function HomeView({ onOpen, headingRef }) {
+  /* TEXTO PROVISIONAL: reemplazar cuando el cliente envíe la versión final */
+  return (
+    <div className="space-y-14 md:space-y-20">
+      <section aria-labelledby="home-title" className="mx-auto flex max-w-3xl flex-col items-center pt-6 text-center md:pt-12">
+        <p className={`mb-5 inline-flex items-center gap-2 rounded-full bg-ink/[.05] px-3.5 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-muted ${T}`}>
+          <span className="h-1.5 w-1.5 rounded-full bg-primary" />La Unión, Antioquia
+        </p>
+        <h1 id="home-title" ref={headingRef} tabIndex={-1}
+          className="font-display text-[2.3rem] font-semibold leading-[1.02] tracking-[-0.03em] outline-none sm:text-5xl md:text-6xl">
+          Comercial TGO:{" "}
+          <span className={`block text-muted ${T}`}>Todo lo que tu campo y tu empresa necesitan</span>
+        </h1>
+        <p className={`mt-6 max-w-[62ch] text-lg leading-relaxed text-muted ${T}`}>
+          Proveemos soluciones integrales, productos de alta calidad y servicios especializados para potenciar el sector
+          agrícola, corporativo e institucional. Explora nuestras líneas de negocio a continuación y contáctanos directamente
+          por WhatsApp para recibir asesoría personalizada al instante.
+        </p>
+      </section>
+
+      <section aria-labelledby="branches-title">
+        <h2 id="branches-title" className="sr-only">Nuestras líneas</h2>
+        <div className="grid gap-4 md:grid-cols-2 md:gap-5">
+          <BranchCard branchKey="agriculture" onOpen={onOpen} dark />
+          <BranchCard branchKey="organizational" onOpen={onOpen} />
+        </div>
+      </section>
+    </div>
+  );
+}
+
+/* ================================================================
+   Catálogo de una rama
+   ================================================================ */
+function ProductCard({ product, categoryName }) {
+  const fit = product.imageFit === "cover" ? "object-cover" : product.imageFit === "full" ? "object-contain" : "object-contain p-[12%]";
+  return (
+    <li className={`flex flex-col overflow-hidden rounded-[1.75rem] border border-line/10 bg-surface p-2 ${T}
+      transition-[transform,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-[0_24px_48px_-24px_rgb(var(--line)/.35)]`}>
+      <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-white">
+        <img src={product.image} alt={product.name} loading="lazy" decoding="async" width="800" height="600"
+          className={`h-full w-full ${fit}`} />
+        <span className={`absolute left-3 top-3 rounded-full bg-primary px-2.5 py-1 text-xs font-medium text-primary-fg ${T}`}>{categoryName}</span>
+      </div>
+      <div className="flex flex-1 flex-col gap-3 p-4 md:p-5">
+        <h3 className="font-display text-xl font-semibold tracking-tight">{product.name}</h3>
+        {product.reference && (
+          <p className={`flex justify-between border-b border-dashed border-line/15 pb-2 text-sm ${T}`}>
+            <span className={`text-primary ${T}`}>Ref.</span><span className="font-medium tabular-nums">{product.reference}</span>
+          </p>
+        )}
+        {product.description && <p className={`text-[0.95rem] leading-relaxed text-muted ${T}`}>{product.description}</p>}
+        <div className="mt-auto pt-2">
+          <WhatsAppButton size="sm" block message={productMessage(product, categoryName)}
+            ariaLabel={"Escríbenos por WhatsApp sobre: " + product.name} />
+        </div>
+      </div>
+    </li>
+  );
+}
+
+function CatalogView({ branchKey, onNavigate, headingRef }) {
+  const b = BRANCHES[branchKey];
+  const items = productsOf(b.category);
+  const otherKey = branchKey === "agriculture" ? "organizational" : "agriculture";
+  return (
+    <section aria-labelledby="catalog-title" className="pt-4 md:pt-8">
+      <button type="button" onClick={() => onNavigate("home")}
+        className={`group mb-8 inline-flex h-12 items-center gap-3 rounded-full border border-line/15 bg-surface pl-1.5 pr-5 text-[0.95rem] font-semibold ${T}
+          hover:border-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30`}>
+        <span className={`grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-fg ${T}`}>
+          <Icon name="arrow" className="h-4 w-4 rotate-180 transition-transform duration-500 group-hover:-translate-x-0.5" />
+        </span>
+        Volver al inicio
+      </button>
+
+      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className={`mb-3 inline-flex items-center gap-2 text-sm font-medium text-primary ${T}`}>
+            <Icon name={b.icon} className="h-5 w-5" />{items.length} productos
+          </p>
+          <h1 id="catalog-title" ref={headingRef} tabIndex={-1}
+            className="font-display text-4xl font-semibold leading-[1.02] tracking-[-0.03em] outline-none md:text-6xl">{b.label}</h1>
+          <p className={`mt-4 max-w-[60ch] text-lg leading-relaxed text-muted ${T}`}>{b.blurb}</p>
+        </div>
+        <button type="button" onClick={() => onNavigate(otherKey)}
+          className={`inline-flex shrink-0 items-center gap-2 self-start rounded-full px-1 text-sm font-semibold text-primary underline-offset-4 hover:underline ${T}
+            focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30 md:self-auto`}>
+          Ver {BRANCHES[otherKey].label} <Icon name="arrow" className="h-4 w-4" />
+        </button>
+      </div>
+
+      <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {items.map((p) => <ProductCard key={p.id} product={p} categoryName={b.label} />)}
+      </ul>
+    </section>
+  );
+}
+
+/* ================================================================
+   App: estado de la vista + transiciones
+   ================================================================ */
+function App() {
+  const [view, setView] = useState("home");          // vista pedida (controla el tema)
+  const [shown, setShown] = useState("home");        // vista renderizada (cambia tras la salida)
+  const [leaving, setLeaving] = useState(false);
+  const headingRef = useRef(null);
+  const firstRender = useRef(true);
+  const timer = useRef(null);
+
+  /* El tema vive en <html data-view>: cambia header, footer y contenido a la vez */
+  useEffect(() => { document.documentElement.dataset.view = view; }, [view]);
+
+  const navigate = useCallback((next) => {
+    if (next === view) return;
+    setView(next);
+    clearTimeout(timer.current);
+    if (prefersReducedMotion()) { setShown(next); return; }
+    setLeaving(true);                                  // salida: desvanecer
+    timer.current = setTimeout(() => {                 // montaje de la nueva vista
+      setShown(next);
+      setLeaving(false);
+    }, 220);
+  }, [view]);
+
+  /* Desplazar a una sección persistente (proveedores, contacto) sin cambiar de vista */
+  const scrollToId = useCallback((id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
+  }, []);
+
+  /* Al montar una vista: subir al inicio y mover el foco al título (lectores de pantalla) */
+  useEffect(() => {
+    if (firstRender.current) { firstRender.current = false; return; }
+    window.scrollTo({ top: 0, behavior: "auto" });
+    headingRef.current && headingRef.current.focus({ preventScroll: true });
+  }, [shown]);
+
+  return (
+    <>
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-bg">
+        Saltar al contenido
+      </a>
+      <Header view={view} onNavigate={navigate} />
+
+      <main id="main"
+        className="mx-auto max-w-6xl px-4 pb-20 pt-[calc(env(safe-area-inset-top,0px)+9.5rem)] sm:px-6 md:pb-24 md:pt-[calc(env(safe-area-inset-top,0px)+7.5rem)] lg:px-8">
+        <div key={shown} className={`view-enter transition-opacity duration-200 ease-in-out ${leaving ? "opacity-0" : "opacity-100"}`}>
+          {shown === "home"
+            ? <HomeView onOpen={navigate} headingRef={headingRef} />
+            : <CatalogView branchKey={shown} onNavigate={navigate} headingRef={headingRef} />}
+        </div>
+      </main>
+
+      {/* Persistentes en todas las vistas */}
+      <ProvidersBand id="proveedores" />
+      <Footer onNavigate={navigate} onScrollTo={scrollToId} />
+
+      {/* Botón flotante de WhatsApp */}
+      <a href={waUrl()} target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp"
+        className={`fixed bottom-[calc(env(safe-area-inset-bottom,0px)+1rem)] right-4 z-40 grid h-14 w-14 place-items-center rounded-full
+          bg-primary text-primary-fg shadow-[0_12px_28px_-10px_rgb(var(--primary)/.7)] ${T} hover:scale-105 hover:bg-primary-strong
+          focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/40 md:right-6`}>
+        <Icon name="whatsapp" className="h-7 w-7" />
+      </a>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
