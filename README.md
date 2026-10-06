@@ -37,6 +37,12 @@ El favicon (`assets/img/favicon.svg`) sigue siendo un placeholder: reemplazarlo 
 ### Si cambia el nombre o la dirección
 Además de `data/site.js`, actualizar los textos de respaldo SEO en `index.html` (`<title>`, `meta description`, Open Graph). El resto del HTML se sincroniza desde `data/site.js`.
 
+## Versiones
+- `index.html`: **versión SPA** (React + Tailwind en un solo archivo). Es la página principal.
+- `clasico.html`: versión clásica (HTML/CSS/JS con `data/*.js`), guardada como respaldo.
+- Etiqueta `v1-clasica`: la versión publicada antes de la SPA. Para volver a ella sin perder historial:
+  `git checkout v1-clasica -- .` y luego commit + push.
+
 ## Publicación (GitHub Pages)
 - URL: https://mahalaksmy.github.io/tgo-landing/
 - Se publica automáticamente desde la rama `main` (carpeta raíz) en cada `git push`.
