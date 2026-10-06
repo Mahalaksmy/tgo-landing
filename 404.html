@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Página no encontrada | Comercial TGO S.A.S.</title>
   <meta name="robots" content="noindex">
-  <!-- Ruta base del sitio. GitHub Pages (proyecto): "/tgo-landing/". Con dominio propio: "/". -->
-  <base href="/tgo-landing/">
+  <!-- Ruta base del sitio: GitHub Pages (proyecto) usa "/tgo-landing/"; Vercel o dominio propio usan "/". -->
+  <script>document.write('<base href="' + (location.hostname.endsWith("github.io") ? "/tgo-landing/" : "/") + '">');</script>
   <meta name="color-scheme" content="light">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/css/styles.css">
