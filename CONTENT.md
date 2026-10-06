@@ -11,9 +11,11 @@
 | Horario | Lunes a sábado, 8:00 a.m. - 6:00 p.m. | Confirmado por el cliente |
 | WhatsApp y llamadas | +57 311 714 5443 (`573117145443`) | Confirmado: recibe WhatsApp y llamadas (enlace "Llamar" en el footer) |
 | Logo | `assets/img/logo.png` ("Comercial TGO S.A.S", PNG transparente 307×107) | Suministrado |
-| Productos, referencias, presentaciones, imágenes | — | **Pendiente** → placeholders |
+| Categorías | Insumos Agrícolas (`agricolas`) · Insumos Institucionales (`institucionales`) | Definidas por el cliente |
+| Productos Insumos Agrícolas | 8 productos con foto (`assets/img/productos/`, optimizadas desde `Catalogo/`) | Nombres y fotos suministrados. **Referencias (TGO-AG-00X) y descripciones PROVISIONALES**: validar con el cliente. **Pendiente**: presentación |
+| Productos Insumos Institucionales | 4 productos con foto: Químicos de limpieza industrial, Papelería de gran formato, Bolsas de basura industriales, Dispensadores automáticos | Nombres y fotos suministrados. **Referencias (TGO-IN-00X) y descripciones PROVISIONALES**. Fotos a mejorar: Papelería (muestra rollos normales, 320 px) y Dispensadores (marca ULINE visible, 300 px) |
 | Proveedores y logos | Triton y Tesicol (`Logos/`) + 2 de ejemplo | Suministrados por la usuaria; resto **pendiente** |
-| Valores | — | **Pendiente** → placeholders |
+| Valores | Especialización técnica · Cuidado de su producto · Acompañamiento cercano | **PROVISIONALES**: redactados por el equipo web a partir del texto "Nosotros" del cliente; validar |
 | Correo | comercialtgosas@gmail.com | Confirmado por el cliente |
 | Redes sociales | — | La empresa aún no tiene; el bloque está oculto (`social: []`) |
 | Dominio | — | **Pendiente** |
@@ -27,7 +29,7 @@ No se inventaron productos, precios, clientes, certificaciones ni proveedores. T
 | Archivo | Contenido |
 |---|---|
 | `site.js` | **Configuración central**: empresa, dirección, WhatsApp, mensajes, logo, pendientes. |
-| `categories.js` | Categorías del catálogo (`floristeria`, `campo`). |
+| `categories.js` | Categorías del catálogo (`agricolas`, `institucionales`), con ícono y foto de la tile. |
 | `products.js` | Productos. |
 | `providers.js` | Proveedores. |
 | `values.js` | Valores. |
@@ -38,7 +40,7 @@ No se inventaron productos, precios, clientes, certificaciones ni proveedores. T
 |---|---|---|
 | `id` | Sí | `"prod-007"` |
 | `name` | Sí | Nombre comercial |
-| `category` | Sí | `"floristeria"` (debe existir en `categories.js`) |
+| `category` | Sí | `"agricolas"` (debe existir en `categories.js`) |
 | `description` | Recomendado | 1–2 frases |
 | `image` | No | `"assets/img/productos/prod-007.webp"` (vacío → placeholder) |
 | `reference` | Recomendado | Código interno |
@@ -74,17 +76,17 @@ Base: `https://wa.me/573117145443?text=` + `encodeURIComponent(mensaje)`
 
 Si un producto define `whatsappMessage`, se usa ese texto en lugar de la plantilla.
 
-## Catálogo — comportamiento
+## Productos — comportamiento
 
-- **Búsqueda**: desactivada en el diseño actual. La lógica sigue en `catalog.js` y se activa si se agrega un `input#catalog-search`.
-- **Filtro por categoría**: chips (incluye "Todos") y tarjetas de categoría; combinable con la búsqueda.
-- **Estado en URL**: `?cat=campo` permite compartir el catálogo filtrado.
-- **Vacío**: mensaje + "Ver todos" + CTA de WhatsApp.
+- **Pestañas por categoría** (una por cada categoría de `categories.js`): Insumos Agrícolas e Insumos Institucionales, con el número de productos.
+- **Enlaces directos**: `/#agricolas` y `/#institucionales` abren su pestaña (sirven para compartir). Los enlaces viejos `?cat=…` se redirigen solos.
+- **Menú**: "Agrícolas" e "Institucionales" (escritorio, móvil y footer) abren cada pestaña. Las tiles del inicio también.
+- **Búsqueda**: desactivada; se activa sola si se agrega un `input#catalog-search` (filtra dentro de la pestaña activa).
 
 ## Textos del sitio
 
 Solo se usan afirmaciones derivadas de la información suministrada:
 
-- H1: "Insumos de floristería y campo en La Unión, Antioquia"
+- H1: "Insumos agrícolas e institucionales"
 - Presentación: "TGO S.A.S. es una empresa ubicada en La Unión, Antioquia, Colombia, especializada en insumos de floristería y campo."
 - CTA principal: "Consultar por WhatsApp"

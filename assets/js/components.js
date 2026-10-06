@@ -38,7 +38,7 @@ window.TGO = window.TGO || {};
     return (
       '<li class="bento-tile bento-tile--category"><button type="button" class="tile' + (photo ? " tile--photo" : "") + '" data-category="' + esc(category.id) + '">' +
       photo +
-      '<span class="tile__icon">' + icon(category.id === "campo" ? "plant" : "flower") + "</span>" +
+      '<span class="tile__icon">' + icon(category.icon || "leaf") + "</span>" +
       '<span class="tile__body">' +
       '<span class="tile__name">' + esc(category.name) + "</span>" +
       '<span class="tile__meta">' + count + (count === 1 ? " producto" : " productos") + "</span>" +
@@ -59,7 +59,7 @@ window.TGO = window.TGO || {};
     return (
       '<li class="product-card' + (product.placeholder ? " is-placeholder" : "") + '">' +
       '<div class="bezel"><div class="bezel__core">' +
-      '<div class="product-card__media">' +
+      '<div class="product-card__media' + (product.image ? ' has-photo' : '') + (product.imageFit ? ' fit-' + esc(product.imageFit) : '') + '">' +
       '<img src="' + esc(img) + '" alt="' + esc(alt) + '" width="400" height="300" loading="lazy" decoding="async" ' +
       "onerror=\"this.onerror=null;this.src='assets/img/placeholder-product.svg';this.alt='';\">" +
       '<div class="product-card__tags">' +

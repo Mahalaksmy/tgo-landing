@@ -124,7 +124,7 @@ main:focus, .catalog:focus, .site-footer:focus { outline: none; }
 .skip-link:focus { top: var(--sp-3); color: var(--deep-text); }
 
 .container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
-.hero__grid > *, .about-bento > *, .product-grid > li, .toolbar__core > * { min-width: 0; }
+.hero__grid > *, .about-bento > *, .product-grid > li { min-width: 0; }
 
 /* Grano: textura fija, sin eventos, nunca sobre contenedores con scroll */
 .grain {
@@ -402,7 +402,6 @@ body.nav-open .wa-float { opacity: 0; pointer-events: none; }
 .bento-tile:first-child .tile__icon { background: rgba(255, 255, 255, .08); color: #BFE6CD; }
 .bento-tile:first-child .tile__meta { color: var(--deep-muted); }
 .bento-tile:first-child .tile__go { background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12); }
-.bento-tile:first-child .tile__name { font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.6rem); }
 
 
 /* ---------- Nosotros (bento asimétrico) ---------- */
@@ -465,22 +464,6 @@ body.nav-open .wa-float { opacity: 0; pointer-events: none; }
 .value-tile__desc { color: var(--text-muted); font-size: .9375rem; }
 
 /* ---------- Catálogo ---------- */
-.toolbar { width: fit-content; max-width: 100%; border-radius: var(--r-pill); margin-bottom: var(--sp-5); }
-.toolbar__core { display: block; padding: 6px; border-radius: var(--r-pill); }
-
-.chips { display: flex; gap: 4px; overflow-x: auto; padding: 2px; scrollbar-width: none; }
-.chips::-webkit-scrollbar { display: none; }
-.chip {
-  flex-shrink: 0; min-height: 44px; padding: 8px 20px; cursor: pointer;
-  background: transparent; color: var(--text-muted); font-weight: 500; font-size: .9375rem;
-  border: 0; border-radius: var(--r-pill);
-  transition: background-color .45s var(--spring), color .45s var(--spring), transform .45s var(--spring);
-}
-.chip:hover { color: var(--text); background: var(--shell); }
-.chip:active { transform: scale(.97); }
-.chip[aria-pressed="true"] { background: var(--text); color: var(--bg); }
-.chip:focus-visible { outline: none; box-shadow: var(--focus); }
-
 .catalog__status { color: var(--accent); font-size: .875rem; margin: 0 0 var(--sp-6) var(--sp-4); min-height: 1.6em; font-variant-numeric: tabular-nums; }
 
 .product-grid { display: grid; gap: var(--sp-5); }
@@ -665,7 +648,7 @@ a.logo-chip:hover { color: var(--text); box-shadow: 0 0 0 1px var(--hairline), v
 
   /* Scroll: CSS ligado a la vista, sin JS. Sin soporte, el contenido se ve normal. */
   @supports (animation-timeline: view()) {
-    .section__header, .about-bento > *, .toolbar, .product-grid > li, .providers__title {
+    .section__header, .about-bento > *, .tabs, .product-grid > li, .providers__title {
       animation: rise-blur linear both;
       animation-timeline: view();
       animation-range: entry 0% entry 45%;
@@ -695,18 +678,16 @@ a.logo-chip:hover { color: var(--text); box-shadow: 0 0 0 1px var(--hairline), v
 .eyebrow { background: var(--accent-soft); box-shadow: none; color: var(--accent); }
 
 /* Filtro activo del catálogo */
-.chip[aria-pressed="true"] { background: var(--accent); color: #FFFFFF; }
 
 /* Etiqueta de categoría sobre la imagen del producto */
 .product-card__tags .badge:not(.badge--placeholder) { background: var(--accent); color: #FFFFFF; }
 .product-card__media { background: var(--accent-soft); }
 
-/* Valores: tiles en acento sólido */
-.value-tile .bezel__core { background: var(--accent); color: #FFFFFF; box-shadow: inset 0 1px 1px rgba(255, 255, 255, .14), var(--sh-soft); }
-.value-tile__icon { background: rgba(255, 255, 255, .14); color: #FFFFFF; }
-.value-tile__title { color: #FFFFFF; }
-.value-tile__desc { color: rgba(255, 255, 255, .82); }
-.value-tile .badge--placeholder { background: transparent; color: rgba(255, 255, 255, .85); }
+/* Valores: tiles en tono crema, con ícono en acento */
+.value-tile .bezel__core { background: #F6F1E6; color: var(--text); box-shadow: inset 0 1px 1px rgba(255, 255, 255, .8), var(--sh-soft); }
+.value-tile__icon { background: var(--accent); color: #FFFFFF; }
+.value-tile__title { color: var(--text); }
+.value-tile__desc { color: var(--text-muted); }
 
 /* Botón secundario: círculo del ícono en acento */
 .btn--soft { --icon-bg: var(--accent); }
@@ -780,3 +761,51 @@ a.footer-social__link:hover { background: var(--accent); color: #FFFFFF; transfo
   .footer-acc__chev { display: none; }
 }
 .footer-contact [data-value] { color: var(--deep-text); }
+
+/* Fotos reales de producto (fondo blanco): se muestran completas, sin recorte */
+.product-card__media.has-photo { background: #FFFFFF; }
+.product-card__media.has-photo img { object-fit: contain; padding: 12%; }
+/* imageFit: "full" = completa sin margen (fondo propio) · "cover" = llena la tarjeta (foto de ambiente) */
+.product-card__media.has-photo.fit-full img { padding: 0; }
+.product-card__media.has-photo.fit-cover img { object-fit: cover; padding: 0; }
+
+/* Pantallas muy angostas: el título escala con el ancho para que "institucionales" quepa */
+@media (max-width: 400px) { .hero__title { font-size: 11.5vw; } }
+
+/* ---------- Productos: pestañas por categoría ---------- */
+.tabs { border-radius: var(--r-shell); margin-bottom: var(--sp-5); }
+.tabs__core { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 6px; padding: 6px; border-radius: var(--r-core); }
+@media (min-width: 700px) {
+  .tabs { width: fit-content; max-width: 100%; border-radius: var(--r-pill); }
+  .tabs__core { display: flex; border-radius: var(--r-pill); }
+}
+.tab {
+  display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; padding: 10px 18px;
+  border: 0; border-radius: var(--r-core); cursor: pointer; background: transparent; color: var(--text-muted);
+  font-family: var(--ff-display); font-weight: 600; font-size: 1rem; letter-spacing: -.01em; text-align: left;
+  transition: background-color .5s var(--spring), color .5s var(--spring), transform .4s var(--spring);
+}
+@media (min-width: 700px) { .tab { border-radius: var(--r-pill); padding: 10px 22px 10px 16px; font-size: 1.125rem; } }
+.tab:hover { color: var(--text); background: var(--shell); }
+.tab:active { transform: scale(.98); }
+.tab:focus-visible { outline: none; box-shadow: var(--focus); }
+.tab[aria-selected="true"] { background: var(--accent); color: #FFFFFF; box-shadow: 0 10px 24px -12px rgba(63, 107, 69, .7); }
+.tab__icon { width: 22px; height: 22px; flex-shrink: 0; }
+.tab__count {
+  display: inline-grid; place-items: center; min-width: 26px; height: 26px; padding: 0 8px; border-radius: var(--r-pill);
+  background: var(--shell); font-family: var(--ff-body); font-size: .8125rem; font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.tab[aria-selected="true"] .tab__count { background: rgba(255, 255, 255, .2); }
+@media (max-width: 699px) {
+  .tab { flex-direction: column; gap: 6px; padding: 12px 8px; font-size: .9375rem; line-height: 1.15; text-align: center; }
+  .tab__count { height: 22px; min-width: 22px; font-size: .75rem; }
+}
+.catalog:focus-visible { outline: none; box-shadow: var(--focus); border-radius: var(--r-shell); }
+
+/* Tiles del hero: columnas iguales aunque el nombre sea largo ("Insumos Institucionales") */
+.bento-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 419px) { .bento-tiles { grid-template-columns: minmax(0, 1fr); } }
+.bento-tile { min-width: 0; }
+/* El nombre escala con el ancho de la tile (container query) para que "Institucionales" quepa entera */
+.tile { container-type: inline-size; }
+.tile__name { font-size: clamp(1rem, calc(100cqi / 9.4), 2rem); overflow-wrap: anywhere; }

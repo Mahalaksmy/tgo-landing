@@ -13,9 +13,9 @@ TGO.site = {
   name: "Comercial TGO S.A.S.",
   shortName: "TGO",
   nit: "902096153",
-  tagline: "Insumos de floristería y campo",
+  tagline: "Insumos agrícolas e institucionales",
   description:
-    "Comercial TGO S.A.S.: insumos de floristería y campo en La Unión, Antioquia, Colombia. Consulta disponibilidad por WhatsApp.",
+    "Comercial TGO S.A.S.: insumos agrícolas e institucionales en La Unión, Antioquia, Colombia. Consulta disponibilidad por WhatsApp.",
 
   // Dominio público del sitio, p. ej. "https://www.ejemplo.com" (pendiente)
   url: null,
@@ -37,7 +37,7 @@ TGO.site = {
     acceptsCalls: true,
     // Mensaje para los botones generales (header, hero, flotante, contacto)
     defaultMessage:
-      "Hola, Comercial TGO S.A.S. Quisiera recibir información sobre sus insumos de floristería y campo.",
+      "Hola, Comercial TGO S.A.S. Quisiera recibir información sobre sus insumos agrícolas e institucionales.",
     // Plantilla para productos. Variables: {name} {reference} {presentation} {category}
     // Las líneas cuyo dato esté vacío se omiten automáticamente.
     productMessageTemplate: [

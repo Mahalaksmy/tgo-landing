@@ -128,7 +128,7 @@
     // Etiquetas-resumen con datos reales: categorías + ubicación
     const chips = document.getElementById("about-chips");
     if (chips) {
-      const items = TGO.categories.map((c) => ({ icon: c.id === "campo" ? "plant" : "flower", text: c.name }));
+      const items = TGO.categories.map((c) => ({ icon: c.icon || "leaf", text: c.name }));
       items.push({ icon: "pin", text: site.address.city + ", " + site.address.region });
       chips.innerHTML = items.map((i) => "<li>" + C.icon(i.icon) + "<span>" + esc(i.text) + "</span></li>").join("");
     }
@@ -223,8 +223,10 @@
     if (!("IntersectionObserver" in window)) return;
     const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
     const setCurrent = (id) => {
+      // En la sección de productos se marca el enlace de la pestaña activa
+      const target = id === "productos" && TGO.catalog.state.category ? TGO.catalog.state.category : id;
       links.forEach((a) => {
-        if (a.getAttribute("href") === "#" + id) a.setAttribute("aria-current", "true");
+        if (a.getAttribute("href") === "#" + target) a.setAttribute("aria-current", "true");
         else a.removeAttribute("aria-current");
       });
     };

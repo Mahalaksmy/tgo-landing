@@ -1,19 +1,21 @@
 /**
- * Catálogo: búsqueda + filtro por categoría + render.
- * Estado reflejado en la URL (?cat=…&q=…) para poder compartir una búsqueda.
+ * Productos: pestañas por categoría (patrón WAI-ARIA "Tabs").
+ * - Una pestaña por categoría de data/categories.js; su id es el id de la categoría
+ *   (#agricolas, #institucionales), así los enlaces del menú y del hero abren la pestaña.
+ * - El hash de la URL refleja la pestaña activa para poder compartirla.
+ * - Buscador opcional: si existe #catalog-search en el HTML, filtra dentro de la pestaña.
  */
 window.TGO = window.TGO || {};
 
 TGO.catalog = (function () {
-  const { normalize, debounce } = TGO.utils;
+  const { normalize, debounce, escapeHtml: esc } = TGO.utils;
   const C = TGO.components;
 
-  const state = { query: "", category: "all" };
+  const state = { query: "", category: null };
   let els = {};
 
-  function categoryById(id) {
-    return TGO.categories.find((c) => c.id === id);
-  }
+  const categoryById = (id) => TGO.categories.find((c) => c.id === id);
+  const countBy = (id) => TGO.products.filter((p) => p.category === id).length;
 
   function searchableText(product) {
     const cat = categoryById(product.category);
@@ -23,139 +25,162 @@ TGO.catalog = (function () {
   function filtered() {
     const terms = normalize(state.query).split(/\s+/).filter(Boolean);
     return TGO.products.filter((p) => {
-      if (state.category !== "all" && p.category !== state.category) return false;
+      if (p.category !== state.category) return false;
       if (!terms.length) return true;
       const text = searchableText(p);
       return terms.every((t) => text.includes(t));
     });
   }
 
-  function countBy(categoryId) {
-    return TGO.products.filter((p) => p.category === categoryId).length;
-  }
-
-  function renderCategories() {
-    if (!els.categories) return;
-    els.categories.innerHTML = TGO.categories.map((c) => C.categoryCard(c, countBy(c.id))).join("");
-  }
-
-  function renderChips() {
-    const chips = [{ id: "all", name: "Todos" }].concat(TGO.categories);
-    els.chips.innerHTML = chips
+  /* ---------- Pestañas ---------- */
+  function renderTabs() {
+    els.tabs.innerHTML = TGO.categories
       .map(
         (c) =>
-          '<button type="button" class="chip" data-category="' + TGO.utils.escapeHtml(c.id) + '" aria-pressed="' +
-          (state.category === c.id) + '">' + TGO.utils.escapeHtml(c.name) + "</button>"
+          '<button type="button" role="tab" class="tab" id="' + esc(c.id) + '" aria-controls="product-panel" ' +
+          'aria-selected="false" tabindex="-1">' +
+          C.icon(c.icon || "leaf", "tab__icon") +
+          '<span class="tab__label">' + esc(c.name) + "</span>" +
+          '<span class="tab__count">' + countBy(c.id) + "</span></button>"
       )
       .join("");
   }
 
-  function syncChips() {
-    els.chips.querySelectorAll(".chip").forEach((chip) => {
-      chip.setAttribute("aria-pressed", String(chip.dataset.category === state.category));
+  function syncTabs() {
+    els.tabs.querySelectorAll('[role="tab"]').forEach((tab) => {
+      const active = tab.id === state.category;
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
     });
-  }
-
-  function statusText(count) {
-    let text = count === 1 ? "1 producto" : count + " productos";
-    const cat = categoryById(state.category);
-    if (cat) text += " en " + cat.name;
-    if (state.query.trim()) text += " para “" + state.query.trim() + "”";
-    return text;
+    els.panel.setAttribute("aria-labelledby", state.category);
+    // Enlaces del menú/footer que apuntan a una pestaña
+    // Si el menú está marcando la sección de productos, mover la marca a la pestaña activa
+    const nav = document.getElementById("site-nav");
+    if (nav && nav.querySelector("[data-tab-link][aria-current]")) {
+      nav.querySelectorAll("[data-tab-link]").forEach((a) => {
+        if (a.dataset.tabLink === state.category) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      });
+    }
   }
 
   function renderProducts() {
     const items = filtered();
-    els.grid.innerHTML = items.map((p) => C.productCard(p, categoryById(p.category))).join("");
+    const cat = categoryById(state.category);
+    els.grid.innerHTML = items.map((p) => C.productCard(p, cat)).join("");
     els.grid.setAttribute("aria-busy", "false");
-    els.status.textContent = statusText(items.length);
+    let text = (items.length === 1 ? "1 producto" : items.length + " productos") + (cat ? " en " + cat.name : "");
+    if (state.query.trim()) text += " para “" + state.query.trim() + "”";
+    els.status.textContent = text;
     els.empty.hidden = items.length > 0;
     els.grid.hidden = items.length === 0;
   }
 
   function syncUrl() {
     if (!window.history || !history.replaceState) return;
-    const params = new URLSearchParams(location.search);
-    state.category !== "all" ? params.set("cat", state.category) : params.delete("cat");
-    state.query.trim() ? params.set("q", state.query.trim()) : params.delete("q");
-    const qs = params.toString();
-    history.replaceState(null, "", location.pathname + (qs ? "?" + qs : "") + location.hash);
+    const url = location.pathname + location.search.replace(/([?&])cat=[^&]*&?/, "$1").replace(/[?&]$/, "") + "#" + state.category;
+    history.replaceState(null, "", url);
   }
 
-  function update() {
-    syncChips();
+  /** Activa una pestaña. options: { scroll, focus, updateUrl } */
+  function setCategory(id, options) {
+    const o = Object.assign({ scroll: false, focus: false, updateUrl: true }, options);
+    if (!categoryById(id)) return false;
+    state.category = id;
+    syncTabs();
     renderProducts();
-    syncUrl();
+    if (o.updateUrl) syncUrl();
+    if (o.scroll) {
+      document.getElementById("productos").scrollIntoView({ behavior: TGO.prefersReducedMotion ? "auto" : "smooth", block: "start" });
+    }
+    if (o.focus) document.getElementById(id).focus({ preventScroll: true });
+    return true;
   }
 
-  function setCategory(id) {
-    state.category = id === "all" || categoryById(id) ? id : "all";
-    update();
-  }
-
-  function reset() {
-    state.query = "";
-    state.category = "all";
-    if (els.search) els.search.value = "";
-    update();
-    (els.search || els.chips.querySelector(".chip")).focus();
-  }
-
-  function readUrl() {
-    const params = new URLSearchParams(location.search);
-    const cat = params.get("cat");
-    if (cat && categoryById(cat)) state.category = cat;
-    state.query = els.search ? params.get("q") || "" : ""; // sin buscador, se ignora ?q=
-    if (els.search) els.search.value = state.query;
+  /** Lee la pestaña inicial: #agricolas / #institucionales, o ?cat= (enlaces antiguos) */
+  function categoryFromUrl() {
+    const hash = decodeURIComponent(location.hash.replace("#", ""));
+    if (categoryById(hash)) return hash;
+    const legacy = new URLSearchParams(location.search).get("cat");
+    if (categoryById(legacy)) return legacy;
+    return null;
   }
 
   function init() {
     els = {
-      categories: document.getElementById("category-list"),
-      chips: document.getElementById("catalog-chips"),
-      search: document.getElementById("catalog-search"),
+      tabs: document.getElementById("product-tabs"),
+      panel: document.getElementById("product-panel"),
       grid: document.getElementById("catalog-grid"),
       status: document.getElementById("catalog-status"),
       empty: document.getElementById("catalog-empty"),
-      reset: document.getElementById("catalog-reset"),
-      products: document.getElementById("productos"),
+      search: document.getElementById("catalog-search"),
+      heroTiles: document.getElementById("category-list"),
     };
-    if (!els.grid) return;
+    if (!els.tabs || !els.grid || !TGO.categories.length) return;
 
-    readUrl();
-    renderCategories();
-    renderChips();
-    renderProducts();
+    renderTabs();
 
-    // El buscador es opcional: si existe #catalog-search en el HTML, se activa
+    // Tiles del hero (tarjetas de categoría)
+    if (els.heroTiles) {
+      els.heroTiles.innerHTML = TGO.categories.map((c) => C.categoryCard(c, countBy(c.id))).join("");
+      els.heroTiles.addEventListener("click", (e) => {
+        const tile = e.target.closest("button[data-category]");
+        if (tile) setCategory(tile.dataset.category, { scroll: true, focus: true });
+      });
+    }
+
+    const fromUrl = categoryFromUrl();
+    setCategory(fromUrl || TGO.categories[0].id, { updateUrl: !!fromUrl });
+
+    // Clic en pestaña
+    els.tabs.addEventListener("click", (e) => {
+      const tab = e.target.closest('[role="tab"]');
+      if (tab) setCategory(tab.id);
+    });
+
+    // Teclado: flechas, Inicio y Fin (activación automática)
+    els.tabs.addEventListener("keydown", (e) => {
+      const tabs = Array.from(els.tabs.querySelectorAll('[role="tab"]'));
+      const i = tabs.findIndex((t) => t.id === state.category);
+      let next = null;
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") next = tabs[(i + 1) % tabs.length];
+      else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = tabs[(i - 1 + tabs.length) % tabs.length];
+      else if (e.key === "Home") next = tabs[0];
+      else if (e.key === "End") next = tabs[tabs.length - 1];
+      if (!next) return;
+      e.preventDefault();
+      setCategory(next.id, { focus: true });
+    });
+
+    // Enlaces del menú/footer (#agricolas, #institucionales) y cambios de hash
+    document.addEventListener("click", (e) => {
+      const link = e.target.closest("a[data-tab-link]");
+      if (!link) return;
+      e.preventDefault();
+      setCategory(link.dataset.tabLink, { scroll: true });
+    });
+    window.addEventListener("hashchange", () => {
+      const id = categoryFromUrl();
+      if (id && id !== state.category) setCategory(id, { scroll: true, updateUrl: false });
+    });
+
+    // Buscador opcional
     if (els.search) {
       els.search.addEventListener(
         "input",
         debounce(() => {
           state.query = els.search.value;
-          update();
+          renderProducts();
         }, 150)
       );
       els.search.closest("form").addEventListener("submit", (e) => e.preventDefault());
     }
 
-    els.chips.addEventListener("click", (e) => {
-      const chip = e.target.closest(".chip");
-      if (chip) setCategory(chip.dataset.category);
-    });
-
-    if (els.categories) {
-      els.categories.addEventListener("click", (e) => {
-        const card = e.target.closest("button[data-category]");
-        if (!card) return;
-        setCategory(card.dataset.category);
-        els.products.scrollIntoView({ behavior: TGO.prefersReducedMotion ? "auto" : "smooth", block: "start" });
-        els.products.focus({ preventScroll: true });
-      });
+    // Si la página abrió con #agricolas / #institucionales, bajar a la sección
+    if (fromUrl && location.hash) {
+      requestAnimationFrame(() => document.getElementById("productos").scrollIntoView({ block: "start" }));
     }
-
-    if (els.reset) els.reset.addEventListener("click", reset);
   }
 
-  return { init, setCategory, reset, filtered, state };
+  return { init, setCategory, filtered, state };
 })();

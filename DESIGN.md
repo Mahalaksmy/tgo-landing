@@ -16,7 +16,7 @@ Skills aplicados: `high-end-visual-design` (dirección visual), `design-taste-fr
 | `--hairline` | negro 8% | Contornos (en lugar de bordes grises de 1px) |
 | `--text` / `--text-muted` | `#15201B` / `#4D5A53` | Texto |
 | `--brand` / `--leaf` | `#1C4634` / `#3A7A57` | Marca, énfasis del H1 |
-| `--accent` | `#3F6B45` | **Acento complementario (~10% de la página, regla 60-30-10)**: palabras clave del H1, eyebrows, filtro activo, etiqueta de categoría, tiles de valores, círculo del botón secundario, franja de Proveedores, puntos y hovers. Blanco encima: 6.2:1 |
+| `--accent` | `#3F6B45` | **Acento complementario (~10% de la página, regla 60-30-10)**: palabras clave del H1, eyebrows, filtro activo, etiqueta de categoría, tiles de valores (ícono en acento sobre fondo crema `#F6F1E6`), círculo del botón secundario, franja de Proveedores, puntos y hovers. Blanco encima: 6.2:1 |
 | `--deep` | `#0E2419` | Footer, tile principal y panel de contacto |
 | `--wa` | `#187A43` | Acción WhatsApp (5.4:1 con blanco) |
 
@@ -26,7 +26,7 @@ Skills aplicados: `high-end-visual-design` (dirección visual), `design-taste-fr
 
 - **Títulos:** `Clash Display` 500/600 (Fontshare, licencia ITF Free Font: uso comercial permitido). Tracking negativo (-0.03em) compensado con `word-spacing` (+0.08 a +0.1em) para que las palabras no se peguen.
 - **Texto e interfaz:** `Geist` 400-600 (SIL OFL).
-- **H1:** 2 líneas a todo el ancho en escritorio ("Insumos de / floristería y campo"). El énfasis va en color `--leaf`, con la misma familia y peso.
+- **H1:** "Insumos *agrícolas* e *institucionales*": 2 líneas a todo el ancho en escritorio; en pantallas de 400 px o menos el tamaño escala con el ancho (11.5vw) para que "institucionales" quepa. El énfasis va en color de acento, con la misma familia y peso.
 - **Tokens:** `--ff-display`, `--ff-body`, `--dw-lg/sm` (peso), `--dt-lg/sm` (tracking), `--dws` (word-spacing), `--ds` (escala), `--em-style/weight`. Cambiar de fuente en el futuro implica tocar solo estas variables y los `@font-face`.
 
 > Se probaron Zodiak, Epilogue y las combinaciones Cormorant + DM Sans, DM Serif + Manrope y Clash + Satoshi; TGO prefirió volver a Clash Display + Geist.
@@ -63,11 +63,10 @@ Cada contenedor importante es una **carcasa** (`.bezel`) con fondo translúcido,
   - Al hacer clic en una categoría se filtra el catálogo y se baja a los productos.
   - Si se define `heroImage`, se agrega un tile con la foto.
 - **Nosotros:** bento 7/5. La tarjeta principal es un panel con la foto de ambiente (`site.aboutImage`) de fondo a sangre y un velo verde degradado. Lleva título blanco, la presentación en texto liviano, etiquetas-resumen generadas desde los datos (categorías + ciudad) y CTA de WhatsApp. Sin foto, la tarjeta es clara con la marca "lotus". Los valores van en tiles con bisel.
-- **Catálogo:**
-  - Filtros por categoría en una pill compacta con bisel. El buscador se quitó; se puede reactivar agregando `#catalog-search` al HTML, porque `catalog.js` lo detecta solo.
-  - Las tarjetas de producto tienen bisel, la imagen con radio concéntrico y las etiquetas sobre la imagen.
-  - La ficha muestra los datos como lista punteada y el CTA va anclado abajo.
-  - El contenido de ejemplo lleva bisel rayado y la etiqueta "Ejemplo".
+- **Productos (pestañas):** se quitó la sección "Catálogo" con filtro "Todos". Ahora es un bloque con pestañas accesibles (patrón WAI-ARIA Tabs: flechas, Inicio y Fin; activación automática), una por categoría con ícono y conteo.
+  - Pestaña activa en verde acento; en móvil las pestañas se apilan ícono / nombre / conteo para caber lado a lado.
+  - Cada pestaña tiene id = id de la categoría (`#agricolas`, `#institucionales`); los enlaces del menú, del footer y las tiles del hero abren su pestaña y bajan a la sección. El hash de la URL refleja la pestaña activa; los enlaces antiguos `?cat=` siguen funcionando.
+  - Tarjeta de producto con bisel; foto completa sobre blanco (o `imageFit` "full" / "cover"); ficha con referencia y CTA anclado abajo.
 - **Proveedores:** marquesina de logos con máscara de desvanecido en los bordes; se pausa al pasar el mouse. Con movimiento reducido se convierte en una grilla estática. La copia del bucle está oculta a lectores de pantalla.
 - **Contacto:** la sección con mapa se eliminó por redundante; `#contacto` es ahora el footer (WhatsApp, dirección, enlace "Cómo llegar" a Google Maps, correo y redes).
 - **Footer:** panel oscuro (`--deep`) flotante. Escritorio: 3 columnas (marca + correo y redes si existen · "Explora" · "Contáctanos" con WhatsApp y llamadas, horario, dirección y "Cómo llegar"). Móvil: "Explora" y "Contáctanos" son desplegables (`<details>`, cerrados por defecto) para ahorrar espacio. Abajo: © + NIT y "Volver arriba".

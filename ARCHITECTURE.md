@@ -20,7 +20,7 @@ Una sola URL con anclas:
 / (index.html)
 ├── #inicio        Hero
 ├── #nosotros      Presentación + Valores
-├── #catalogo      Categorías + Buscador + Productos
+├── #productos     Pestañas por categoría (#agricolas · #institucionales) + productos
 ├── #proveedores   Proveedores
 └── #contacto      Footer (contacto, redes, "Cómo llegar")
 ```

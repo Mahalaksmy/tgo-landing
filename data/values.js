@@ -1,12 +1,31 @@
 /**
  * VALORES DE LA EMPRESA
- * ⚠️ PLACEHOLDERS: Comercial TGO S.A.S. aún no ha definido/suministrado sus valores.
- * icon: "leaf" | "flower" | "handshake" | "plant" (sprite Phosphor en index.html)
+ * ⚠️ PROVISIONAL: redactados por el equipo web a partir del texto "Nosotros" del cliente
+ * (especialización técnica, cuidado del producto, acompañamiento). Validar con el cliente.
+ * icon: ícono del sprite (leaf, plant, flower, handshake, lotus, buildings…)
  */
 window.TGO = window.TGO || {};
 
 TGO.values = [
-  { id: "valor-1", icon: "leaf", title: "[Valor 1]", description: "[Descripción del valor, pendiente de Comercial TGO S.A.S.]", placeholder: true },
-  { id: "valor-2", icon: "flower", title: "[Valor 2]", description: "[Descripción del valor, pendiente de Comercial TGO S.A.S.]", placeholder: true },
-  { id: "valor-3", icon: "handshake", title: "[Valor 3]", description: "[Descripción del valor, pendiente de Comercial TGO S.A.S.]", placeholder: true },
+  {
+    id: "especializacion",
+    icon: "plant",
+    title: "Especialización técnica",
+    description: "Conocemos la floricultura y el campo. Nuestro portafolio cubre cada etapa, del cultivo a la poscosecha.",
+    placeholder: false,
+  },
+  {
+    id: "cuidado",
+    icon: "flower",
+    title: "Cuidado de su producto",
+    description: "Insumos que protegen, hidratan y empacan la flor para que llegue en las mejores condiciones a su destino.",
+    placeholder: false,
+  },
+  {
+    id: "acompanamiento",
+    icon: "handshake",
+    title: "Acompañamiento cercano",
+    description: "Trabajamos de la mano de productores y comercializadores con soluciones eficientes y atención directa.",
+    placeholder: false,
+  },
 ];

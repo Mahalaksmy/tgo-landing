@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Comercial TGO S.A.S. | Floristería y campo en La Unión, Antioquia</title>
-  <meta name="description" content="Comercial TGO S.A.S.: insumos de floristería y campo en La Unión, Antioquia, Colombia. Consulta disponibilidad por WhatsApp.">
+  <title>Comercial TGO S.A.S. | Insumos agrícolas e institucionales en La Unión, Antioquia</title>
+  <meta name="description" content="Comercial TGO S.A.S.: insumos agrícolas e institucionales en La Unión, Antioquia, Colombia. Consulta disponibilidad por WhatsApp.">
   <meta name="theme-color" content="#F3F6F1">
   <meta name="color-scheme" content="light">
   <!-- BORRADOR: no indexar mientras el contenido sea provisional. Al lanzar, cambiar a "index, follow". -->
@@ -16,8 +16,8 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_CO">
   <meta property="og:site_name" content="Comercial TGO S.A.S.">
-  <meta property="og:title" content="Comercial TGO S.A.S. | Insumos de floristería y campo">
-  <meta property="og:description" content="Insumos de floristería y campo en La Unión, Antioquia. Consulta por WhatsApp.">
+  <meta property="og:title" content="Comercial TGO S.A.S. | Insumos agrícolas e institucionales">
+  <meta property="og:description" content="Insumos agrícolas e institucionales en La Unión, Antioquia. Consulta por WhatsApp.">
   <meta name="twitter:card" content="summary">
 
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
@@ -43,7 +43,8 @@
       <nav id="site-nav" class="island__nav" aria-label="Principal">
         <ul class="island__links" role="list">
           <li><a href="#nosotros">Nosotros</a></li>
-          <li><a href="#catalogo">Catálogo</a></li>
+          <li><a href="#agricolas" data-tab-link="agricolas">Agrícolas</a></li>
+          <li><a href="#institucionales" data-tab-link="institucionales">Institucionales</a></li>
           <li><a href="#proveedores">Proveedores</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
@@ -66,11 +67,12 @@
     <nav class="menu__inner" aria-label="Menú">
       <ul class="menu__links" role="list">
         <li style="--i:0"><a href="#nosotros">Nosotros</a></li>
-        <li style="--i:1"><a href="#catalogo">Catálogo</a></li>
-        <li style="--i:2"><a href="#proveedores">Proveedores</a></li>
-        <li style="--i:3"><a href="#contacto">Contacto</a></li>
+        <li style="--i:1"><a href="#agricolas" data-tab-link="agricolas">Agrícolas</a></li>
+        <li style="--i:2"><a href="#institucionales" data-tab-link="institucionales">Institucionales</a></li>
+        <li style="--i:3"><a href="#proveedores">Proveedores</a></li>
+        <li style="--i:4"><a href="#contacto">Contacto</a></li>
       </ul>
-      <div class="menu__cta" style="--i:4">
+      <div class="menu__cta" style="--i:5">
         <a class="btn btn--wa btn--lg btn--block" href="#contacto" data-wa="">
           <span>Escríbenos</span>
           <span class="btn__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-whatsapp"/></svg></span>
@@ -86,15 +88,15 @@
       <div class="container hero__grid">
         <div class="hero__content">
           <p class="eyebrow"><span data-bind="cityRegion">La Unión, Antioquia</span></p>
-          <h1 id="hero-title" class="hero__title">Insumos de <em>floristería</em> y&nbsp;<em>campo</em></h1>
+          <h1 id="hero-title" class="hero__title">Insumos <em>agrícolas</em> e <em>institucionales</em></h1>
           <p class="hero__lead">Consulta la disponibilidad de cualquier producto directamente por WhatsApp. Te atendemos desde <span data-bind="cityName">La Unión</span>.</p>
           <div class="hero__actions">
             <a class="btn btn--wa btn--lg" href="#contacto" data-wa="">
               <span>Escríbenos</span>
               <span class="btn__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-whatsapp"/></svg></span>
             </a>
-            <a class="btn btn--soft btn--lg" href="#catalogo">
-              <span>Ver catálogo</span>
+            <a class="btn btn--soft btn--lg" href="#productos">
+              <span>Ver productos</span>
               <span class="btn__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow"/></svg></span>
             </a>
           </div>
@@ -132,25 +134,21 @@
       </div>
     </section>
 
-    <!-- ================= CATÁLOGO ================= -->
-    <section id="catalogo" class="section" aria-labelledby="catalog-title">
+    <!-- ================= PRODUCTOS (pestañas por categoría) ================= -->
+    <section id="productos" class="section" aria-labelledby="products-title">
       <div class="container">
-        <header class="section__header">
-          <p class="eyebrow">Catálogo</p>
-          <h2 id="catalog-title" class="section__title">Encuentra tu producto y consúltalo en un mensaje</h2>
-        </header>
+        <h2 id="products-title" class="sr-only">Productos</h2>
 
-        <div id="productos" class="catalog" tabindex="-1">
-          <div class="bezel toolbar">
-            <div class="bezel__core toolbar__core">
-              <div id="catalog-chips" class="chips" role="group" aria-label="Filtrar por categoría"></div>
-            </div>
-          </div>
+        <!-- Pestañas: se generan desde data/categories.js. Cada pestaña tiene id = id de la categoría (#agricolas, #institucionales) -->
+        <div class="bezel tabs">
+          <div id="product-tabs" class="bezel__core tabs__core" role="tablist" aria-label="Categorías de productos"></div>
+        </div>
 
+        <div id="product-panel" class="catalog" role="tabpanel" tabindex="0">
           <p id="catalog-status" class="catalog__status" role="status" aria-live="polite"></p>
 
           <ul id="catalog-grid" class="product-grid" role="list" aria-busy="true">
-            <!-- Estado de carga (skeleton) hasta que el JS renderiza el catálogo -->
+            <!-- Estado de carga (skeleton) hasta que el JS renderiza los productos -->
             <li class="product-card skeleton" aria-hidden="true"><div class="bezel"><div class="bezel__core"><div class="product-card__media"></div><div class="product-card__body"><span class="sk sk--sm"></span><span class="sk sk--lg"></span><span class="sk"></span><span class="sk sk--btn"></span></div></div></div></li>
             <li class="product-card skeleton" aria-hidden="true"><div class="bezel"><div class="bezel__core"><div class="product-card__media"></div><div class="product-card__body"><span class="sk sk--sm"></span><span class="sk sk--lg"></span><span class="sk"></span><span class="sk sk--btn"></span></div></div></div></li>
             <li class="product-card skeleton" aria-hidden="true"><div class="bezel"><div class="bezel__core"><div class="product-card__media"></div><div class="product-card__body"><span class="sk sk--sm"></span><span class="sk sk--lg"></span><span class="sk"></span><span class="sk sk--btn"></span></div></div></div></li>
@@ -159,10 +157,9 @@
           <div id="catalog-empty" class="bezel empty" hidden>
             <div class="bezel__core empty__core">
               <svg class="icon empty__icon" aria-hidden="true" focusable="false"><use href="#ph-plant"/></svg>
-              <p class="empty__title">No hay productos en esta categoría todavía.</p>
+              <p class="empty__title">Pronto agregaremos productos en esta categoría.</p>
               <p>Escríbenos y te ayudamos a encontrar lo que necesitas.</p>
               <div class="empty__actions">
-                <button id="catalog-reset" class="btn btn--soft" type="button"><span>Ver todos</span></button>
                 <a class="btn btn--wa" href="#contacto" data-wa="">
                   <span>Escríbenos</span>
                   <span class="btn__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-whatsapp"/></svg></span>
@@ -172,7 +169,7 @@
           </div>
 
           <noscript>
-            <p class="notice">Activa JavaScript para ver el catálogo, o escríbenos por WhatsApp al +57 311 714 5443.</p>
+            <p class="notice">Activa JavaScript para ver los productos, o escríbenos por WhatsApp al +57 311 714 5443.</p>
           </noscript>
         </div>
       </div>
@@ -205,7 +202,7 @@
           <!-- Izquierda: marca, redes sociales y correo -->
           <div class="footer-col footer-col--brand">
             <p class="site-footer__brand" data-logo><span data-bind="name">Comercial TGO S.A.S.</span></p>
-            <p class="footer-panel__tagline" data-bind="tagline">Insumos de floristería y campo</p>
+            <p class="footer-panel__tagline" data-bind="tagline">Insumos agrícolas e institucionales</p>
             <ul id="footer-social" class="footer-social" role="list" aria-label="Redes sociales"></ul>
             <p data-optional="email" hidden><span class="footer-col__email" data-value></span></p>
           </div>
@@ -217,7 +214,8 @@
               <ul class="footer-col__links" role="list">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#agricolas" data-tab-link="agricolas">Insumos Agrícolas</a></li>
+                <li><a href="#institucionales" data-tab-link="institucionales">Insumos Institucionales</a></li>
                 <li><a href="#proveedores">Proveedores</a></li>
                 <li><a href="#contacto">Contacto</a></li>
               </ul>
@@ -282,6 +280,7 @@
     <symbol id="ph-pause" viewBox="0 0 256 256"><path d="M200,34H160a14,14,0,0,0-14,14V208a14,14,0,0,0,14,14h40a14,14,0,0,0,14-14V48A14,14,0,0,0,200,34Zm2,174a2,2,0,0,1-2,2H160a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2h40a2,2,0,0,1,2,2ZM96,34H56A14,14,0,0,0,42,48V208a14,14,0,0,0,14,14H96a14,14,0,0,0,14-14V48A14,14,0,0,0,96,34Zm2,174a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2H96a2,2,0,0,1,2,2Z"/></symbol>
     <symbol id="ph-play" viewBox="0 0 256 256"><path d="M231.36,116.19,87.28,28.06a14,14,0,0,0-14.18-.27A13.69,13.69,0,0,0,66,39.87V216.13a13.69,13.69,0,0,0,7.1,12.08,14,14,0,0,0,14.18-.27l144.08-88.13a13.82,13.82,0,0,0,0-23.62Zm-6.26,13.38L81,217.7a2,2,0,0,1-2.06,0,1.78,1.78,0,0,1-1-1.61V39.87a1.78,1.78,0,0,1,1-1.61A2.06,2.06,0,0,1,80,38a2,2,0,0,1,1,.31L225.1,126.43a1.82,1.82,0,0,1,0,3.14Z"/></symbol>
     <symbol id="ph-phone" viewBox="0 0 256 256"><path d="M221.59,160.3l-47.24-21.17a14,14,0,0,0-13.28,1.22,4.81,4.81,0,0,0-.56.42l-24.69,21a1.88,1.88,0,0,1-1.68.06c-15.87-7.66-32.31-24-40-39.65a1.91,1.91,0,0,1,0-1.68l21.07-25a6.13,6.13,0,0,0,.42-.58,14,14,0,0,0,1.12-13.27L95.73,34.49a14,14,0,0,0-14.56-8.38A54.24,54.24,0,0,0,34,80c0,78.3,63.7,142,142,142a54.25,54.25,0,0,0,53.89-47.17A14,14,0,0,0,221.59,160.3ZM176,210C104.32,210,46,151.68,46,80A42.23,42.23,0,0,1,82.67,38h.23a2,2,0,0,1,1.84,1.31l21.1,47.11a2,2,0,0,1,0,1.67L84.73,113.15a4.73,4.73,0,0,0-.43.57,14,14,0,0,0-.91,13.73c8.87,18.16,27.17,36.32,45.53,45.19a14,14,0,0,0,13.77-1c.19-.13.38-.27.56-.42l24.68-21a1.92,1.92,0,0,1,1.6-.1l47.25,21.17a2,2,0,0,1,1.21,2A42.24,42.24,0,0,1,176,210Z"/></symbol>
+    <symbol id="ph-buildings" viewBox="0 0 256 256"><path d="M240,210H222V96a14,14,0,0,0-14-14H142V32a14,14,0,0,0-21.77-11.64l-80,53.33A14,14,0,0,0,34,85.34V210H16a6,6,0,0,0,0,12H240a6,6,0,0,0,0-12ZM208,94a2,2,0,0,1,2,2V210H142V94ZM46,85.34a2,2,0,0,1,.89-1.66l80-53.34A2,2,0,0,1,130,32V210H46ZM110,112v16a6,6,0,0,1-12,0V112a6,6,0,0,1,12,0Zm-32,0v16a6,6,0,0,1-12,0V112a6,6,0,0,1,12,0Zm0,56v16a6,6,0,0,1-12,0V168a6,6,0,0,1,12,0Zm32,0v16a6,6,0,0,1-12,0V168a6,6,0,0,1,12,0Z"/></symbol>
     <symbol id="ph-lotus" viewBox="0 0 256 256"><path d="M244.1,122.63a13.56,13.56,0,0,0-8.3-6.4,72.62,72.62,0,0,0-24.17-2c4.67-20.63,1.62-36.91-1.45-46.4A14.16,14.16,0,0,0,193.7,58.3a84.21,84.21,0,0,0-29.76,13.11,92.6,92.6,0,0,0-27.52-34.6,14,14,0,0,0-16.85,0,92.7,92.7,0,0,0-27.51,34.6A84.16,84.16,0,0,0,62.29,58.3a14.15,14.15,0,0,0-16.47,9.54c-3.07,9.49-6.12,25.77-1.45,46.4a72.62,72.62,0,0,0-24.17,2,13.56,13.56,0,0,0-8.3,6.4,14,14,0,0,0-1.4,10.74C13.81,145.66,24,169,54.92,187.51S113.29,206,128,206s42.12,0,73.06-18.49,41.11-41.85,44.42-54.14A14,14,0,0,0,244.1,122.63ZM168.48,82.9A73.1,73.1,0,0,1,196.22,70a2.2,2.2,0,0,1,2.54,1.5C202.7,83.72,206.57,109,188.17,141a129.75,129.75,0,0,1-28,33.37C167.85,161,174,142.93,174,119.17A116.13,116.13,0,0,0,168.48,82.9ZM57.24,71.53A2.2,2.2,0,0,1,59.78,70,73.1,73.1,0,0,1,87.52,82.9,116.13,116.13,0,0,0,82,119.17c0,23.76,6.15,41.85,13.81,55.17a129.58,129.58,0,0,1-28-33.37C49.43,109,53.3,83.72,57.24,71.53ZM61.08,177.2c-27.3-16.31-36.15-36.42-39-47a2.08,2.08,0,0,1,.21-1.61,1.71,1.71,0,0,1,1-.8A62.16,62.16,0,0,1,48,126.72,126.25,126.25,0,0,0,57.43,147a141,141,0,0,0,41,44.72A114.83,114.83,0,0,1,61.08,177.2ZM128,192.86c-8.68-6.2-34-28.2-34-73.69,0-43.36,22.94-65.34,32.8-72.78a2,2,0,0,1,2.4,0c9.86,7.44,32.8,29.42,32.8,72.78C162,164.94,136.81,186.67,128,192.86Zm105.9-62.62c-2.85,10.54-11.7,30.65-39,47a114.83,114.83,0,0,1-37.38,14.47,141,141,0,0,0,41-44.72A126.25,126.25,0,0,0,208,126.72a62.16,62.16,0,0,1,24.73,1.11,1.71,1.71,0,0,1,1,.8A2.08,2.08,0,0,1,233.92,130.24Z"/></symbol>
   </svg>
 
