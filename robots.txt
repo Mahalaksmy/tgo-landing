@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-# PENDIENTE: reemplazar [DOMINIO] cuando el sitio tenga dominio
-# Sitemap: https://[DOMINIO]/sitemap.xml

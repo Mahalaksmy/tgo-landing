@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* TEMAS (variables semánticas): cada vista tiene su paleta en formato "R G B" para que
+   Tailwind aplique opacidad (bg-primary/20). Para cambiar el verde o el azul, edita SOLO
+   el bloque de la vista correspondiente. */
+/* Layout: header y footer fijos; el contenido cambia entre Inicio y dos catálogos. */
+:root {
+  /* Color de cada rama, constante en todas las vistas (vista previa en las tarjetas de Inicio).
+     Mantenerlos iguales a --primary de su vista. */
+  --branch-agriculture: 63 107 69;      /* #3F6B45 */
+  --branch-organizational: 37 99 235;   /* #2563eb */
+}
+:root,
+[data-view="home"] {             /* Inicio: monocromático (blanco y negro) */
+  --bg: 250 250 249;
+  --surface: 255 255 255;
+  --ink: 12 12 12;
+  --muted: 87 87 84;
+  --line: 12 12 12;
+  --primary: 12 12 12;
+  --primary-strong: 0 0 0;
+  --primary-soft: 236 236 233;
+  --on-primary: 255 255 255;
+  --deep: 12 12 12;
+  --on-deep: 245 245 244;
+  --deep-muted: 168 168 162;
+  --deep-accent: 214 214 209;    /* títulos dentro del footer */
+  color-scheme: light;
+}
+[data-view="agriculture"] {      /* Insumos Agrícolas: paleta verde actual */
+  --bg: 243 246 241;
+  --surface: 253 254 252;
+  --ink: 21 32 27;
+  --muted: 77 90 83;
+  --line: 24 48 36;
+  --primary: 63 107 69;          /* #3F6B45 */
+  --primary-strong: 28 70 52;    /* #1C4634 */
+  --primary-soft: 225 235 227;   /* #E1EBE3 */
+  --on-primary: 255 255 255;
+  --deep: 14 36 25;              /* #0E2419 */
+  --on-deep: 232 240 234;
+  --deep-muted: 169 189 177;
+  --deep-accent: 169 211 181;    /* #A9D3B5 */
+}
+[data-view="organizational"] {   /* Insumos Institucionales: misma paleta con azul #2563eb */
+  --bg: 243 245 249;
+  --surface: 253 253 255;
+  --ink: 17 24 39;
+  --muted: 75 85 99;
+  --line: 17 24 39;
+  --primary: 37 99 235;          /* #2563eb */
+  --primary-strong: 30 64 175;   /* #1e40af */
+  --primary-soft: 219 234 254;   /* #dbeafe */
+  --on-primary: 255 255 255;
+  --deep: 11 26 58;              /* #0b1a3a */
+  --on-deep: 232 238 250;
+  --deep-muted: 165 180 210;
+  --deep-accent: 165 196 245;
+}
+
+/* Tipografía del proyecto (archivos locales) */
+@font-face { font-family: "Clash Display"; src: url("/assets/fonts/clash-display-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Clash Display"; src: url("/assets/fonts/clash-display-600.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist-latin.woff2") format("woff2"); font-weight: 400 600; font-display: swap; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 8.5rem; }
+body {
+  margin: 0;
+  background: rgb(var(--bg));
+  color: rgb(var(--ink));
+  font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color .5s ease-in-out, color .5s ease-in-out;
+}
+h1, h2, h3 { text-wrap: balance; }
+.font-display { word-spacing: .08em; }   /* Clash Display junta las palabras con tracking negativo */
+p { text-wrap: pretty; }
+
+/* Entrada de cada vista */
+@keyframes view-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.view-enter { animation: view-in .5s ease-in-out both; }
+
+/* Marquesina de proveedores (pausa con el botón, el cursor o el foco) */
+@keyframes marquee { to { transform: translateX(calc(-50% - 0.5rem)); } }
+.marquee-mask { -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.marquee-track { animation: marquee 40s linear infinite; }
+.marquee-mask:hover .marquee-track, .marquee-mask:focus-within .marquee-track, .marquee-mask.is-paused .marquee-track { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; }
+  .marquee-track > [aria-hidden="true"] { display: none; }
+  .marquee-mask { -webkit-mask-image: none; mask-image: none; }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

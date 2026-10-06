@@ -1,58 +1,62 @@
 # Landing Comercial TGO S.A.S.
 
-Landing page estática (HTML + CSS + JS, sin dependencias ni build) para **Comercial TGO S.A.S.** — insumos de floristería y campo, La Unión, Antioquia.
+Sitio web de **Comercial TGO S.A.S.** (insumos agrícolas e institucionales, La Unión, Antioquia).
+SPA en **React 18 + Tailwind 3**, compilada con **Vite**. Publicada en Vercel: https://tgo-landing.vercel.app
 
-## Ver en local
+## Comandos
 
 ```bash
-python3 -m http.server 5180
+npm install
 ```
 
-Abrir http://localhost:5180 (también funciona abriendo `index.html` directamente).
+```bash
+npm run dev
+```
 
-## Editar contenido
+- `npm run dev`: servidor de desarrollo con recarga en vivo (http://localhost:5173).
+- `npm run build`: genera la versión de producción en `dist/`.
+- `npm run preview`: sirve `dist/` para revisarla antes de publicar.
+
+## Estructura
 
 | Qué | Dónde |
 |---|---|
-| Empresa, dirección, **WhatsApp**, mensajes, logo, horario, correo | `data/site.js` (único lugar) |
-| Categorías | `data/categories.js` |
-| Productos | `data/products.js` |
-| Proveedores | `data/providers.js` |
-| Valores | `data/values.js` |
+| Página base, SEO (title, description, Open Graph, datos para Google) | `index.html` |
+| Empresa, dirección, **WhatsApp**, mensajes, logo, horario, correo | `src/data/site.js` (único lugar) |
+| Categorías · Productos · Proveedores · Valores | `src/data/categories.js` · `products.js` · `providers.js` · `values.js` |
+| Textos de las tarjetas de Inicio (Agrícolas / Institucionales) | `src/data/branches.js` |
+| Colores de cada vista (temas), fuentes y animaciones | `src/index.css` (bloques `[data-view]`) |
+| Componentes (header, footer, proveedores, botón WhatsApp) | `src/components/` |
+| Vistas (Inicio, Nosotros, catálogo, tarjeta de producto) | `src/views/` |
+| Imágenes, fuentes, logos, robots.txt, sitemap.xml | `public/` (se copian tal cual; se referencian con ruta absoluta, p. ej. `/assets/img/logo.png`) |
 
 ### Cambiar el número de WhatsApp
-En `data/site.js` → `whatsapp.number` (solo dígitos con indicativo, p. ej. `573117145443`) y `whatsapp.display` (formato visible). Todos los botones se actualizan solos.
+En `src/data/site.js` → `whatsapp.number` (solo dígitos con indicativo, p. ej. `573117145443`) y `whatsapp.display`. Actualizar también el teléfono del JSON-LD y del `<noscript>` en `index.html`.
 
 ### Agregar logos de proveedores
-1. Copiar el logo a la carpeta `Logos/` (PNG o SVG; ideal con fondo transparente, unos 500 px de ancho).
-2. En `data/providers.js` agregar una línea, por ejemplo:
-   `{ id: "triton", name: "Triton", logo: "Logos/Triton.png", website: "", placeholder: false },`
-3. Borrar las líneas de ejemplo (`placeholder: true`) a medida que haya proveedores reales.
+1. Copiar el logo a `public/Logos/` (PNG o SVG con fondo transparente).
+2. En `src/data/providers.js` agregar `{ "id": "triton", "name": "Triton", "logo": "/Logos/Triton.png", "website": "", "placeholder": false }`.
+3. Borrar los de ejemplo (`placeholder: true`) cuando haya proveedores reales.
 
-### Logo
-Configurado en `data/site.js` → `logo: "assets/img/logo.png"` (header en color original, footer invertido a blanco).
-Para cambiarlo: reemplazar el archivo (idealmente una versión SVG) y actualizar `logo`, `logoWidth` y `logoHeight`.
-El favicon (`assets/img/favicon.svg`) sigue siendo un placeholder: reemplazarlo por un ícono/isotipo oficial.
-
-### Si cambia el nombre o la dirección
-Además de `data/site.js`, actualizar los textos de respaldo SEO en `index.html` (`<title>`, `meta description`, Open Graph). El resto del HTML se sincroniza desde `data/site.js`.
+### Productos
+En `src/data/products.js`. Fotos en `public/assets/img/productos/` (ruta `/assets/img/productos/archivo.jpg`).
 
 ## Versiones
-- `index.html`: **versión SPA** (React + Tailwind en un solo archivo). Es la página principal.
-- `clasico.html`: versión clásica (HTML/CSS/JS con `data/*.js`), guardada como respaldo.
-- Etiqueta `v1-clasica`: la versión publicada antes de la SPA. Para volver a ella sin perder historial:
-  `git checkout v1-clasica -- .` y luego commit + push.
+- `index.html` + `src/`: **versión principal** (SPA React compilada con Vite).
+- `public/clasico.html`: versión clásica (HTML/CSS/JS con `public/data/*.js`), guardada como respaldo (`noindex`).
+- Etiqueta `v1-clasica`: la versión publicada antes de la SPA.
 
-## Publicación (GitHub Pages)
-- URL: https://mahalaksmy.github.io/tgo-landing/
-- Se publica automáticamente desde la rama `main` (carpeta raíz) en cada `git push`.
-- `.nojekyll` hace que GitHub sirva los archivos tal cual.
-- **Borrador:** `index.html` tiene `noindex, nofollow`. Al lanzar, cambiarlo a `index, follow`.
-- **Con dominio propio:** en `404.html` cambiar `<base href="/tgo-landing/">` por `<base href="/">`.
+## Publicación (Vercel)
+- Producción: https://tgo-landing.vercel.app (se despliega sola en cada `git push` a `main`).
+- Cualquier otra rama genera un enlace de vista previa.
+- Configuración en `vercel.json` (Vite, salida `dist/`, caché larga para `/static` y las fuentes).
+- **Indexación activa** (`index, follow`), con `sitemap.xml` y `robots.txt`.
+- **Con dominio propio:** cambiar `https://tgo-landing.vercel.app` en `index.html` (canonical, Open Graph, JSON-LD), `public/robots.txt` y `public/sitemap.xml`.
+- GitHub Pages ya no sirve esta versión (necesita compilarse); se recomienda desactivarlo.
 
-## Antes de publicar
-- Definir dominio → `site.url`, `<link rel="canonical">`/OG en `index.html`, `robots.txt`, `sitemap.xml`.
-- Reemplazar placeholders (productos, proveedores, valores). Ver `CONTENT.md`.
+## Antes de seguir creciendo
+- Reemplazar placeholders (proveedores de ejemplo, valores y descripciones provisionales). Ver `CONTENT.md`.
+- Reemplazar la foto de Nosotros (`hortensias-vivero.webp`, tiene marca de agua) y el favicon provisional.
 
 ## Skills de diseño aplicados
 `high-end-visual-design`, `design-taste-frontend` y `redesign-existing-projects` (en `.claude/skills/`, enlazados desde `.agents/skills/`). Decisiones y desviaciones en `DESIGN.md`.

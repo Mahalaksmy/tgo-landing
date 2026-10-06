@@ -16,3 +16,7 @@ skills-lock.json
 
 # Originales de fotos de producto (las versiones optimizadas están en assets/img/productos/)
 /Catalogo/
+
+# Vite
+node_modules/
+dist/
