@@ -15,6 +15,7 @@ export const site = {
     "display": "+57 311 714 5443",
     "acceptsCalls": true,
     "defaultMessage": "Hola, Comercial TGO S.A.S. Quisiera recibir información sobre sus insumos agrícolas e institucionales.",
+    "quoteMessage": "Hola, Comercial TGO S.A.S. Quisiera solicitar una cotización:\n• Producto:\n• Medida o referencia:\n• Cantidad aproximada:\n• Lugar de entrega:",
     "productMessageTemplate": [
       "Hola, Comercial TGO S.A.S. Quisiera consultar por este producto:",
       "• Producto: {name}",

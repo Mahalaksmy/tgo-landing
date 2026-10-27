@@ -56,7 +56,7 @@ En `src/data/products.js`. Fotos en `public/assets/img/productos/` (ruta `/asset
 
 ## Antes de seguir creciendo
 - Reemplazar placeholders (proveedores de ejemplo, valores y descripciones provisionales). Ver `CONTENT.md`.
-- Reemplazar la foto de Nosotros (`hortensias-vivero.webp`, tiene marca de agua) y el favicon provisional.
+- Reemplazar la foto de Nosotros (`hortensias-vivero.webp`, tiene marca de agua).
 
 ## Skills de diseño aplicados
 `high-end-visual-design`, `design-taste-frontend` y `redesign-existing-projects` (en `.claude/skills/`, enlazados desde `.agents/skills/`). Decisiones y desviaciones en `DESIGN.md`.

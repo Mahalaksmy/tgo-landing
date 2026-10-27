@@ -19,6 +19,10 @@ function ProviderChip({ p, hidden }) {
   );
 }
 
+/* Proveedores visibles; con pocos logos se repiten para que la cinta no quede con huecos */
+const visible = providers.filter((p) => !p.hidden);
+const loop = Array.from({ length: Math.max(1, Math.ceil(6 / visible.length)) }, () => visible).flat();
+
 export default function ProvidersBand({ id }) {
   const [paused, setPaused] = useState(false);
   return (
@@ -28,8 +32,8 @@ export default function ProvidersBand({ id }) {
       </h2>
       <div id="providers-marquee" className={`marquee-mask overflow-hidden ${paused ? "is-paused" : ""}`}>
         <ul className="marquee-track flex w-max gap-4 py-1.5">
-          {providers.map((p) => <ProviderChip key={p.name} p={p} />)}
-          {providers.map((p) => <ProviderChip key={p.name + "-copia"} p={p} hidden />)}
+          {loop.map((p, i) => <ProviderChip key={p.name + i} p={p} hidden={i >= visible.length} />)}
+          {loop.map((p, i) => <ProviderChip key={p.name + "-copia" + i} p={p} hidden />)}
         </ul>
       </div>
       <div className="mt-5 flex justify-center motion-reduce:hidden">

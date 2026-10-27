@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Header from "./components/Header.jsx";
 import ProvidersBand from "./components/ProvidersBand.jsx";
 import Footer from "./components/Footer.jsx";
-import Icon from "./components/Icon.jsx";
+import WhatsAppMark from "./components/WhatsAppMark.jsx";
 import HomeView from "./views/HomeView.jsx";
 import CatalogView from "./views/CatalogView.jsx";
 import { waUrl, prefersReducedMotion, T } from "./lib/utils.js";
@@ -62,10 +62,10 @@ export default function App() {
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-bg">
         Saltar al contenido
       </a>
-      <Header view={view} onNavigate={navigate} />
+      <Header view={view} onNavigate={navigate} onScrollTo={scrollToId} />
 
       <main id="main"
-        className="mx-auto max-w-6xl px-4 pb-20 pt-[calc(env(safe-area-inset-top,0px)+9.5rem)] sm:px-6 md:pb-24 md:pt-[calc(env(safe-area-inset-top,0px)+7.5rem)] lg:px-8">
+        className="mx-auto max-w-6xl px-4 pb-20 pt-[calc(env(safe-area-inset-top,0px)+7.5rem)] sm:px-6 md:pb-24 lg:px-8 lg:pt-[calc(env(safe-area-inset-top,0px)+8.5rem)]">
         <div key={shown} className={`view-enter transition-opacity duration-200 ease-in-out ${leaving ? "opacity-0" : "opacity-100"}`}>
           {shown === "home"
             ? <HomeView onOpen={navigate} headingRef={headingRef} />
@@ -79,10 +79,9 @@ export default function App() {
 
       {/* Botón flotante de WhatsApp */}
       <a href={waUrl()} target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp"
-        className={`fixed bottom-[calc(env(safe-area-inset-bottom,0px)+1rem)] right-4 z-40 grid h-14 w-14 place-items-center rounded-full
-          bg-primary text-primary-fg shadow-[0_12px_28px_-10px_rgb(var(--primary)/.7)] ${T} hover:scale-105 hover:bg-primary-strong
-          focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/40 md:right-6`}>
-        <Icon name="whatsapp" className="h-7 w-7" />
+        className="fixed bottom-[calc(env(safe-area-inset-bottom,0px)+1rem)] right-4 z-30 rounded-full shadow-[0_12px_28px_-10px_rgb(37_211_102/.7)]
+          transition-transform duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/40 md:right-6">
+        <WhatsAppMark className="h-14 w-14" />
       </a>
     </>
   );

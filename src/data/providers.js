@@ -1,4 +1,4 @@
-/* Proveedores. placeholder:true se muestra con la etiqueta "Ejemplo". */
+/* Proveedores. placeholder:true se muestra con la etiqueta "Ejemplo"; hidden:true lo oculta del sitio. */
 export const providers = [
   {
     "name": "Triton",
@@ -16,12 +16,14 @@ export const providers = [
     "name": "[Proveedor 3]",
     "logo": "",
     "website": "",
-    "placeholder": true
+    "placeholder": true,
+    "hidden": true
   },
   {
     "name": "[Proveedor 4]",
     "logo": "",
     "website": "",
-    "placeholder": true
+    "placeholder": true,
+    "hidden": true
   }
 ];

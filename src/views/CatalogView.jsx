@@ -1,6 +1,7 @@
 import { BRANCHES } from "../data/branches.js";
 import Icon from "../components/Icon.jsx";
 import ProductCard from "./ProductCard.jsx";
+import QuoteBand from "../components/QuoteBand.jsx";
 import { productsOf, T } from "../lib/utils.js";
 
 export default function CatalogView({ branchKey, onNavigate, headingRef }) {
@@ -34,9 +35,13 @@ export default function CatalogView({ branchKey, onNavigate, headingRef }) {
         </button>
       </div>
 
-      <ul className="mt-8 grid grid-cols-2 gap-3 sm:gap-5 md:mt-10 lg:grid-cols-3 xl:grid-cols-4">
+      <ul className="mt-8 grid grid-cols-2 gap-3 sm:gap-5 md:mt-10 lg:gap-6">
         {items.map((p) => <ProductCard key={p.id} product={p} categoryName={b.label} />)}
       </ul>
+
+      <div className="mt-14 md:mt-20">
+        <QuoteBand />
+      </div>
     </section>
   );
 }

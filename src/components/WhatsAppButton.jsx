@@ -1,4 +1,4 @@
-import Icon from "./Icon.jsx";
+import WhatsAppMark from "./WhatsAppMark.jsx";
 import { waUrl, T } from "../lib/utils.js";
 
 export default function WhatsAppButton({ message, label = "Escríbenos", ariaLabel, size = "md", block = false, light = false }) {
@@ -10,9 +10,8 @@ export default function WhatsAppButton({ message, label = "Escríbenos", ariaLab
         ${sizes} ${block ? "w-full" : ""} ${T} active:scale-[.98]
         focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30`}>
       <span>{label}</span>
-      <span className={`grid ${size === "sm" ? "h-8 w-8 sm:h-9 sm:w-9" : "h-9 w-9"} shrink-0 place-items-center rounded-full ${light ? "bg-ink/10" : "bg-white/15"} transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-px`}>
-        <Icon name="whatsapp" className="h-[18px] w-[18px]" />
-      </span>
+      <WhatsAppMark className={`${size === "sm" ? "h-8 w-8 sm:h-9 sm:w-9" : "h-9 w-9"} transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-px`} />
+
     </a>
   );
 }

@@ -1,5 +1,6 @@
 import BranchCard from "../components/BranchCard.jsx";
 import AboutSection from "./AboutSection.jsx";
+import QuoteBand from "../components/QuoteBand.jsx";
 import { T } from "../lib/utils.js";
 
 export default function HomeView({ onOpen, headingRef }) {
@@ -29,6 +30,8 @@ export default function HomeView({ onOpen, headingRef }) {
           <BranchCard branchKey="organizational" onOpen={onOpen} />
         </div>
       </section>
+
+      <QuoteBand />
 
       <AboutSection />
     </div>
