@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Dominio provisional: actualizar cuando haya dominio propio -->
+<!-- Dominio principal -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://tgo-landing.vercel.app/</loc>
-    <lastmod>2026-10-06</lastmod>
+    <loc>https://www.tgocomercial.com/</loc>
+    <lastmod>2026-10-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>

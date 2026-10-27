@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-# Dominio provisional: actualizar cuando haya dominio propio
-Sitemap: https://tgo-landing.vercel.app/sitemap.xml
+# Dominio principal
+Sitemap: https://www.tgocomercial.com/sitemap.xml

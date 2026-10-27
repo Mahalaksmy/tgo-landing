@@ -1,7 +1,7 @@
 # Landing Comercial TGO S.A.S.
 
 Sitio web de **Comercial TGO S.A.S.** (insumos agrícolas e institucionales, La Unión, Antioquia).
-SPA en **React 18 + Tailwind 3**, compilada con **Vite**. Publicada en Vercel: https://tgo-landing.vercel.app
+SPA en **React 18 + Tailwind 3**, compilada con **Vite**. Publicada en Vercel: https://www.tgocomercial.com
 
 ## Comandos
 
@@ -47,11 +47,12 @@ En `src/data/products.js`. Fotos en `public/assets/img/productos/` (ruta `/asset
 - Etiqueta `v1-clasica`: la versión publicada antes de la SPA.
 
 ## Publicación (Vercel)
-- Producción: https://tgo-landing.vercel.app (se despliega sola en cada `git push` a `main`).
+- Producción: https://www.tgocomercial.com (también responde en tgo-landing.vercel.app) (se despliega sola en cada `git push` a `main`).
 - Cualquier otra rama genera un enlace de vista previa.
 - Configuración en `vercel.json` (Vite, salida `dist/`, caché larga para `/static` y las fuentes).
 - **Indexación activa** (`index, follow`), con `sitemap.xml` y `robots.txt`.
-- **Con dominio propio:** cambiar `https://tgo-landing.vercel.app` en `index.html` (canonical, Open Graph, JSON-LD), `public/robots.txt` y `public/sitemap.xml`.
+- **Dominio:** `www.tgocomercial.com` está en `index.html` (canonical, Open Graph, JSON-LD), `public/robots.txt` y `public/sitemap.xml`.
+- **Imagen al compartir** (WhatsApp, Facebook): `public/assets/img/og-image.jpg`, 1200×630 px con el logo centrado y pequeño. Si cambia, conservar ese tamaño.
 - GitHub Pages ya no sirve esta versión (necesita compilarse); se recomienda desactivarlo.
 
 ## Antes de seguir creciendo
