@@ -14,7 +14,7 @@
 }
 :root,
 [data-view="home"] {             /* Inicio: monocromático (blanco y negro) */
-  --bg: 250 250 249;
+  --bg: 255 255 255;
   --surface: 255 255 255;
   --ink: 12 12 12;
   --muted: 87 87 84;

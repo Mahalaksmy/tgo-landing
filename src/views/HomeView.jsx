@@ -8,9 +8,6 @@ export default function HomeView({ onOpen, headingRef }) {
   return (
     <div className="space-y-14 md:space-y-20">
       <section aria-labelledby="home-title" className="mx-auto flex max-w-3xl flex-col items-center pt-6 text-center md:pt-12">
-        <p className={`mb-5 inline-flex items-center gap-2 rounded-full bg-ink/[.05] px-3.5 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-muted ${T}`}>
-          <span className="h-1.5 w-1.5 rounded-full bg-primary" />La Unión, Antioquia
-        </p>
         <h1 id="home-title" ref={headingRef} tabIndex={-1}
           className="font-display text-[2.3rem] font-semibold leading-[1.02] tracking-[-0.03em] outline-none sm:text-5xl md:text-6xl">
           Comercial TGO:{" "}

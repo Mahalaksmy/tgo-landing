@@ -15,9 +15,10 @@ export default function AboutSection() {
     <section id="nosotros" aria-labelledby="about-title" className="grid gap-5 lg:grid-cols-[7fr_5fr]">
       <article className={`relative isolate flex min-h-[32rem] flex-col justify-between gap-10 overflow-hidden rounded-[2rem] bg-deep p-7 text-white md:p-12 ${T}`}>
         <img src={s.aboutImage} alt={s.aboutImageAlt} loading="lazy" decoding="async"
-          className="absolute inset-0 -z-20 h-full w-full object-cover object-[55%_40%] grayscale" />
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-[55%_40%]" />
+        {/* Foto a color, oscurecida de forma pareja para que el texto blanco se lea */}
         <span aria-hidden="true" className="absolute inset-0 -z-10"
-          style={{ background: "linear-gradient(180deg, rgb(var(--deep)/.94) 0%, rgb(var(--deep)/.86) 45%, rgb(var(--deep)/.5) 68%, rgb(var(--deep)/.3) 80%, rgb(var(--deep)/.88) 100%)" }} />
+          style={{ background: "linear-gradient(180deg, rgb(0 0 0/.7) 0%, rgb(0 0 0/.58) 50%, rgb(0 0 0/.5) 100%)" }} />
         <div>
           <h2 id="about-title" className="font-display text-3xl font-semibold leading-[1.05] tracking-tight md:text-5xl">Conoce a {s.name}</h2>
           <p className="mt-6 max-w-[46ch] text-[1.05rem] leading-relaxed text-white/90 [text-shadow:0_1px_10px_rgb(0_0_0/.5)] md:text-lg">{s.about[0]}</p>

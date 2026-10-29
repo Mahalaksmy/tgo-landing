@@ -7,6 +7,8 @@ import { waUrl, T } from "../lib/utils.js";
 /* Header fijo: franja superior en el color de la vista + barra blanca a todo el ancho.
    Escritorio (≥1024 px): enlaces centrados y botones a la derecha. Móvil: hamburguesa con menú a pantalla completa. */
 const CTA = "Solicita tu cotización";
+/* Botón WhatsApp: píldora verde con degradado (texto blanco con contraste suficiente) */
+const WA_BTN = "bg-[linear-gradient(135deg,#128C4A_0%,#0B6B3A_100%)] shadow-[0_10px_24px_-10px_rgb(18_140_74/.7),inset_0_1px_0_rgb(255_255_255/.18)] transition-[filter,transform] duration-300 hover:brightness-110 active:scale-[.98]";
 
 export default function Header({ view, onNavigate, onScrollTo }) {
   const [open, setOpen] = useState(false);
@@ -76,10 +78,11 @@ export default function Header({ view, onNavigate, onScrollTo }) {
               className={`hidden h-10 items-center rounded-md bg-ink/[.05] px-4 text-sm font-medium ${T} hover:bg-ink/10 xl:inline-flex ${focusRing}`}>
               Llamar
             </a>
-            <a href={quoteUrl} target="_blank" rel="noopener noreferrer" aria-label={CTA + " por WhatsApp"}
-              className={`hidden h-10 items-center gap-2 rounded-md bg-deep pl-1.5 pr-4 text-sm font-semibold text-deep-fg ${T} hover:bg-primary sm:inline-flex ${focusRing}`}>
-              <WhatsAppMark className="h-7 w-7" />
-              {CTA}
+            <a href={waUrl()} target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp"
+              className={`hidden h-[2.875rem] items-center gap-2.5 rounded-full pl-[7px] pr-[22px] text-[0.9375rem] font-semibold tracking-[0.01em] text-white
+                ${WA_BTN} sm:inline-flex ${focusRing}`}>
+              <WhatsAppMark light className="h-8 w-8 drop-shadow-sm" />
+              WhatsApp
             </a>
             <button ref={burgerRef} type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="mobile-menu"
               aria-label={open ? "Cerrar menú" : "Abrir menú"}
@@ -111,10 +114,10 @@ export default function Header({ view, onNavigate, onScrollTo }) {
             ))}
           </ul>
         </nav>
-        <a href={quoteUrl} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}
-          className={`mt-6 inline-flex h-14 items-center justify-center gap-2.5 rounded-md bg-deep text-[0.95rem] font-semibold text-deep-fg ${T} ${focusRing}`}>
-          <WhatsAppMark className="h-8 w-8" />
-          {CTA}
+        <a href={waUrl()} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)} aria-label="Escríbenos por WhatsApp"
+          className={`mt-6 inline-flex h-14 items-center justify-center gap-2.5 rounded-full text-base font-semibold text-white ${WA_BTN} ${focusRing}`}>
+          <WhatsAppMark light className="h-9 w-9 drop-shadow-sm" />
+          WhatsApp
         </a>
         <a href={"tel:+" + site.whatsapp.number}
           className={`mt-2.5 inline-flex h-12 items-center justify-center gap-2 rounded-md bg-ink/[.05] text-[0.95rem] font-medium ${T} ${focusRing}`}>
