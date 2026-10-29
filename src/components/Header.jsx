@@ -45,7 +45,7 @@ export default function Header({ view, onNavigate, onScrollTo }) {
         <span aria-hidden="true" className="hidden opacity-60 sm:inline">·</span>
         <span className="hidden md:inline">Lunes a sábado 8 a.m. - 6 p.m.</span>
         <span aria-hidden="true" className="hidden opacity-60 md:inline">·</span>
-        <a href={quoteUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 underline-offset-4 hover:underline">
+        <a href={quoteUrl} target="_blank" rel="noopener noreferrer" className="inline-flex h-full items-center gap-1.5 px-2 underline-offset-4 hover:underline">
           {CTA}<Icon name="external" className="h-3.5 w-3.5" />
         </a>
       </div>

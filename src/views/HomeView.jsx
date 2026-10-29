@@ -1,6 +1,8 @@
 import BranchCard from "../components/BranchCard.jsx";
 import AboutSection from "./AboutSection.jsx";
 import QuoteBand from "../components/QuoteBand.jsx";
+import WhatsAppButton from "../components/WhatsAppButton.jsx";
+import Icon from "../components/Icon.jsx";
 import { T } from "../lib/utils.js";
 
 export default function HomeView({ onOpen, headingRef }) {
@@ -13,14 +15,24 @@ export default function HomeView({ onOpen, headingRef }) {
           Comercial TGO:{" "}
           <span className={`block text-muted ${T}`}>Todo lo que tu campo y tu empresa necesitan</span>
         </h1>
-        <p className={`mt-6 max-w-[62ch] text-lg leading-relaxed text-muted ${T}`}>
+        {/* En celular se oculta: es largo y centrado; los botones y las tarjetas ya explican qué hacer */}
+        <p className={`mt-6 hidden max-w-[62ch] text-lg leading-relaxed text-muted sm:block ${T}`}>
           Proveemos soluciones integrales, productos de alta calidad y servicios especializados para potenciar el sector
           agrícola, corporativo e institucional. Explora nuestras líneas de negocio a continuación y contáctanos directamente
           por WhatsApp para recibir asesoría personalizada al instante.
         </p>
+        {/* Acciones principales: contactar o ir a las dos líneas */}
+        <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+          <WhatsAppButton label="Escríbenos por WhatsApp" />
+          <a href="#lineas"
+            className={`inline-flex h-12 items-center justify-center gap-2 rounded-full border border-line/15 bg-surface px-6 text-[0.95rem] font-semibold ${T}
+              hover:border-ink focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30`}>
+            Ver catálogos <Icon name="arrow" className="h-4 w-4 rotate-90" />
+          </a>
+        </div>
       </section>
 
-      <section aria-labelledby="branches-title">
+      <section id="lineas" aria-labelledby="branches-title">
         <h2 id="branches-title" className="sr-only">Nuestras líneas</h2>
         <div className="grid gap-4 md:grid-cols-2 md:gap-5">
           <BranchCard branchKey="agriculture" onOpen={onOpen} />

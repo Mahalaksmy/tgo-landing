@@ -4,8 +4,10 @@ import Icon from "./Icon.jsx";
 import { T } from "../lib/utils.js";
 
 function ProviderChip({ p, hidden }) {
-  const inner = p.logo
-    ? <img src={p.logo} alt={hidden ? "" : p.name} className="h-11 w-auto max-w-[150px] rounded-md object-contain transition-transform duration-500 group-hover:scale-105" />
+  /* Si el logo no carga, se muestra el nombre del proveedor */
+  const [broken, setBroken] = useState(false);
+  const inner = p.logo && !broken
+    ? <img src={p.logo} alt={hidden ? "" : p.name} onError={() => setBroken(true)} className="h-11 w-auto max-w-[150px] rounded-md object-contain transition-transform duration-500 group-hover:scale-105" />
     : <span className={`whitespace-nowrap font-display text-lg font-semibold text-muted ${T}`}>{p.name}</span>;
   return (
     <li aria-hidden={hidden ? "true" : undefined}>

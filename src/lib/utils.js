@@ -1,5 +1,6 @@
 import { site } from "../data/site.js";
 import { products } from "../data/products.js";
+import { BRANCHES } from "../data/branches.js";
 
 export const waUrl = (message) =>
   "https://wa.me/" + site.whatsapp.number + "?text=" + encodeURIComponent(message || site.whatsapp.defaultMessage);
@@ -33,3 +34,18 @@ export const prefersReducedMotion = () =>
 
 /* Transición de colores compartida (cambio de tema) */
 export const T = "transition-colors duration-500 ease-in-out";
+
+/* Nombre visible de cada categoría (Insumos Agrícolas / Insumos Institucionales) */
+export const categoryLabel = (categoryId) =>
+  (Object.values(BRANCHES).find((b) => b.category === categoryId) || {}).label || "";
+
+/* Mensaje de WhatsApp con todos los productos de la lista de cotización */
+export function quoteListMessage(items) {
+  const lines = items.map((p) => "• " + p.name + (p.reference ? " (Ref. " + p.reference + ")" : "") + " - " + categoryLabel(p.category));
+  return [
+    "Hola, Comercial TGO S.A.S. Quisiera cotizar estos productos:",
+    ...lines,
+    "Cantidad aproximada y lugar de entrega: ",
+    "¿Me pueden informar disponibilidad y precio? Gracias.",
+  ].join("\n");
+}
