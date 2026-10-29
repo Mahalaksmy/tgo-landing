@@ -22,7 +22,7 @@ export default function QuoteBand() {
           <h2 id="quote-title" className="font-display text-3xl font-semibold leading-[1.08] tracking-[-0.02em] md:text-[2.75rem]">
             Solicita una cotización para tu cultivo o tu empresa
           </h2>
-          <p className="mt-5 max-w-[60ch] leading-relaxed text-white/80">
+          <p className="mt-5 hidden max-w-[60ch] leading-relaxed text-white/80 sm:block">
             Cuéntanos qué producto necesitas, la medida o referencia, la cantidad aproximada y el lugar de entrega.
             Te respondemos por WhatsApp con disponibilidad y precio.
           </p>

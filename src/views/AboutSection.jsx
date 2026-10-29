@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { site } from "../data/site.js";
 import { categories } from "../data/categories.js";
 import { values } from "../data/values.js";
 import Icon from "../components/Icon.jsx";
 import { T } from "../lib/utils.js";
 
-/* Nosotros: tarjeta con foto + valores (en Inicio la foto va en escala de grises por el tema monocromático) */
+/* Nosotros: tarjeta con foto a color + valores */
 export default function AboutSection() {
+  const [expanded, setExpanded] = useState(false);
   const s = site;
   const chips = [
     ...categories.map((c) => ({ icon: c.icon, text: c.name })),
@@ -13,7 +15,7 @@ export default function AboutSection() {
   ];
   return (
     <section id="nosotros" aria-labelledby="about-title" className="grid gap-5 lg:grid-cols-[7fr_5fr]">
-      <article className={`relative isolate flex min-h-[32rem] flex-col justify-between gap-10 overflow-hidden rounded-[2rem] bg-deep p-7 text-white md:p-12 ${T}`}>
+      <article className={`relative isolate flex min-h-[26rem] flex-col sm:min-h-[32rem] justify-between gap-10 overflow-hidden rounded-[2rem] bg-deep p-7 text-white md:p-12 ${T}`}>
         <img src={s.aboutImage} alt={s.aboutImageAlt} loading="lazy" decoding="async"
           className="absolute inset-0 -z-20 h-full w-full object-cover object-[55%_40%]" />
         {/* Foto a color, oscurecida de forma pareja para que el texto blanco se lea */}
@@ -21,7 +23,12 @@ export default function AboutSection() {
           style={{ background: "linear-gradient(180deg, rgb(0 0 0/.7) 0%, rgb(0 0 0/.58) 50%, rgb(0 0 0/.5) 100%)" }} />
         <div>
           <h2 id="about-title" className="font-display text-3xl font-semibold leading-[1.05] tracking-tight md:text-5xl">Conoce a {s.name}</h2>
-          <p className="mt-6 max-w-[46ch] text-[1.05rem] leading-relaxed text-white/90 [text-shadow:0_1px_10px_rgb(0_0_0/.5)] md:text-lg">{s.about[0]}</p>
+          <p id="about-text" className={`mt-6 max-w-[46ch] text-[1.05rem] leading-relaxed text-white/90 [text-shadow:0_1px_10px_rgb(0_0_0/.5)] sm:line-clamp-none md:text-lg ${expanded ? "" : "line-clamp-5"}`}>{s.about[0]}</p>
+          {/* En celular el texto se recorta; este botón lo muestra completo */}
+          <button type="button" onClick={() => setExpanded(!expanded)} aria-expanded={expanded} aria-controls="about-text"
+            className="-mx-1 mt-2 rounded-md px-1 py-2 text-sm font-semibold text-white underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:hidden">
+            {expanded ? "Leer menos" : "Leer más"}
+          </button>
         </div>
         <ul className="flex flex-wrap gap-2" aria-label="En resumen">
           {chips.map((c) => (
