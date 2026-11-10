@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { site } from "../data/site.js";
 import Icon from "./Icon.jsx";
+import NavLink from "./NavLink.jsx";
 import { waUrl, mapsUrl, prefersReducedMotion, T } from "../lib/utils.js";
 
 function useIsDesktop(query = "(min-width: 700px)") {
@@ -39,10 +40,11 @@ export default function Footer({ onNavigate, onScrollTo }) {
   const s = site;
   const desktop = useIsDesktop();
   const links = [
-    ["Inicio", () => onNavigate("home")],
-    ["Nosotros", () => onNavigate("home", "nosotros")],
-    ["Insumos Agrícolas", () => onNavigate("agriculture")],
-    ["Insumos Institucionales", () => onNavigate("organizational")],
+    /* [texto, vista, sección] → enlace real; [texto, acción] → solo desplaza */
+    ["Inicio", "home"],
+    ["Nosotros", "home", "nosotros"],
+    ["Insumos Agrícolas", "agriculture"],
+    ["Insumos Institucionales", "organizational"],
     ["Proveedores", () => onScrollTo("proveedores")],
     ["Contacto", () => onScrollTo("contacto")],
   ];
@@ -65,11 +67,16 @@ export default function Footer({ onNavigate, onScrollTo }) {
           {/* Explora */}
           <FooterColumn title="Explora" desktop={desktop}>
             <ul className="grid gap-2.5">
-              {links.map(([label, action]) => (
-                <li key={label}>
-                  <button type="button" onClick={action} className={`${linkCls} text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-accent`}>{label}</button>
-                </li>
-              ))}
+              {links.map(([label, target, section]) => {
+                const cls = `${linkCls} text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-accent`;
+                return (
+                  <li key={label}>
+                    {typeof target === "string"
+                      ? <NavLink to={target} section={section} onNavigate={onNavigate} className={cls}>{label}</NavLink>
+                      : <button type="button" onClick={target} className={cls}>{label}</button>}
+                  </li>
+                );
+              })}
             </ul>
           </FooterColumn>
 

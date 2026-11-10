@@ -1,5 +1,6 @@
 import { BRANCHES } from "../data/branches.js";
 import Icon from "./Icon.jsx";
+import NavLink from "./NavLink.jsx";
 import { productsOf } from "../lib/utils.js";
 
 /* Al pasar el cursor (o enfocar con teclado), la tarjeta se rellena con el color de su catálogo */
@@ -20,7 +21,7 @@ export default function BranchCard({ branchKey, onOpen }) {
   const count = productsOf(b.category).length;
   const toWhite = "group-hover:text-white/85 group-focus-visible:text-white/85";
   return (
-    <button type="button" onClick={() => onOpen(branchKey)}
+    <NavLink to={branchKey} onNavigate={onOpen}
       className={`group relative flex flex-col justify-between gap-8 overflow-hidden rounded-[2rem] border border-line/15 bg-surface p-6 sm:min-h-[18rem] sm:p-7 text-left text-ink
         transition-all duration-500 ease-in-out hover:-translate-y-1 hover:text-white focus-visible:text-white active:scale-[.99] md:min-h-[22rem] md:p-9
         focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30 ${f.card}`}>
@@ -45,6 +46,6 @@ export default function BranchCard({ branchKey, onOpen }) {
           Ver catálogo <Icon name="arrow" className="h-4 w-4" />
         </span>
       </div>
-    </button>
+    </NavLink>
   );
 }

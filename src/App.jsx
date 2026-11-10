@@ -8,11 +8,15 @@ import CatalogView from "./views/CatalogView.jsx";
 import QuoteTray from "./components/QuoteTray.jsx";
 import { products } from "./data/products.js";
 import { waUrl, prefersReducedMotion, T } from "./lib/utils.js";
+import { viewFromPath, pathOf, applyRouteMeta } from "./lib/routes.js";
 
-/* Estado de la vista (home / agriculture / organizational) + transiciones */
+/* Estado de la vista (home / agriculture / organizational) + transiciones.
+   Cada vista tiene su URL (/, /agricolas, /institucionales): se lee al cargar y se actualiza al navegar. */
+const initialView = viewFromPath(window.location.pathname);
+
 export default function App() {
-  const [view, setView] = useState("home");          // vista pedida (controla el tema)
-  const [shown, setShown] = useState("home");        // vista renderizada (cambia tras la salida)
+  const [view, setView] = useState(initialView);     // vista pedida (controla el tema)
+  const [shown, setShown] = useState(initialView);   // vista renderizada (cambia tras la salida)
   const [leaving, setLeaving] = useState(false);
   const headingRef = useRef(null);
   const firstRender = useRef(true);
@@ -32,7 +36,7 @@ export default function App() {
   const hasQuote = quoteItems.length > 0;
 
   /* El tema vive en <html data-view>: cambia header, footer y contenido a la vez */
-  useEffect(() => { document.documentElement.dataset.view = view; }, [view]);
+  useEffect(() => { document.documentElement.dataset.view = view; applyRouteMeta(view); }, [view]);
 
   /* Desplazar a una sección (proveedores, contacto, nosotros) */
   const scrollToId = useCallback((id) => {
@@ -42,12 +46,14 @@ export default function App() {
 
   const pendingSection = useRef(null);
 
-  /* navigate(vista, seccion?): cambia de vista; si se indica una sección, baja hasta ella al montar */
-  const navigate = useCallback((next, sectionId) => {
+  /* navigate(vista, seccion?): cambia de vista; si se indica una sección, baja hasta ella al montar.
+     fromHistory = true cuando viene de los botones atrás/adelante (no se agrega otra entrada). */
+  const navigate = useCallback((next, sectionId, fromHistory = false) => {
     if (next === view) {
       if (sectionId) scrollToId(sectionId);
       return;
     }
+    if (!fromHistory) window.history.pushState(null, "", pathOf(next) + (sectionId ? "#" + sectionId : ""));
     pendingSection.current = sectionId || null;
     setView(next);
     clearTimeout(timer.current);
@@ -58,6 +64,19 @@ export default function App() {
       setLeaving(false);
     }, 220);
   }, [view]);
+
+  /* Atrás / adelante del navegador */
+  useEffect(() => {
+    const onPop = () => navigate(viewFromPath(window.location.pathname), window.location.hash.slice(1) || undefined, true);
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, [navigate]);
+
+  /* Enlace directo con sección (p. ej. /#nosotros): bajar hasta ella cuando ya existe en la página */
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (id) requestAnimationFrame(() => scrollToId(id));
+  }, [scrollToId]);
 
   /* Al montar una vista: subir al inicio y mover el foco al título (lectores de pantalla) */
   useEffect(() => {

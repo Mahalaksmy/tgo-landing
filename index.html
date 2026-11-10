@@ -6,10 +6,16 @@
   <title>Comercial TGO S.A.S. | Insumos agrícolas e institucionales en La Unión, Antioquia</title>
   <meta name="description" content="Comercial TGO S.A.S.: insumos agrícolas e institucionales en La Unión, Antioquia, Colombia. Capuchones, hidratadores, polisombra, químicos de limpieza y más. Consulta disponibilidad por WhatsApp.">
   <meta name="robots" content="index, follow">
-  <!-- Dominio: www.tgocomercial.com (si cambia, actualizar aquí, robots.txt y sitemap.xml) -->
+  <!-- Dominio: www.tgocomercial.com (si cambia, actualizar aquí, src/lib/routes.js, robots.txt y sitemap.xml).
+       Título, descripción y canonical de /agricolas e /institucionales se generan al compilar desde src/lib/routes.js. -->
   <link rel="canonical" href="https://www.tgocomercial.com/">
   <meta name="theme-color" content="#FAFAF9">
+  <!-- Íconos: Google usa el favicon en los resultados (múltiplo de 48px). favicon.ico en la raíz es el respaldo que busca por defecto. -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/img/favicon-96x96.png" type="image/png" sizes="96x96">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="preload" href="/assets/fonts/clash-display-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -26,11 +32,22 @@
   <meta property="og:image:alt" content="Logo de Comercial TGO S.A.S. Insumos agrícolas e institucionales, La Unión, Antioquia">
   <meta name="twitter:card" content="summary_large_image">
 
+  <!-- Nombre del sitio que Google muestra sobre el resultado -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Comercial TGO",
+    "alternateName": ["Comercial TGO S.A.S.", "TGO Comercial", "TGO"],
+    "url": "https://www.tgocomercial.com/"
+  }
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Comercial TGO S.A.S.",
+    "alternateName": ["Comercial TGO", "TGO Comercial"],
     "url": "https://www.tgocomercial.com/",
     "logo": "https://www.tgocomercial.com/assets/img/logo.png",
     "image": "https://www.tgocomercial.com/assets/img/og-image.jpg",
@@ -45,7 +62,8 @@
       "addressRegion": "Antioquia",
       "addressCountry": "CO"
     },
-    "openingHours": "Mo-Sa 08:00-18:00"
+    "openingHours": "Mo-Sa 08:00-18:00",
+    "areaServed": { "@type": "AdministrativeArea", "name": "Antioquia, Colombia" }
   }
   </script>
 </head>

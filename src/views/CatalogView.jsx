@@ -1,6 +1,9 @@
 import { BRANCHES } from "../data/branches.js";
 import Icon from "../components/Icon.jsx";
+import NavLink from "../components/NavLink.jsx";
+import { useCallback, useState } from "react";
 import ProductCard from "./ProductCard.jsx";
+import ProductSheet from "./ProductSheet.jsx";
 import QuoteBand from "../components/QuoteBand.jsx";
 import WhatsAppButton from "../components/WhatsAppButton.jsx";
 import { productsOf, T } from "../lib/utils.js";
@@ -10,6 +13,8 @@ const focusRing = "focus-visible:outline-none focus-visible:ring-4 focus-visible
 export default function CatalogView({ branchKey, onNavigate, headingRef, quoteIds = [], onToggleQuote }) {
   const b = BRANCHES[branchKey];
   const items = productsOf(b.category);
+  const [detail, setDetail] = useState(null);         // producto abierto en la hoja de detalle (celular)
+  const closeDetail = useCallback(() => setDetail(null), []);
   return (
     <section aria-labelledby="catalog-title" className="pt-2 md:pt-6">
       {/* Ruta + selector entre los dos catálogos */}
@@ -17,25 +22,25 @@ export default function CatalogView({ branchKey, onNavigate, headingRef, quoteId
         <nav aria-label="Ruta" className={`text-sm text-muted ${T}`}>
           <ol className="flex items-center gap-1.5">
             <li>
-              <button type="button" onClick={() => onNavigate("home")}
-                className={`-mx-1 rounded-md px-1 py-2 underline-offset-4 hover:text-ink hover:underline ${focusRing}`}>Inicio</button>
+              <NavLink to="home" onNavigate={onNavigate}
+                className={`-mx-1 rounded-md px-1 py-2 underline-offset-4 hover:text-ink hover:underline ${focusRing}`}>Inicio</NavLink>
             </li>
             <li aria-hidden="true">/</li>
             <li aria-current="page" className="font-medium text-ink">Catálogo</li>
           </ol>
         </nav>
-        <div role="group" aria-label="Elegir catálogo" className={`inline-flex rounded-full bg-ink/[.05] p-1 ${T}`}>
+        <nav aria-label="Elegir catálogo" className={`inline-flex rounded-full bg-ink/[.05] p-1 ${T}`}>
           {Object.entries(BRANCHES).map(([key, br]) => {
             const active = key === branchKey;
             return (
-              <button key={key} type="button" onClick={() => onNavigate(key)} aria-pressed={active}
+              <NavLink key={key} to={key} onNavigate={onNavigate} aria-current={active ? "page" : undefined}
                 className={`inline-flex h-10 items-center gap-1.5 rounded-full px-3.5 text-[0.8125rem] font-semibold ${T} sm:px-4 sm:text-sm ${focusRing}
                   ${active ? "bg-primary text-primary-fg shadow-sm" : "text-muted hover:text-ink"}`}>
                 <Icon name={br.icon} className="h-4 w-4" />{br.short}
-              </button>
+              </NavLink>
             );
           })}
-        </div>
+        </nav>
       </div>
 
       {/* Título */}
@@ -54,7 +59,7 @@ export default function CatalogView({ branchKey, onNavigate, headingRef, quoteId
         <ul className="mt-6 grid grid-cols-2 gap-3 sm:gap-5 md:mt-8 lg:gap-6">
           {items.map((p) => (
             <ProductCard key={p.id} product={p} categoryName={b.label}
-              selected={quoteIds.includes(p.id)} onToggle={onToggleQuote} />
+              selected={quoteIds.includes(p.id)} onToggle={onToggleQuote} onOpen={setDetail} />
           ))}
         </ul>
       ) : (
@@ -69,6 +74,9 @@ export default function CatalogView({ branchKey, onNavigate, headingRef, quoteId
       <div className="mt-14 md:mt-20">
         <QuoteBand />
       </div>
+
+      <ProductSheet product={detail} categoryName={b.label} selected={!!detail && quoteIds.includes(detail.id)}
+        onToggle={onToggleQuote} onClose={closeDetail} />
     </section>
   );
 }

@@ -91,6 +91,16 @@ p { text-wrap: pretty; }
 @keyframes view-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 .view-enter { animation: view-in .5s ease-in-out both; }
 
+/* Hoja de detalle del producto (celular): sube desde abajo y baja al cerrar */
+@keyframes sheet-up { from { transform: translateY(100%); } }
+@keyframes sheet-down { to { transform: translateY(100%); } }
+@keyframes sheet-fade-in { from { opacity: 0; } }
+@keyframes sheet-fade-out { to { opacity: 0; } }
+.sheet-panel { animation: sheet-up .34s cubic-bezier(.32,.72,0,1) both; }
+.sheet-dialog[open]::backdrop { animation: sheet-fade-in .3s ease-out both; }
+.sheet-dialog.is-closing .sheet-panel { animation: sheet-down .22s ease-in both; }
+.sheet-dialog.is-closing::backdrop { animation: sheet-fade-out .22s ease-in both; }
+
 /* Marquesina de proveedores (pausa con el botón, el cursor o el foco) */
 @keyframes marquee { to { transform: translateX(calc(-50% - 0.5rem)); } }
 .marquee-mask { -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
@@ -98,6 +108,7 @@ p { text-wrap: pretty; }
 .marquee-mask:hover .marquee-track, .marquee-mask:focus-within .marquee-track, .marquee-mask.is-paused .marquee-track { animation-play-state: paused; }
 
 @media (prefers-reduced-motion: reduce) {
+  .sheet-panel, .sheet-dialog[open]::backdrop, .sheet-dialog.is-closing .sheet-panel, .sheet-dialog.is-closing::backdrop { animation: none; }
   .marquee-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; }
   .marquee-track > [aria-hidden="true"] { display: none; }
   .marquee-mask { -webkit-mask-image: none; mask-image: none; }

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { site } from "../data/site.js";
 import Icon from "./Icon.jsx";
 import WhatsAppMark from "./WhatsAppMark.jsx";
+import NavLink from "./NavLink.jsx";
 import { waUrl, T } from "../lib/utils.js";
 
 /* Header fijo: franja superior en el color de la vista + barra blanca a todo el ancho.
@@ -11,19 +12,28 @@ const CTA = "Solicita tu cotización";
    El logo de WhatsApp se mantiene igual en todas. */
 const WA_BTN = "bg-[linear-gradient(135deg,rgb(var(--primary))_0%,rgb(var(--primary-strong))_100%)] shadow-[0_10px_24px_-10px_rgb(var(--primary)/.6),inset_0_1px_0_rgb(255_255_255/.18)] transition-[filter,transform] duration-300 hover:brightness-110 active:scale-[.98]";
 
+/* Las vistas son enlaces reales (<a href>) para que Google las encuentre; Contacto solo desplaza */
+function Item({ it, className, children, onNavigate, onClose }) {
+  if (it.to) return (
+    <NavLink to={it.to} section={it.section} onNavigate={onNavigate} onClick={onClose}
+      aria-current={it.active ? "page" : undefined} className={className}>{children}</NavLink>
+  );
+  return <button type="button" onClick={() => { onClose?.(); it.go(); }} className={className}>{children}</button>;
+}
+
 export default function Header({ view, onNavigate, onScrollTo }) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
   const burgerRef = useRef(null);
 
   const items = [
-    { label: "Inicio", active: view === "home", go: () => onNavigate("home") },
-    { label: "Agrícolas", active: view === "agriculture", go: () => onNavigate("agriculture") },
-    { label: "Institucionales", active: view === "organizational", go: () => onNavigate("organizational") },
-    { label: "Nosotros", go: () => onNavigate("home", "nosotros") },
+    { label: "Inicio", active: view === "home", to: "home" },
+    { label: "Agrícolas", active: view === "agriculture", to: "agriculture" },
+    { label: "Institucionales", active: view === "organizational", to: "organizational" },
+    { label: "Nosotros", to: "home", section: "nosotros" },
     { label: "Contacto", go: () => onScrollTo("contacto") },
   ];
-  const run = (fn) => { setOpen(false); fn(); };
+  const close = () => setOpen(false);
 
   /* Menú móvil: bloquea el scroll, mueve el foco y se cierra con Esc */
   useEffect(() => {
@@ -54,21 +64,21 @@ export default function Header({ view, onNavigate, onScrollTo }) {
       {/* Barra */}
       <div className={`border-b border-line/10 bg-surface ${T}`}>
         <div className="mx-auto grid h-16 max-w-7xl grid-cols-[1fr_auto] items-center px-4 sm:px-6 lg:h-[4.5rem] lg:grid-cols-[1fr_auto_1fr] lg:px-8">
-          <button type="button" onClick={() => run(() => onNavigate("home"))} aria-label={site.name + ", inicio"}
+          <NavLink to="home" onNavigate={onNavigate} onClick={close} aria-label={site.name + ", inicio"}
             className={`justify-self-start rounded-md ${focusRing}`}>
             <img src={site.logo} alt={site.name} width="307" height="107" className="h-8 w-auto lg:h-9" />
-          </button>
+          </NavLink>
 
           <nav aria-label="Principal" className="hidden lg:block">
             <ul className="flex items-center gap-9">
               {items.map((it) => (
                 <li key={it.label}>
-                  <button type="button" onClick={it.go} aria-current={it.active ? "page" : undefined}
+                  <Item it={it} onNavigate={onNavigate}
                     className={`relative py-2 text-[0.9375rem] font-medium ${T} rounded-sm ${focusRing}
                       ${it.active ? "text-primary" : "text-ink hover:text-primary"}`}>
                     {it.label}
                     {it.active && <span aria-hidden="true" className={`absolute -bottom-1 left-1/2 h-[5px] w-[5px] -translate-x-1/2 rounded-full bg-primary ${T}`} />}
-                  </button>
+                  </Item>
                 </li>
               ))}
             </ul>
@@ -105,12 +115,12 @@ export default function Header({ view, onNavigate, onScrollTo }) {
           <ul>
             {items.map((it) => (
               <li key={it.label} className="border-b border-line/10">
-                <button type="button" onClick={() => run(it.go)} aria-current={it.active ? "page" : undefined}
+                <Item it={it} onNavigate={onNavigate} onClose={close}
                   className={`flex w-full items-center justify-between py-3.5 text-left font-display text-[1.875rem] font-semibold tracking-[-0.02em] ${T}
                     ${it.active ? "text-primary" : "text-ink"} ${focusRing}`}>
                   {it.label}
                   <Icon name="arrow" className="h-5 w-5" />
-                </button>
+                </Item>
               </li>
             ))}
           </ul>

@@ -20,3 +20,6 @@ skills-lock.json
 # Vite
 node_modules/
 dist/
+
+# Registros de pruebas con Playwright
+.playwright-mcp/
