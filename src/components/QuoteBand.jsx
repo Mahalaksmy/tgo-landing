@@ -18,7 +18,6 @@ export default function QuoteBand() {
 
       <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-12">
         <div>
-          <p className={`mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-deep-accent ${T}`}>Cotiza directamente con nosotros</p>
           <h2 id="quote-title" className="font-display text-3xl font-semibold leading-[1.08] tracking-[-0.02em] md:text-[2.75rem]">
             Solicita una cotización para tu cultivo o tu empresa
           </h2>

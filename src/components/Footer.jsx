@@ -22,10 +22,10 @@ function FooterColumn({ title, children, desktop }) {
   return (
     <div className={desktop ? "" : `border-t border-white/10 ${T}`}>
       {desktop ? (
-        <p className={`mb-3 text-xs font-medium uppercase tracking-[0.14em] text-deep-accent ${T}`}>{title}</p>
+        <p className={`mb-3 text-sm font-semibold text-deep-accent ${T}`}>{title}</p>
       ) : (
         <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls={panelId}
-          className={`flex min-h-[52px] w-full items-center justify-between py-3.5 text-xs font-medium uppercase tracking-[0.14em] text-deep-accent ${T}
+          className={`flex min-h-[52px] w-full items-center justify-between py-3.5 text-[0.95rem] font-semibold text-deep-accent ${T}
             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-accent`}>
           {title}
           <Icon name="arrow" className={`h-4 w-4 transition-transform duration-500 ${open ? "-rotate-90" : "rotate-90"}`} />

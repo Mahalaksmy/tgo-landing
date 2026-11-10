@@ -51,10 +51,10 @@ export default function Header({ view, onNavigate, onScrollTo }) {
   return (
     <header className="fixed inset-x-0 top-0 z-40 pt-[env(safe-area-inset-top,0px)]">
       {/* Franja superior */}
-      <div className={`flex h-8 items-center justify-center gap-2.5 bg-primary px-4 text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-primary-fg ${T} sm:h-9 sm:text-xs`}>
-        <span className="hidden sm:inline">{site.address.city}, {site.address.region}</span>
+      <div className={`flex h-8 items-center justify-center gap-2.5 bg-primary px-4 text-[0.8125rem] font-medium text-primary-fg ${T} sm:h-9`}>
+        <span className="hidden opacity-80 sm:inline">{site.address.city}, {site.address.region}</span>
         <span aria-hidden="true" className="hidden opacity-60 sm:inline">·</span>
-        <span className="hidden md:inline">Lunes a sábado 8 a.m. - 6 p.m.</span>
+        <span className="hidden opacity-80 md:inline">Lunes a sábado, 8 a.m. a 6 p.m.</span>
         <span aria-hidden="true" className="hidden opacity-60 md:inline">·</span>
         <a href={quoteUrl} target="_blank" rel="noopener noreferrer" className="inline-flex h-full items-center gap-1.5 px-2 underline-offset-4 hover:underline">
           {CTA}<Icon name="external" className="h-3.5 w-3.5" />
@@ -134,8 +134,8 @@ export default function Header({ view, onNavigate, onScrollTo }) {
           className={`mt-2.5 inline-flex h-12 items-center justify-center gap-2 rounded-md bg-ink/[.05] text-[0.95rem] font-medium ${T} ${focusRing}`}>
           <Icon name="phone" className="h-[18px] w-[18px]" />Llamar {site.whatsapp.display}
         </a>
-        <p className={`mt-auto pt-8 text-xs font-medium uppercase leading-relaxed tracking-[0.14em] text-muted ${T}`}>
-          {site.address.city}, {site.address.region}<br />Lunes a sábado 8 a.m. - 6 p.m.
+        <p className={`mt-auto pt-8 text-sm leading-relaxed text-muted ${T}`}>
+          {site.address.city}, {site.address.region}<br />Lunes a sábado, 8 a.m. a 6 p.m.
         </p>
       </div>
     </header>

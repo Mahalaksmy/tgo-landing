@@ -27,8 +27,9 @@ export function ProductActions({ product, categoryName, selected, onToggle, long
           ${long ? "h-12 text-[0.9375rem]" : "h-11 text-[0.8125rem] sm:text-sm"}
           ${selected ? "bg-primary text-primary-fg hover:bg-primary-strong" : "bg-primary/10 text-primary hover:bg-primary/15"}`}>
         <Icon name={selected ? "check" : "plus"} className="h-4 w-4 shrink-0" />
-        <span className={long ? "hidden" : "sm:hidden"}>{selected ? "Agregado" : "Agregar"}</span>
-        <span className={long ? "" : "hidden sm:inline"}>{selected ? "En tu cotización" : "Agregar a cotización"}</span>
+        {/* Texto corto en celular y en escritorio (la tarjeta horizontal deja poco ancho); completo en tablet */}
+        <span className={long ? "hidden" : "sm:hidden lg:inline"}>{selected ? "Agregado" : "Agregar"}</span>
+        <span className={long ? "" : "hidden sm:inline lg:hidden"}>{selected ? "En tu cotización" : "Agregar a cotización"}</span>
       </button>
       <a href={waUrl(productMessage(product, categoryName))} target="_blank" rel="noopener noreferrer"
         aria-label={"Preguntar por WhatsApp sobre: " + product.name} title="Preguntar solo por este producto"
@@ -53,9 +54,6 @@ export default function ProductCard({ product, categoryName, selected = false, o
         className="absolute inset-0 z-[1] rounded-[inherit] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-primary/30 sm:hidden" />
       <div className="relative aspect-[4/3] overflow-hidden bg-white lg:aspect-auto lg:min-h-[21rem]">
         <ProductImage product={product} className="transition-transform duration-700 ease-out group-hover:scale-[1.04]" />
-        <span className="absolute left-3 top-3 hidden rounded-full bg-white/95 px-3 py-1 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-ink shadow-[0_2px_10px_-4px_rgb(0_0_0/.25)] ring-1 ring-inset ring-black/5 sm:inline lg:left-4 lg:top-4">
-          {categoryName}
-        </span>
       </div>
       <div className="flex flex-1 flex-col gap-2 p-3 sm:gap-3 sm:p-5 lg:justify-center lg:gap-4 lg:p-8">
         <h3 className="font-display text-[1.05rem] font-semibold leading-tight tracking-tight sm:text-xl lg:text-2xl">{product.name}</h3>

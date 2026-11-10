@@ -2,6 +2,7 @@ import BranchCard from "../components/BranchCard.jsx";
 import AboutSection from "./AboutSection.jsx";
 import QuoteBand from "../components/QuoteBand.jsx";
 import Icon from "../components/Icon.jsx";
+import { site } from "../data/site.js";
 import { T } from "../lib/utils.js";
 
 export default function HomeView({ onOpen, headingRef }) {
@@ -14,11 +15,9 @@ export default function HomeView({ onOpen, headingRef }) {
           Comercial TGO:{" "}
           <span className={`block text-muted ${T}`}>Todo lo que tu campo y tu empresa necesitan</span>
         </h1>
-        {/* En celular se oculta: es largo y centrado; los botones y las tarjetas ya explican qué hacer */}
-        <p className={`mt-6 hidden max-w-[62ch] text-lg leading-relaxed text-muted sm:block ${T}`}>
-          Proveemos soluciones integrales, productos de alta calidad y servicios especializados para potenciar el sector
-          agrícola, corporativo e institucional. Explora nuestras líneas de negocio a continuación y contáctanos directamente
-          por WhatsApp para recibir asesoría personalizada al instante.
+        <p className={`mt-5 max-w-[62ch] text-base leading-relaxed text-muted sm:mt-6 sm:text-lg ${T}`}>
+          Capuchones, hidratadores y polisombra para el cultivo y la poscosecha de flor. Químicos de limpieza,
+          papelería y bolsas para empresas e instituciones. En {site.address.city}, {site.address.region}.
         </p>
         {/* Acción principal: bajar a las dos líneas (WhatsApp ya está en el menú y en el botón flotante) */}
         <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">

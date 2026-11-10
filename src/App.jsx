@@ -119,9 +119,9 @@ export default function App() {
 
       {/* Botón flotante de WhatsApp */}
       {!hasQuote && <a href={waUrl()} target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp"
-        className="fixed bottom-[calc(env(safe-area-inset-bottom,0px)+1rem)] right-4 z-30 rounded-full shadow-[0_12px_28px_-10px_rgb(37_211_102/.7)]
+        className="fixed bottom-[calc(env(safe-area-inset-bottom,0px)+1rem)] right-3 z-30 sm:right-4 rounded-full shadow-[0_12px_28px_-10px_rgb(37_211_102/.7)]
           transition-transform duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/40 md:right-6">
-        <WhatsAppMark className="h-14 w-14" />
+        <WhatsAppMark className="h-12 w-12 sm:h-14 sm:w-14" />
       </a>}
     </>
   );

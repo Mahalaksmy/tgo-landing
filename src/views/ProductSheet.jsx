@@ -80,8 +80,7 @@ export default function ProductSheet({ product, categoryName, selected, onToggle
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line/10 bg-white">
               <ProductImage product={product} />
             </div>
-            <p className={`mt-5 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-primary ${T}`}>{categoryName}</p>
-            <h2 id="sheet-title" className="mt-1 font-display text-[1.75rem] font-semibold leading-tight tracking-tight">{product.name}</h2>
+            <h2 id="sheet-title" className="mt-5 font-display text-[1.75rem] font-semibold leading-tight tracking-tight">{product.name}</h2>
             {product.reference && (
               <p className={`mt-3 flex justify-between gap-2 border-b border-dashed border-line/15 pb-2 text-sm ${T}`}>
                 <span className={`text-primary ${T}`}>Referencia</span><span className="font-medium tabular-nums">{product.reference}</span>

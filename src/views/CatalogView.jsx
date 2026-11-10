@@ -26,7 +26,7 @@ export default function CatalogView({ branchKey, onNavigate, headingRef, quoteId
                 className={`-mx-1 rounded-md px-1 py-2 underline-offset-4 hover:text-ink hover:underline ${focusRing}`}>Inicio</NavLink>
             </li>
             <li aria-hidden="true">/</li>
-            <li aria-current="page" className="font-medium text-ink">Catálogo</li>
+            <li aria-current="page" className="font-medium text-ink">{b.label}</li>
           </ol>
         </nav>
         <nav aria-label="Elegir catálogo" className={`inline-flex rounded-full bg-ink/[.05] p-1 ${T}`}>
