@@ -19,7 +19,6 @@ export const site = {
     "productMessageTemplate": [
       "Hola, Comercial TGO S.A.S. Quisiera consultar por este producto:",
       "• Producto: {name}",
-      "• Referencia: {reference}",
       "• Presentación: {presentation}",
       "• Categoría: {category}",
       "¿Me pueden informar disponibilidad y precio? Gracias."
@@ -29,7 +28,8 @@ export const site = {
   "hours": "Lunes a sábado, 8:00 a.m. - 6:00 p.m.",
   "logo": "/assets/img/logo.png",
   "about": [
-    "Somos especialistas en la provisión e integración de insumos agrícolas para la floricultura y diversos sectores del campo. Garantizamos la protección, hidratación y adecuado empaque de sus productos mediante un amplio portafolio técnico que abarca mallas polisombra, materiales de poscosecha y sistemas de adecuación. Acompañamos a productores y comercializadores con soluciones de alta eficiencia."
+    "Comercial TGO S.A.S. es una compañía dedicada a la provisión integral de soluciones de empaque para la floricultura y suministros institucionales para el sector corporativo.",
+    "Respaldamos la productividad del campo y la eficiencia corporativa ofreciendo calidad constante, atención personalizada, excelentes precios y la certeza de recibir cada pedido justo a tiempo."
   ],
   "aboutImage": "/assets/img/tema/hortensias-vivero.webp",
   "aboutImageAlt": "Hortensias en flor en un vivero"

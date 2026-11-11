@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Icon from "../components/Icon.jsx";
-import { ProductActions, ProductImage } from "./ProductCard.jsx";
+import { PresentationPicker, ProductActions, ProductImage, imageFor } from "./ProductCard.jsx";
 import { prefersReducedMotion, T } from "../lib/utils.js";
 
 /* Vista de detalle del producto en celular: hoja que sube desde abajo con foto, texto completo y acciones.
    Se cierra con la ✕, tocando fuera, con Esc, deslizando hacia abajo o con el botón "atrás" del teléfono. */
-export default function ProductSheet({ product, categoryName, selected, onToggle, onClose }) {
+export default function ProductSheet({ product, categoryName, presentation, onChoose, selected, onToggle, onClose }) {
   const dialogRef = useRef(null);
   const panelRef = useRef(null);
   const drag = useRef(null);
@@ -78,26 +78,17 @@ export default function ProductSheet({ product, categoryName, selected, onToggle
 
           <div className="overflow-y-auto overscroll-contain px-5 pb-4">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line/10 bg-white">
-              <ProductImage product={product} />
+              <ProductImage product={product} image={imageFor(product, presentation)} />
             </div>
             <h2 id="sheet-title" className="mt-5 font-display text-[1.75rem] font-semibold leading-tight tracking-tight">{product.name}</h2>
-            {product.reference && (
-              <p className={`mt-3 flex justify-between gap-2 border-b border-dashed border-line/15 pb-2 text-sm ${T}`}>
-                <span className={`text-primary ${T}`}>Referencia</span><span className="font-medium tabular-nums">{product.reference}</span>
-              </p>
-            )}
-            {product.presentation && (
-              <p className={`mt-2 flex justify-between gap-2 border-b border-dashed border-line/15 pb-2 text-sm ${T}`}>
-                <span className={`text-primary ${T}`}>Presentación</span><span className="text-right font-medium">{product.presentation}</span>
-              </p>
-            )}
             {product.description && (
               <p className={`mt-4 text-base leading-relaxed text-muted ${T}`}>{product.description}</p>
             )}
+            <PresentationPicker product={product} value={presentation} onChange={onChoose} large className="mt-5" />
           </div>
 
           {/* Acciones siempre visibles al pie */}
-          <ProductActions product={product} categoryName={categoryName} selected={selected} onToggle={onToggle} long
+          <ProductActions product={product} presentation={presentation} categoryName={categoryName} selected={selected} onToggle={onToggle} long
             className="shrink-0 border-t border-line/10 px-5 pb-[calc(env(safe-area-inset-bottom,0px)+1rem)] pt-3" />
         </div>
       )}

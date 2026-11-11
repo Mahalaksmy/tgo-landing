@@ -8,13 +8,7 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.tgocomercial.com/agricolas</loc>
-    <lastmod>2026-11-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.tgocomercial.com/institucionales</loc>
+    <loc>https://www.tgocomercial.com/catalogo</loc>
     <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

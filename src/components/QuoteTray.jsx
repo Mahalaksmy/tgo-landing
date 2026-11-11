@@ -1,6 +1,6 @@
 import Icon from "./Icon.jsx";
 import WhatsAppMark from "./WhatsAppMark.jsx";
-import { waUrl, quoteListMessage, T } from "../lib/utils.js";
+import { waUrl, quoteListMessage, itemName, T } from "../lib/utils.js";
 
 /* Barra inferior con la lista de cotización: aparece al agregar el primer producto
    y envía un solo WhatsApp con todos los elegidos (agrícolas e institucionales). */
@@ -15,7 +15,7 @@ export default function QuoteTray({ items, onClear }) {
           <p aria-live="polite" className="text-sm font-semibold">
             {n} {n === 1 ? "producto" : "productos"} en tu cotización
           </p>
-          <p className={`truncate text-xs text-deep-muted ${T}`}>{items.map((p) => p.name).join(" · ")}</p>
+          <p className={`truncate text-xs text-deep-muted ${T}`}>{items.map(itemName).join(" · ")}</p>
         </div>
         <div className="flex w-full items-center gap-2 sm:w-auto">
           <button type="button" onClick={onClear}

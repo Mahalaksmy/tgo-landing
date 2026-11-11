@@ -8,24 +8,22 @@ export const ROUTES = {
     title: "Comercial TGO S.A.S. | Insumos agrícolas e institucionales en La Unión, Antioquia",
     description: "Comercial TGO S.A.S.: insumos agrícolas e institucionales en La Unión, Antioquia, Colombia. Capuchones, hidratadores, polisombra, químicos de limpieza y más. Consulta disponibilidad por WhatsApp.",
   },
-  agriculture: {
-    path: "/agricolas",
-    title: "Insumos agrícolas para floricultura y poscosecha | Comercial TGO, La Unión",
-    description: "Capuchones de tela y plástico, hidratadores, cauchos, grapas, cinta de empaque y polisombra para el cultivo y la poscosecha de flor. Comercial TGO, La Unión, Antioquia. Cotiza por WhatsApp.",
-  },
-  organizational: {
-    path: "/institucionales",
-    title: "Insumos institucionales: limpieza, papelería y bolsas | Comercial TGO, La Unión",
-    description: "Químicos de limpieza, papelería de gran formato, bolsas para basura y dispensadores para empresas e instituciones. Comercial TGO, La Unión, Antioquia. Cotiza por WhatsApp.",
+  catalog: {
+    path: "/catalogo",
+    title: "Catálogo: insumos para flores e instituciones | Comercial TGO, La Unión",
+    description: "Capuchones, hidratadores, cauchos, grapas, cinta de empaque y polisombra para la floricultura; químicos de limpieza, papelería, bolsas y dispensadores para empresas. Comercial TGO, La Unión, Antioquia. Cotiza por WhatsApp.",
   },
 };
 
 export const pathOf = (view) => ROUTES[view].path;
 
-/* "/agricolas", "/agricolas/" o "/agricolas.html" → "agriculture"; cualquier otra ruta → "home" */
+/* Rutas antiguas (un catálogo por línea): ahora abren el catálogo único. En Vercel redirigen con 301 (vercel.json). */
+const OLD_PATHS = { "/agricolas": "catalog", "/institucionales": "catalog" };
+
+/* "/catalogo", "/catalogo/" o "/catalogo.html" → "catalog"; cualquier otra ruta → "home" */
 export function viewFromPath(pathname) {
   const p = pathname.replace(/\.html$/, "").replace(/\/+$/, "") || "/";
-  return Object.keys(ROUTES).find((k) => ROUTES[k].path === p) || "home";
+  return Object.keys(ROUTES).find((k) => ROUTES[k].path === p) || OLD_PATHS[p] || "home";
 }
 
 /* Actualiza título, descripción y canonical al cambiar de vista */

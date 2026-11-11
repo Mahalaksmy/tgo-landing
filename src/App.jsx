@@ -7,11 +7,11 @@ import HomeView from "./views/HomeView.jsx";
 import CatalogView from "./views/CatalogView.jsx";
 import QuoteTray from "./components/QuoteTray.jsx";
 import { products } from "./data/products.js";
-import { waUrl, prefersReducedMotion, T } from "./lib/utils.js";
+import { waUrl, prefersReducedMotion, parseQuoteKey, T } from "./lib/utils.js";
 import { viewFromPath, pathOf, applyRouteMeta } from "./lib/routes.js";
 
-/* Estado de la vista (home / agriculture / organizational) + transiciones.
-   Cada vista tiene su URL (/, /agricolas, /institucionales): se lee al cargar y se actualiza al navegar. */
+/* Estado de la vista (home / catalog) + transiciones.
+   Cada vista tiene su URL (/, /catalogo): se lee al cargar y se actualiza al navegar. */
 const initialView = viewFromPath(window.location.pathname);
 
 export default function App() {
@@ -22,17 +22,19 @@ export default function App() {
   const firstRender = useRef(true);
   const timer = useRef(null);
 
-  /* Lista de cotización (ids de producto). Se guarda en la pestaña para no perderla al recargar. */
+  /* Lista de cotización: claves "id" o "id|presentación" (ver quoteKey). Se guarda en la pestaña para no perderla al recargar. */
   const [quoteIds, setQuoteIds] = useState(() => {
     try { return JSON.parse(sessionStorage.getItem("tgo-cotizacion") || "[]"); } catch { return []; }
   });
   useEffect(() => {
     try { sessionStorage.setItem("tgo-cotizacion", JSON.stringify(quoteIds)); } catch { /* sin almacenamiento: solo en memoria */ }
   }, [quoteIds]);
-  const toggleQuote = useCallback((id) => {
-    setQuoteIds((ids) => (ids.includes(id) ? ids.filter((x) => x !== id) : [...ids, id]));
+  const toggleQuote = useCallback((key) => {
+    setQuoteIds((keys) => (keys.includes(key) ? keys.filter((x) => x !== key) : [...keys, key]));
   }, []);
-  const quoteItems = quoteIds.map((id) => products.find((p) => p.id === id)).filter(Boolean);
+  const quoteItems = quoteIds
+    .map((key) => { const { id, presentation } = parseQuoteKey(key); return { key, presentation, product: products.find((p) => p.id === id) }; })
+    .filter((it) => it.product);
   const hasQuote = quoteItems.length > 0;
 
   /* El tema vive en <html data-view>: cambia header, footer y contenido a la vez */
@@ -103,7 +105,7 @@ export default function App() {
         <div key={shown} className={`view-enter transition-opacity duration-200 ease-in-out ${leaving ? "opacity-0" : "opacity-100"}`}>
           {shown === "home"
             ? <HomeView onOpen={navigate} headingRef={headingRef} />
-            : <CatalogView branchKey={shown} onNavigate={navigate} headingRef={headingRef}
+            : <CatalogView onNavigate={navigate} headingRef={headingRef}
                 quoteIds={quoteIds} onToggleQuote={toggleQuote} />}
         </div>
       </main>

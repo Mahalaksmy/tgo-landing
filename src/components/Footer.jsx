@@ -43,8 +43,7 @@ export default function Footer({ onNavigate, onScrollTo }) {
     /* [texto, vista, sección] → enlace real; [texto, acción] → solo desplaza */
     ["Inicio", "home"],
     ["Nosotros", "home", "nosotros"],
-    ["Insumos Agrícolas", "agriculture"],
-    ["Insumos Institucionales", "organizational"],
+    ["Catálogo", "catalog"],
     ["Proveedores", () => onScrollTo("proveedores")],
     ["Contacto", () => onScrollTo("contacto")],
   ];

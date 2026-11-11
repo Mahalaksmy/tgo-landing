@@ -13,22 +13,26 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 function fallbackHtml(view) {
   const wa = `<p><a href="https://wa.me/${site.whatsapp.number}">Escríbenos por WhatsApp: ${esc(site.whatsapp.display)}</a> · <a href="mailto:${esc(site.email)}">${esc(site.email)}</a></p>`;
   const addr = `${esc(site.address.street)}, ${esc(site.address.city)}, ${esc(site.address.region)}`;
-  const branchLinks = Object.entries(BRANCHES)
-    .map(([key, b]) => `<li><a href="${ROUTES[key].path}">${esc(b.label)}</a>: ${esc(b.blurb)}</li>`).join("");
+  const catalog = ROUTES.catalog.path;
+  const branchLinks = Object.values(BRANCHES)
+    .map((b) => `<li><a href="${catalog}#${b.category}">${esc(b.label)}</a>: ${esc(b.blurb)}</li>`).join("");
   let body;
   if (view === "home") {
     body = `<h1>${esc(site.name)}</h1><p>${esc(site.tagline)} en ${addr}.</p><ul>${branchLinks}</ul>`;
   } else {
-    const b = BRANCHES[view];
-    const items = products.filter((p) => p.category === b.category)
-      .map((p) => `<li><strong>${esc(p.name)}</strong>: ${esc(p.description)}</li>`).join("");
-    body = `<p><a href="/">${esc(site.name)}</a></p><h1>${esc(b.label)}</h1><p>${esc(b.blurb)}</p><ul>${items}</ul><p>${addr}.</p>`;
+    /* Catálogo: cada línea con sus productos */
+    const sections = Object.values(BRANCHES).map((b) => {
+      const items = products.filter((p) => p.category === b.category)
+        .map((p) => `<li><strong>${esc(p.name)}</strong>: ${esc(p.description)}</li>`).join("");
+      return `<h2 id="${b.category}">${esc(b.label)}</h2><p>${esc(b.blurb)}</p><ul>${items}</ul>`;
+    }).join("");
+    body = `<p><a href="/">${esc(site.name)}</a></p><h1>Catálogo</h1>${sections}<p>${addr}.</p>`;
   }
   return `<noscript>\n    <div style="max-width:40rem;margin:4rem auto;padding:0 1rem;font-family:system-ui,sans-serif">${body}${wa}</div>\n  </noscript>`;
 }
 
-/* Al compilar: un HTML por ruta (agricolas.html, institucionales.html) con su propio título,
-   descripción, canonical y texto de respaldo. Vercel los sirve como /agricolas y /institucionales (cleanUrls). */
+/* Al compilar: un HTML por ruta (catalogo.html) con su propio título,
+   descripción, canonical y texto de respaldo. Vercel lo sirve como /catalogo (cleanUrls). */
 function routePages() {
   return {
     name: "tgo-route-pages",

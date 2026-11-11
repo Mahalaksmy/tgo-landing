@@ -13,7 +13,8 @@
   --branch-organizational: 37 99 235;   /* #2563eb */
 }
 :root,
-[data-view="home"] {             /* Inicio: monocromático (blanco y negro) */
+[data-view="home"],
+[data-view="catalog"] {          /* Inicio y Catálogo: monocromático (blanco y negro); cada sección del catálogo usa el tema de su línea */
   --bg: 255 255 255;
   --surface: 255 255 255;
   --ink: 12 12 12;

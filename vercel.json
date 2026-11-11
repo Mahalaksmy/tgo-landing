@@ -4,6 +4,10 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/agricolas", "destination": "/catalogo#agricolas", "permanent": true },
+    { "source": "/institucionales", "destination": "/catalogo#institucionales", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/static/(.*)",

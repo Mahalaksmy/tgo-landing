@@ -28,8 +28,7 @@ export default function Header({ view, onNavigate, onScrollTo }) {
 
   const items = [
     { label: "Inicio", active: view === "home", to: "home" },
-    { label: "Agrícolas", active: view === "agriculture", to: "agriculture" },
-    { label: "Institucionales", active: view === "organizational", to: "organizational" },
+    { label: "Catálogo", active: view === "catalog", to: "catalog" },
     { label: "Nosotros", to: "home", section: "nosotros" },
     { label: "Contacto", go: () => onScrollTo("contacto") },
   ];

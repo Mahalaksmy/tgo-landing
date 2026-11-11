@@ -12,10 +12,11 @@
 | WhatsApp y llamadas | +57 311 714 5443 (`573117145443`) | Confirmado: recibe WhatsApp y llamadas (enlace "Llamar" en el footer) |
 | Logo | `assets/img/logo.png` ("Comercial TGO S.A.S", PNG transparente 307×107) | Suministrado |
 | Categorías | Insumos Agrícolas (`agricolas`) · Insumos Institucionales (`institucionales`) | Definidas por el cliente |
-| Productos Insumos Agrícolas | 8 productos con foto (`assets/img/productos/`, optimizadas desde `Catalogo/`) | Nombres y fotos suministrados. **Referencias (TGO-AG-00X) y descripciones PROVISIONALES**: validar con el cliente. **Pendiente**: presentación |
-| Productos Insumos Institucionales | 4 productos con foto: Químicos de limpieza industrial, Papelería de gran formato, Bolsas de basura industriales, Dispensadores automáticos | Nombres y fotos suministrados. **Referencias (TGO-IN-00X) y descripciones PROVISIONALES**. Fotos a mejorar: Papelería (muestra rollos normales, 320 px) y Dispensadores (marca ULINE visible, 300 px) |
+| Productos Insumos Agrícolas | 12 productos (`assets/img/productos/`). Polisombra unificada con presentaciones 8x125 y 8x100. Nuevos (noviembre 2026): Bolsa microperforada, Tijera de corte Bellota, Película stretch, Grapa plástica para zuncho, Rollo de zuncho (fotos suministradas, optimizadas a JPG ≤ 1000 px) | Nombres y fotos suministrados. Sin referencias (el cliente pidió quitarlas). **Descripciones PROVISIONALES**: validar con el cliente. **Pendiente**: presentación |
+| Productos Insumos Institucionales | 4 productos con foto: Químicos de limpieza industrial, Papelería de gran formato, Bolsas de basura industriales, Dispensadores automáticos | Nombres y fotos suministrados. Sin referencias. **Descripciones PROVISIONALES**. Fotos a mejorar: Papelería (muestra rollos normales, 320 px) y Dispensadores (marca ULINE visible, 300 px) |
 | Proveedores y logos | Triton y Tesicol (`Logos/`) + 2 de ejemplo | Suministrados por la usuaria; resto **pendiente** |
-| Valores | Especialización técnica · Cuidado de su producto · Acompañamiento cercano | **PROVISIONALES**: redactados por el equipo web a partir del texto "Nosotros" del cliente; validar |
+| ¿Quiénes somos? | 2 párrafos en `site.about` | Aprobado por el cliente (noviembre 2026) |
+| Valores | Mejora continua e innovación en servicio · Cercanía y atención personalizada · Compromiso con la productividad del cliente · Responsabilidad y rigor operativo · Eficiencia logística y entregas a tiempo | Aprobados por el cliente (noviembre 2026) |
 | Correo | comercialtgosas@gmail.com | Confirmado por el cliente |
 | Redes sociales | — | La empresa aún no tiene; el bloque está oculto (`social: []`) |
 | Dominio | — | **Pendiente** |
@@ -43,8 +44,7 @@ No se inventaron productos, precios, clientes, certificaciones ni proveedores. T
 | `category` | Sí | `"agricolas"` (debe existir en `categories.js`) |
 | `description` | Recomendado | 1–2 frases |
 | `image` | No | `"assets/img/productos/prod-007.webp"` (vacío → placeholder) |
-| `reference` | Recomendado | Código interno |
-| `presentation` | Recomendado | `"Caja x 12"` |
+| `presentations` | No | Lista de presentaciones: `["1/8", "1/4", "Tabaco"]`, o `[{ "label": "8x125", "image": "/assets/img/productos/polisombra-8x125.jpg" }]` si cada una tiene foto propia. El cliente elige una antes de agregar a la cotización |
 | `whatsappMessage` | No | Vacío → se genera automáticamente |
 | `placeholder` | No | Borrar o poner `false` en productos reales |
 
@@ -69,7 +69,6 @@ Base: `https://wa.me/573117145443?text=` + `encodeURIComponent(mensaje)`
 **Por producto** (generado automáticamente desde `productMessageTemplate`; las líneas con datos vacíos se omiten):
 > Hola, Comercial TGO S.A.S. Quisiera consultar por este producto:
 > • Producto: {name}
-> • Referencia: {reference}
 > • Presentación: {presentation}
 > • Categoría: {category}
 > ¿Me pueden informar disponibilidad y precio? Gracias.

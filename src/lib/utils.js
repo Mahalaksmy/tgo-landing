@@ -5,9 +5,20 @@ import { BRANCHES } from "../data/branches.js";
 export const waUrl = (message) =>
   "https://wa.me/" + site.whatsapp.number + "?text=" + encodeURIComponent(message || site.whatsapp.defaultMessage);
 
+/* Presentaciones de un producto, siempre como [{ label, image? }] (en los datos pueden ser solo texto) */
+export const presentationsOf = (product) =>
+  (product.presentations || []).map((x) => (typeof x === "string" ? { label: x } : x));
+
+/* Clave de la lista de cotización: "id" o "id|presentación" (se puede cotizar más de una presentación del mismo producto) */
+export const quoteKey = (id, presentation) => (presentation ? id + "|" + presentation : id);
+export function parseQuoteKey(key) {
+  const i = key.indexOf("|");
+  return i < 0 ? { id: key, presentation: "" } : { id: key.slice(0, i), presentation: key.slice(i + 1) };
+}
+
 /* Mensaje de WhatsApp por producto: las líneas con datos vacíos se omiten */
-export function productMessage(product, categoryName) {
-  const vars = { name: product.name, reference: product.reference, presentation: product.presentation, category: categoryName };
+export function productMessage(product, categoryName, presentation) {
+  const vars = { name: product.name, presentation: presentation || product.presentation, category: categoryName };
   return site.whatsapp.productMessageTemplate
     .map((line) => {
       let skip = false;
@@ -39,9 +50,12 @@ export const T = "transition-colors duration-500 ease-in-out";
 export const categoryLabel = (categoryId) =>
   (Object.values(BRANCHES).find((b) => b.category === categoryId) || {}).label || "";
 
-/* Mensaje de WhatsApp con todos los productos de la lista de cotización */
+/* Nombre con la presentación elegida: "Tijera de corte Bellota (7\")" */
+export const itemName = ({ product, presentation }) => product.name + (presentation ? " (" + presentation + ")" : "");
+
+/* Mensaje de WhatsApp con todos los productos de la lista de cotización ([{ product, presentation }]) */
 export function quoteListMessage(items) {
-  const lines = items.map((p) => "• " + p.name + (p.reference ? " (Ref. " + p.reference + ")" : "") + " - " + categoryLabel(p.category));
+  const lines = items.map((it) => "• " + itemName(it) + " - " + categoryLabel(it.product.category));
   return [
     "Hola, Comercial TGO S.A.S. Quisiera cotizar estos productos:",
     ...lines,
