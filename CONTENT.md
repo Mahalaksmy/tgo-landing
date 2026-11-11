@@ -14,7 +14,7 @@
 | Categorías | Insumos Agrícolas (`agricolas`) · Insumos Institucionales (`institucionales`) | Definidas por el cliente |
 | Productos Insumos Agrícolas | 12 productos (`assets/img/productos/`). Polisombra unificada con presentaciones 8x125 y 8x100. Nuevos (noviembre 2026): Bolsa microperforada, Tijera de corte Bellota, Película stretch, Grapa plástica para zuncho, Rollo de zuncho (fotos suministradas, optimizadas a JPG ≤ 1000 px) | Nombres y fotos suministrados. Sin referencias (el cliente pidió quitarlas). **Descripciones PROVISIONALES**: validar con el cliente. **Pendiente**: presentación |
 | Productos Insumos Institucionales | 4 productos con foto: Químicos de limpieza industrial, Papelería de gran formato, Bolsas de basura industriales, Dispensadores automáticos | Nombres y fotos suministrados. Sin referencias. **Descripciones PROVISIONALES**. Fotos a mejorar: Papelería (muestra rollos normales, 320 px) y Dispensadores (marca ULINE visible, 300 px) |
-| Proveedores y logos | Triton y Tesicol (`Logos/`) + 2 de ejemplo | Suministrados por la usuaria; resto **pendiente** |
+| Proveedores y logos | Triton, Tesicol y Bellota (`Logos/`; Bellota.svg es la versión del logo con letras oscuras para fondo claro) + 2 de ejemplo ocultos | Suministrados por la usuaria; resto **pendiente** |
 | ¿Quiénes somos? | 2 párrafos en `site.about` | Aprobado por el cliente (noviembre 2026) |
 | Valores | Mejora continua e innovación en servicio · Cercanía y atención personalizada · Compromiso con la productividad del cliente · Responsabilidad y rigor operativo · Eficiencia logística y entregas a tiempo | Aprobados por el cliente (noviembre 2026) |
 | Correo | comercialtgosas@gmail.com | Confirmado por el cliente |

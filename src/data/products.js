@@ -6,21 +6,24 @@ export const products = [
     "name": "Capuchón tela",
     "category": "agricolas",
     "description": "Capuchón de tela para proteger y presentar ramos de flor durante el empaque, el almacenamiento y el transporte.",
-    "image": "/assets/img/productos/capuchon-tela.jpg"
+    "image": "/assets/img/productos/capuchon-tela.jpg",
+    "presentations": ["2x4\"", "2x5\""]
   },
   {
     "id": "capuchon-plastico",
     "name": "Capuchón plástico",
     "category": "agricolas",
     "description": "Capuchón plástico transparente que protege el ramo y deja ver la flor en la poscosecha, el empaque y el despacho.",
-    "image": "/assets/img/productos/capuchon-plastico.jpg"
+    "image": "/assets/img/productos/capuchon-plastico.jpg",
+    "presentations": ["2x4\"", "2x5\""]
   },
   {
     "id": "hidratadores",
     "name": "Hidratadores",
     "category": "agricolas",
     "description": "Hidratadores para mantener la hidratación de los tallos de flor cortada durante el transporte y la exhibición.",
-    "image": "/assets/img/productos/hidratadores.jpg"
+    "image": "/assets/img/productos/hidratadores.jpg",
+    "presentations": ["2x4\"", "2x5\""]
   },
   {
     "id": "caucho",
@@ -57,6 +60,10 @@ export const products = [
       },
       {
         "label": "8x100",
+        "image": "/assets/img/productos/polisombra-8x100.jpg"
+      },
+      {
+        "label": "8x100 TC",
         "image": "/assets/img/productos/polisombra-8x100.jpg"
       }
     ]

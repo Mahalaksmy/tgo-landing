@@ -13,6 +13,12 @@ export const providers = [
     "placeholder": false
   },
   {
+    "name": "Bellota",
+    "logo": "/Logos/Bellota.svg",
+    "website": "",
+    "placeholder": false
+  },
+  {
     "name": "[Proveedor 3]",
     "logo": "",
     "website": "",
