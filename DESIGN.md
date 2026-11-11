@@ -86,6 +86,7 @@ Las direcciones antiguas `/agricolas` e `/institucionales` redirigen (301, `verc
 ## 7. Movimiento
 
 - Solo movimiento que responde a una acción: cambio de página (desvanecer y subir 12 px), abrir/cerrar la hoja de detalle, menú móvil, hover de tarjetas.
+- Paneles de líneas en Inicio: al entrar a la vista suben y aparecen escalonados (90 ms). En escritorio, al pasar el cursor o enfocar, el panel se ensancha (el otro se angosta), la foto se acerca y la descripción se cambia por la lista de productos en cascada. Celular: apilados y sin expansión. Curva spring `cubic-bezier(.32,.72,0,1)`.
 - Nada se mueve solo (no hay cintas ni entradas animadas al hacer scroll).
 - Con "reducir movimiento" activado, todo queda estático.
 

@@ -31,9 +31,10 @@ export default function HomeView({ onOpen, headingRef }) {
 
       <section id="lineas" aria-labelledby="branches-title">
         <h2 id="branches-title" className="sr-only">Nuestras líneas</h2>
-        <div className="grid gap-4 md:grid-cols-2 md:gap-5">
-          <BranchCard branchKey="agriculture" onOpen={onOpen} />
-          <BranchCard branchKey="organizational" onOpen={onOpen} />
+        {/* Paneles: apilados en celular; en escritorio, fila de altura fija donde el panel enfocado se ensancha */}
+        <div className="flex flex-col gap-4 md:h-[34rem] md:flex-row md:gap-5">
+          <BranchCard branchKey="agriculture" onOpen={onOpen} index={0} />
+          <BranchCard branchKey="organizational" onOpen={onOpen} index={1} />
         </div>
       </section>
 

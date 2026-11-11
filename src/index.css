@@ -92,6 +92,10 @@ p { text-wrap: pretty; }
 @keyframes view-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 .view-enter { animation: view-in .5s ease-in-out both; }
 
+/* Tarjetas de líneas en Inicio: suben y aparecen al entrar a la vista (escalonadas con animation-delay) */
+@keyframes card-rise { from { opacity: 0; transform: translateY(24px) scale(.98); } to { opacity: 1; transform: none; } }
+.branch-card { animation: card-rise .7s cubic-bezier(.32,.72,0,1) both; }
+
 /* Hoja de detalle del producto (celular): sube desde abajo y baja al cerrar */
 @keyframes sheet-up { from { transform: translateY(100%); } }
 @keyframes sheet-down { to { transform: translateY(100%); } }
@@ -104,7 +108,7 @@ p { text-wrap: pretty; }
 
 
 @media (prefers-reduced-motion: reduce) {
-  .sheet-panel, .sheet-dialog[open]::backdrop, .sheet-dialog.is-closing .sheet-panel, .sheet-dialog.is-closing::backdrop { animation: none; }
+  .sheet-panel, .sheet-dialog[open]::backdrop, .sheet-dialog.is-closing .sheet-panel, .sheet-dialog.is-closing::backdrop, .branch-card { animation: none; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
