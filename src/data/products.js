@@ -7,7 +7,7 @@ export const products = [
     "category": "agricolas",
     "description": "Capuchón de tela para proteger y presentar ramos de flor durante el empaque, el almacenamiento y el transporte.",
     "image": "/assets/img/productos/capuchon-tela.jpg",
-    "presentations": ["2x4\"", "2x5\""]
+    "presentations": ["Mini", "Select","Premium","Jumbo"]
   },
   {
     "id": "capuchon-plastico",
@@ -15,7 +15,7 @@ export const products = [
     "category": "agricolas",
     "description": "Capuchón plástico transparente que protege el ramo y deja ver la flor en la poscosecha, el empaque y el despacho.",
     "image": "/assets/img/productos/capuchon-plastico.jpg",
-    "presentations": ["2x4\"", "2x5\""]
+    "presentations": ["Mini", "Select","Premium","Jumbo"]
   },
   {
     "id": "hidratadores",
@@ -82,7 +82,7 @@ export const products = [
   },
   {
     "id": "tijera-bellota",
-    "name": "Tijera de corte Bellota",
+    "name": "Tijera de corte",
     "category": "agricolas",
     "description": "Tijera de corte Bellota para tallos en el cultivo y la poscosecha de flor.",
     "image": "/assets/img/productos/tijera-bellota.jpg",
